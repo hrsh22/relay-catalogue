@@ -2,7 +2,7 @@
 
 Status: direction approved by the builder, who delegated implementation decisions and operation. Build, live succession, independent recovery and browser verification are complete. See VERIFICATION.md.
 
-Prepared 20 September 2026. Submission deadline: 11:11 PM IST today.
+Prepared 20 September 2026. Original deadline snapshot: 11:11 PM IST. The post-submission evaluator now reports 20 September 2026 at 19:41 UTC, which is 21 September at 1:11 AM IST. All work was completed before the original deadline.
 
 ## Outcome
 

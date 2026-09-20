@@ -51,3 +51,15 @@ Socially partial: actual institutions have not adopted the agreement, and the de
 1. With Bee, Next operator and the test chain stopped, the deployed reader loaded in incognito Chrome and a clean GitHub checkout resolved C feed index 2 without private configuration.
 2. Mobile layouts, correction validation, live browser publication, renewal quotes and the unavailable-gateway state were checked. Operator accessibility, collection-name search and external successor input were improved.
 3. Eight tests, type checking, production build, source/runtime contract verification and secret scanning passed. CI verifies the repository independently. See [VERIFICATION.md](VERIFICATION.md) for the evidence and remaining custody limitations.
+
+## Submission and platform record
+
+After submission, the free evaluator was fetched again. Its event-level project is named `road-to-devcon-v_p1p2p3_harsh-gupta` but its single `repoUrl` still points to Folio. The workspace stores three separate problem repositories. A full reload confirmed Problem 3's pasted URL is `https://github.com/hrsh22/relay-catalogue`, with Folio and Fieldnote retained in their own slots. We evaluated the Relay source directly and did not overwrite the shared event-level URL. See [SUBMISSION.md](SUBMISSION.md).
+
+## Next steps beyond this demonstration
+
+1. Establish independent human custody of council and successor keys, with each participant retaining their own recovery copy. The protocol supports this; the current one-builder rehearsal does not prove it.
+2. Establish a recurring storage fund and an independently controlled replacement node. The existing batch renewal works, but shared node custody and a finite event balance remain.
+3. Rehearse with the actual participating committees and replace the illustrative arrangement with their agreed responsibilities. No institutional adoption is claimed today.
+
+These are social and operational deployment requirements, not unfinished claims hidden behind the technical checklist. No numeric score or win prediction is assigned.
