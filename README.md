@@ -1,5 +1,7 @@
 # Relay
 
+[Repository evaluation and all eight published checks](docs/REPOSITORY_REVIEW.md) - source paths, tests, committed evidence and reproduction commands.
+
 **A shared catalogue with a next keeper.**
 
 Relay keeps the reader's starting identifier unchanged when publishing responsibility moves from one steward to another. A 2-of-3 Safe on Gnosis controls a small appointment registry. That registry points to the current steward's Swarm feed. Publishing keys and the funded Bee node's paying identity are separate.

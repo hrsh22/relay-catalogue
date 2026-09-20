@@ -1,0 +1,23 @@
+{
+  "kind": "local-repository-evaluation",
+  "observedAt": "2026-09-20T08:58:42.311871+00:00",
+  "problem": "steward-succession",
+  "repository": "https://github.com/hrsh22/relay-catalogue",
+  "reviewedCommit": "49d2a509805c18accdcc411cdda812dea3942bc1",
+  "command": "loops evaluate --event road-to-devcon-v --problem steward-succession --format json",
+  "workingDirectory": "relay",
+  "commandExitCode": 0,
+  "returnedEvaluatorSha256": "9ff938eb9f5186b6a2f1b00f5ae356fec1520a197e475c8f9dc358f818e2dcd1",
+  "returnedInstructionsNotOfficialScore": true,
+  "publishedTechnicalChecksReviewed": 8,
+  "technicalAssessment": "Each check has a reachable implementation and cited repository evidence; see docs/REPOSITORY_REVIEW.md. This is not a platform verdict.",
+  "automatedChecks": {
+    "tests": 8,
+    "pass": 8,
+    "fail": 0,
+    "typecheck": "passed",
+    "secretScan": "passed"
+  },
+  "officialJudgingAttemptUsed": false,
+  "report": "docs/REPOSITORY_REVIEW.md"
+}
