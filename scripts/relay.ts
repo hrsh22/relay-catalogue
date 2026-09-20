@@ -1,7 +1,7 @@
 import { readFile } from "node:fs/promises";
 import { parseArgs } from "node:util";
 import { createIdentities } from "./identities";
-import { config, json, save, saveConfig, checkedBee } from "./context";
+import { config, json, save, saveConfig, checkedBee, RPC } from "./context";
 import { deploymentQuote, deployRegistry } from "./deploy";
 import {
   deployCouncil,
@@ -9,11 +9,13 @@ import {
   prepareReplacement,
   approveProposal,
   executeProposal,
+  reviewProposal,
 } from "./council";
 import { quoteStorage, executeStorageQuote, storageStatus } from "./storage";
 import { publishCatalogue } from "./publish";
 import { resolveCatalogue } from "../src/lib/network";
 import { readRegistry } from "../src/lib/chain";
+import { hex32Schema } from "../src/lib/model";
 const { positionals, values: o } = parseArgs({
   allowPositionals: true,
   options: {
@@ -33,6 +35,7 @@ const { positionals, values: o } = parseArgs({
     "new-owner": { type: "string" },
     "batch-id": { type: "string" },
     staging: { type: "boolean" },
+    topic: { type: "string" },
   },
 });
 function required(name: keyof typeof o): string {
@@ -90,11 +93,19 @@ async function main() {
         BigInt(required("max-plur")),
       );
       break;
-    case "publish":
+    case "publish": {
+      const c = await config();
+      const topic = o.topic
+        ? (hex32Schema.parse(o.topic) as `0x${string}`)
+        : c.registry
+          ? (await readRegistry(c.registry, RPC)).topic
+          : c.topic;
       result = await publishCatalogue(await input(), required("key"), {
         staging: o.staging,
+        ...(o.staging ? { topic } : {}),
       });
       break;
+    }
     case "upload": {
       const bee = await checkedBee(await config());
       result = {
@@ -110,9 +121,14 @@ async function main() {
     }
     case "propose": {
       const c = await config();
+      const topic = o.topic
+        ? (hex32Schema.parse(o.topic) as `0x${string}`)
+        : c.registry
+          ? (await readRegistry(c.registry, RPC)).topic
+          : c.topic;
       result = await prepareAppointment(
         required("incoming"),
-        c.topic,
+        topic,
         required("checkpoint"),
         required("agreement"),
       );
@@ -126,6 +142,9 @@ async function main() {
       break;
     case "approve":
       result = await approveProposal(await input(), required("key"));
+      break;
+    case "review":
+      result = await reviewProposal(await input());
       break;
     case "execute":
       result = await executeProposal(
@@ -154,10 +173,11 @@ async function main() {
           "deploy-council --key FILE",
           "storage-quote buy|renew --days N --out FILE",
           "storage-execute --input FILE --max-plur N",
-          "publish --input FILE --key FILE [--staging]",
+          "publish --input FILE --key FILE [--staging] [--topic HEX32]",
           "upload --input FILE",
           "deploy-registry --checkpoint REF --agreement REF --key FILE",
-          "propose --incoming ADDRESS --checkpoint REF --agreement REF --out FILE",
+          "propose --incoming ADDRESS --checkpoint REF --agreement REF --out FILE [--topic HEX32]",
+          "review --input FILE",
           "approve --input FILE --key FILE --out FILE",
           "execute --input FILE --key FILE",
           "replace-councillor --old-owner ADDRESS --new-owner ADDRESS",

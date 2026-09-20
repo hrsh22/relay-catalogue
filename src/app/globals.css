@@ -1831,3 +1831,111 @@ svg {
 .agreement-dialog code {
   overflow-wrap: anywhere;
 }
+
+/* Committee-facing documents and review tools share the reading room's paper palette. */
+.agreement-prose {
+  color: var(--ink);
+  font-size: 15px;
+  line-height: 1.8;
+}
+.agreement-prose h3,
+.agreement-prose h4 {
+  font-family: var(--font-serif), Georgia, serif;
+  font-weight: 400;
+  line-height: 1.2;
+  margin: 1.3em 0 0.5em;
+}
+.agreement-prose h3 {
+  font-size: 32px;
+}
+.agreement-prose h4 {
+  font-size: 26px;
+}
+.agreement-prose p,
+.agreement-prose li {
+  margin: 0.75em 0;
+  white-space: pre-wrap;
+}
+.agreement-prose ul,
+.agreement-prose ol {
+  padding-left: 1.5em;
+}
+.agreement-prose code {
+  font-size: 12px;
+  background: var(--sand);
+  padding: 2px 4px;
+}
+.council-workbench {
+  border: 1px solid var(--line);
+  background: var(--paper);
+  padding: 22px;
+  border-radius: 10px;
+  margin: 20px 0;
+}
+.workbench-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+.workbench-heading h3 {
+  font-family: var(--font-serif), Georgia, serif;
+  font-weight: 400;
+  font-size: 30px;
+  margin: 4px 0 12px;
+}
+.proposal-action,
+.decision-note {
+  margin: 18px 0;
+  padding: 18px;
+  border: 1px solid var(--line);
+  background: var(--card);
+  border-radius: 6px;
+}
+.decision-note p:not(.small-label) {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.approval-address {
+  display: block;
+  margin-top: 5px;
+  overflow-wrap: anywhere;
+}
+.proposal-details,
+.prepare-handoff {
+  margin: 18px 0;
+}
+.proposal-details summary,
+.prepare-handoff > summary {
+  cursor: pointer;
+  font-weight: 600;
+  padding: 12px 0;
+}
+.review-confirmation {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 18px 0;
+  font-size: 13px;
+}
+.review-confirmation input {
+  flex: 0 0 auto;
+  margin-top: 5px;
+  accent-color: var(--olive);
+}
+.correction-differences h4 {
+  margin: 0 0 14px;
+  font-size: 16px;
+}
+.correction-differences dd {
+  overflow-wrap: anywhere;
+}
+@media (max-width: 600px) {
+  .council-workbench {
+    padding: 14px;
+  }
+  .proposal-action,
+  .decision-note {
+    padding: 12px;
+  }
+}

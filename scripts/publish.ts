@@ -1,9 +1,12 @@
 import { BeeResponseError, FeedIndex } from "@ethersphere/bee-js";
 import { privateKeyToAccount } from "viem/accounts";
+import type { Hex } from "viem";
+import { access, mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import {
   catalogueSchema,
   distinctIdentities,
+  hex32Schema,
   type Catalogue,
 } from "../src/lib/model";
 import { readRegistry } from "../src/lib/chain";
@@ -21,7 +24,7 @@ import {
 export async function publishCatalogue(
   input: unknown,
   keyFile: string,
-  options: { staging?: boolean; allowRetired?: boolean } = {},
+  options: { staging?: boolean; allowRetired?: boolean; topic?: Hex } = {},
 ) {
   const c = await config();
   const key = await readKey(keyFile);
@@ -35,6 +38,20 @@ export async function publishCatalogue(
       "Catalogue identity does not match this signing key or catalogue configuration.",
     );
   const state = c.registry ? await readRegistry(c.registry, RPC) : null;
+  if (
+    state &&
+    (state.catalogueId.toLowerCase() !== c.catalogueId.toLowerCase() ||
+      state.council.toLowerCase() !== c.council?.toLowerCase())
+  )
+    throw new Error(
+      "Configured catalogue or council differs from the registry.",
+    );
+  const topic = hex32Schema
+    .parse(
+      options.staging ? (options.topic ?? c.topic) : (state?.topic ?? c.topic),
+    )
+    .toLowerCase() as Hex;
+  if (/^0x0+$/.test(topic)) throw new Error("The feed needs a nonzero topic.");
   distinctIdentities(
     publisher,
     c.payer,
@@ -50,30 +67,38 @@ export async function publishCatalogue(
       "This identity is not the appointed publisher. Stage an incoming feed before proposing a handoff.",
     );
   const bee = await checkedBee(c);
-  const writer = bee.feed.makeWriter(c.topic.slice(2), key);
+  const writer = bee.feed.makeWriter(topic.slice(2), key);
   let index = FeedIndex.fromBigInt(0n);
   let previous: string | null = null;
+  let currentHead;
   try {
-    const head = await writer.downloadReference();
-    previous = head.reference.toHex();
-    if (!head.feedIndexNext)
+    currentHead = await writer.downloadReference();
+  } catch (error) {
+    if (!(error instanceof BeeResponseError && error.status === 404))
+      throw error;
+  }
+  if (currentHead) {
+    previous = currentHead.reference.toHex();
+    if (!currentHead.feedIndexNext)
       throw new Error("Bee did not supply the next feed index.");
-    index = head.feedIndexNext;
+    index = currentHead.feedIndexNext;
     const previousCatalogue = catalogueSchema.parse(
       (await bee.data.download(previous)).toJSON(),
     );
+    if (
+      previousCatalogue.catalogueId.toLowerCase() !==
+        catalogue.catalogueId.toLowerCase() ||
+      previousCatalogue.publisher.toLowerCase() !== publisher.toLowerCase()
+    )
+      throw new Error(
+        "The existing feed belongs to a different catalogue or publisher.",
+      );
     if (catalogue.revision !== previousCatalogue.revision + 1)
       throw new Error(
         "Catalogue revision must increment by one within the publisher's feed.",
       );
-  } catch (error) {
-    if (!(error instanceof BeeResponseError && error.status === 404))
-      throw error;
-    if (catalogue.revision !== 0)
-      throw new Error(
-        "A new publisher feed starts at catalogue revision zero.",
-      );
-  }
+  } else if (catalogue.revision !== 0)
+    throw new Error("A new publisher feed starts at catalogue revision zero.");
   if (catalogue.previous !== previous)
     throw new Error(
       "The catalogue changed after this draft was opened. Refresh and reapply your correction.",
@@ -88,26 +113,55 @@ export async function publishCatalogue(
     throw new Error("Uploaded catalogue failed readback.");
   if (state && !options.staging && !options.allowRetired) {
     const latest = await readRegistry(c.registry!, RPC);
-    if (latest.revision !== state.revision)
+    if (
+      latest.revision !== state.revision ||
+      latest.publisher.toLowerCase() !== publisher.toLowerCase() ||
+      latest.topic.toLowerCase() !== topic ||
+      latest.catalogueId.toLowerCase() !== state.catalogueId.toLowerCase() ||
+      latest.council.toLowerCase() !== state.council.toLowerCase()
+    )
       throw new Error(
         "A succession happened during publication. Data is uploaded, but the retired feed was not advanced.",
       );
   }
-  // Keep a reconciliation record before sending a signed update. Never blindly send a new index after a timeout.
-  await save(
-    path.join(
-      RUNTIME,
-      "pending-publications",
-      `${publisher}-${index.toHex()}.json`,
-    ),
-    {
-      publisher,
-      reference,
-      feedIndex: index.toHex(),
-      catalogue,
-      createdAt: new Date().toISOString(),
-    },
+  // Reserve this publisher/topic/index exclusively before signing an update. A retry or a
+  // second process cannot overwrite a record whose network outcome is still uncertain.
+  const pendingDirectory = path.join(RUNTIME, "pending-publications");
+  const pendingFile = path.join(
+    pendingDirectory,
+    `${publisher.toLowerCase()}-${topic.slice(2)}-${index.toHex()}.json`,
   );
+  if (topic === c.topic.toLowerCase()) {
+    try {
+      await access(
+        path.join(pendingDirectory, `${publisher}-${index.toHex()}.json`),
+      );
+      throw new Error(
+        "An earlier publication reserved this feed index. Reconcile its saved reference before writing again.",
+      );
+    } catch (error) {
+      if ((error as NodeJS.ErrnoException).code !== "ENOENT") throw error;
+    }
+  }
+  const pending = {
+    publisher,
+    topic,
+    reference,
+    feedIndex: index.toHex(),
+    catalogue,
+    createdAt: new Date().toISOString(),
+    status: "pending",
+  };
+  await mkdir(pendingDirectory, { recursive: true });
+  try {
+    await writeFile(pendingFile, json(pending), { flag: "wx", mode: 0o600 });
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code === "EEXIST")
+      throw new Error(
+        `An earlier publication reserved index ${index.toHex()} for this feed. Check its saved reference at that exact index before writing again.`,
+      );
+    throw error;
+  }
   let uploadError: unknown;
   try {
     await writer.uploadReference(c.batchId!, reference, { index });
@@ -140,7 +194,7 @@ export async function publishCatalogue(
     observedAt: new Date().toISOString(),
     publisher,
     catalogueId: c.catalogueId,
-    topic: c.topic,
+    topic,
     batchId: c.batchId,
     reference,
     feedIndex: head.feedIndex.toBigInt().toString(),
@@ -149,6 +203,11 @@ export async function publishCatalogue(
     staging: Boolean(options.staging),
     retiredPublisherTest: Boolean(options.allowRetired),
   };
+  await save(pendingFile, {
+    ...pending,
+    status: "verified",
+    verifiedAt: record.observedAt,
+  });
   await evidence("publication", record);
   return record;
 }

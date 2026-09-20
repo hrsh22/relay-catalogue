@@ -15,6 +15,7 @@
     "contract:build": "node scripts/compile-contract.mjs",
     "relay": "tsx scripts/relay.ts",
     "operator:start": "tsx scripts/operator.ts",
+    "council:start": "tsx scripts/operator.ts --council",
     "verify:live": "tsx scripts/verify-live.ts",
     "check:secrets": "node scripts/check-secrets.mjs",
     "format": "prettier --write src scripts tests docs README.md",

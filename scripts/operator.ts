@@ -1,7 +1,11 @@
 import { spawn } from "node:child_process";
-import { startBee } from "./bee-process";
+import { parseArgs } from "node:util";
 import { ROOT } from "./context";
 
+const { values } = parseArgs({
+  options: { council: { type: "boolean", default: false } },
+});
+const councilOnly = values.council;
 const children: ReturnType<typeof spawn>[] = [];
 let stopping = false;
 function stop() {
@@ -11,37 +15,42 @@ function stop() {
 }
 process.on("SIGINT", stop);
 process.on("SIGTERM", stop);
-let online = false;
-try {
-  online = (
-    await fetch("http://127.0.0.1:1633/readiness", {
-      signal: AbortSignal.timeout(2000),
-    })
-  ).ok;
-} catch {}
-if (!online) {
-  const bee = await startBee();
-  children.push(bee);
-  bee.on("exit", () => {
+if (!councilOnly) {
+  let online = false;
+  try {
+    online = (
+      await fetch("http://127.0.0.1:1633/readiness", {
+        signal: AbortSignal.timeout(2000),
+      })
+    ).ok;
+  } catch {}
+  if (!online && !stopping) {
+    const { startBee } = await import("./bee-process");
     if (!stopping) {
-      console.error("Bee stopped; closing the operator.");
-      stop();
-      process.exitCode = 1;
+      const bee = await startBee();
+      children.push(bee);
+      bee.on("exit", () => {
+        if (!stopping) {
+          console.error("Bee stopped; closing the operator.");
+          process.exitCode = 1;
+          stop();
+        }
+      });
+      for (let i = 0; i < 90 && !online && !stopping; i++) {
+        await new Promise((r) => setTimeout(r, 1000));
+        try {
+          online = (
+            await fetch("http://127.0.0.1:1633/readiness", {
+              signal: AbortSignal.timeout(1000),
+            })
+          ).ok;
+        } catch {}
+      }
+      if (!online && !stopping) {
+        stop();
+        throw new Error("Bee did not become ready. Check its RPC and connection.");
+      }
     }
-  });
-  for (let i = 0; i < 90 && !online && !stopping; i++) {
-    await new Promise((r) => setTimeout(r, 1000));
-    try {
-      online = (
-        await fetch("http://127.0.0.1:1633/readiness", {
-          signal: AbortSignal.timeout(1000),
-        })
-      ).ok;
-    } catch {}
-  }
-  if (!online) {
-    stop();
-    throw new Error("Bee did not become ready. Check its RPC and connection.");
   }
 }
 if (!stopping) {
@@ -60,17 +69,25 @@ if (!stopping) {
       env: {
         ...process.env,
         RELAY_LOCAL_OPERATOR: "1",
+        RELAY_COUNCIL_ONLY: councilOnly ? "1" : "0",
         NEXT_TELEMETRY_DISABLED: "1",
       },
       stdio: "inherit",
     },
   );
   children.push(web);
-  web.on("exit", (code) => {
-    process.exitCode = code || 0;
+  web.on("exit", (code, signal) => {
+    if (!stopping) process.exitCode = code ?? (signal ? 1 : 0);
+    stop();
+  });
+  web.on("error", (error) => {
+    console.error(`The operator could not start: ${error.message}`);
+    process.exitCode = 1;
     stop();
   });
   console.log(
-    "Relay operator: http://127.0.0.1:3002. Ctrl-C closes this session and any Bee process it started. No tunnel or background service is installed.",
+    councilOnly
+      ? "Relay council review: http://127.0.0.1:3002. Review and sign portable proposals with your own key; access to the storage node is not required. Ctrl-C closes this session."
+      : "Relay operator: http://127.0.0.1:3002. Ctrl-C closes this session and any Bee process it started.",
   );
 }

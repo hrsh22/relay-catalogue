@@ -51,6 +51,10 @@ import {
 import { demoSchema, deploymentAddressSchema, type Demo } from "@/lib/demo";
 import { short } from "@/lib/utils";
 import { recoveryDocument } from "@/lib/recovery";
+import { AgreementText } from "./agreement-text";
+import { CorrectionInbox } from "./correction-inbox";
+import type { Proposal } from "../../scripts/council";
+import type { CouncilReceipt } from "@/lib/operator-client";
 
 type Tab = "catalogue" | "stewardship" | "handoffs" | "storage";
 export function downloadFile(name: string, data: unknown) {
@@ -101,6 +105,16 @@ export function RelayApp() {
   const [settings, setSettings] = useState(false),
     [operatorOpen, setOperatorOpen] = useState(false);
   const [operator, setOperator] = useState<OperatorInfo | null>(null);
+  const [operatorBusy, setOperatorBusy] = useState("");
+  const [operatorProposal, setOperatorProposal] = useState<Proposal | null>(
+    null,
+  );
+  const operatorLoadId = useRef(0);
+  const [councilReceipt, setCouncilReceipt] = useState<CouncilReceipt | null>(
+    null,
+  );
+  const [correctionOpen, setCorrectionOpen] = useState(false);
+  const [correctionBusy, setCorrectionBusy] = useState(false);
   const [query, setQuery] = useState(""),
     [collection, setCollection] = useState("all"),
     [condition, setCondition] = useState("all");
@@ -124,20 +138,19 @@ export function RelayApp() {
     deployment && resolved?.state.agreement === deployment.agreement;
   const activeOperator =
     operator &&
-    resolved &&
-    operator.config.registry?.toLowerCase() ===
-      resolved.state.registry.toLowerCase() &&
-    operator.config.catalogueId.toLowerCase() ===
-      resolved.state.catalogueId.toLowerCase()
+    operator.config.registry?.toLowerCase() === registry.toLowerCase() &&
+    (!resolved ||
+      operator.config.catalogueId.toLowerCase() ===
+        resolved.state.catalogueId.toLowerCase())
       ? operator
       : null;
   const stableIdentifier = registry ? `eip155:100:${registry}` : "";
   const configuredBatch = activeOperator?.config.batchId;
-  const operatorBatch = activeOperator?.storage.batches.find(
+  const operatorBatch = activeOperator?.storage?.batches.find(
     (batch) => batch.id === configuredBatch,
   );
   const storageObservation =
-    activeOperator && operatorBatch
+    activeOperator?.storage && operatorBatch
       ? {
           payer: activeOperator.config.payer,
           batchId: operatorBatch.id,
@@ -151,6 +164,15 @@ export function RelayApp() {
             ...deployment.storage,
           }
         : null;
+  async function reloadOperator() {
+    const requestId = ++operatorLoadId.current;
+    const response = await fetch("/api/operator", { cache: "no-store" });
+    if (!response.ok)
+      throw new Error("The configured operator could not be reached.");
+    const info: OperatorInfo = await response.json();
+    if (mounted.current && operatorLoadId.current === requestId)
+      setOperator(info);
+  }
   async function downloadRecovery() {
     if (!resolved) return;
     const snapshot = resolved;
@@ -298,16 +320,12 @@ export function RelayApp() {
       }
     })();
     if (["localhost", "127.0.0.1"].includes(window.location.hostname))
-      fetch("/api/operator")
-        .then((r) => (r.ok ? r.json() : null))
-        .then((value) => {
-          if (active && value?.config) setOperator(value);
-        })
-        .catch(() => {});
+      void reloadOperator().catch(() => {});
     return () => {
       active = false;
       mounted.current = false;
       loadId.current++;
+      operatorLoadId.current++;
     };
     // Initial endpoints are fixed; connection changes are applied explicitly by the reader.
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -776,6 +794,13 @@ export function RelayApp() {
                   >
                     Meet the responsibilities <ArrowRight size={15} />
                   </button>
+                  <button
+                    className="text-button"
+                    disabled={!resolved || busy}
+                    onClick={() => setCorrectionOpen(true)}
+                  >
+                    Review a correction request <FileText size={15} />
+                  </button>
                 </div>
                 <div className="aside-card paper-card">
                   <FileText size={25} strokeWidth={1.4} />
@@ -1203,23 +1228,55 @@ export function RelayApp() {
           </Button>
         </DialogContent>
       </Dialog>
-      <Dialog open={operatorOpen} onOpenChange={setOperatorOpen}>
+      <Dialog
+        open={operatorOpen}
+        onOpenChange={(open) => {
+          if (!operatorBusy) setOperatorOpen(open);
+        }}
+      >
         <DialogContent className="operator-dialog">
           <DialogTitle>Catalogue operator</DialogTitle>
           <DialogDescription>
             {activeOperator
-              ? "This operator is configured for the verified catalogue. Publishing, council approvals and storage renewal use its separate credentials."
+              ? "This desk is configured for the selected registry. Council decisions verify its public authority independently of catalogue retrieval; publishing and renewal use separate credentials."
               : operator
                 ? "Verify the catalogue configured for this operator before managing its publishing, council or storage."
                 : "Open the configured operator environment to publish corrections, approve handoffs or renew storage."}
           </DialogDescription>
+          {councilReceipt?.proposal.registry.toLowerCase() ===
+            registry.toLowerCase() && (
+            <div className="operator-step" role="status">
+              <p className="small-label">COUNCIL TRANSACTION CONFIRMED</p>
+              <p>
+                The approved change was recorded at block{" "}
+                {councilReceipt.blockNumber}. This receipt remains available
+                while the catalogue refreshes.
+              </p>
+              <code>{councilReceipt.hash}</code>
+              <Button
+                variant="outline"
+                onClick={() =>
+                  downloadFile("relay-council-receipt.json", councilReceipt)
+                }
+              >
+                <ArrowDownToLine size={15} /> Save transaction receipt
+              </Button>
+            </div>
+          )}
           {activeOperator ? (
             <OperatorPanel
               key={registry}
               info={activeOperator}
               current={resolved}
               initialSection={tab === "storage" ? "storage" : "handoff"}
-              onChanged={() => refreshAfterOperation(registry)}
+              onChanged={(receipt) => {
+                setCouncilReceipt(receipt);
+                refreshAfterOperation(registry);
+              }}
+              onInfoChanged={reloadOperator}
+              proposal={operatorProposal}
+              onProposalChange={setOperatorProposal}
+              onBusyChange={setOperatorBusy}
             />
           ) : (
             <div className="operator-instructions">
@@ -1276,6 +1333,38 @@ export function RelayApp() {
         onOpenChange={setAgreementOpen}
         current={resolved}
       />
+      <Dialog
+        open={correctionOpen}
+        onOpenChange={(open) => {
+          if (!correctionBusy) setCorrectionOpen(open);
+        }}
+      >
+        <DialogContent className="operator-dialog">
+          <DialogTitle>Corrections from the contributing libraries</DialogTitle>
+          <DialogDescription>
+            Open a saved correction request, compare it with the current
+            catalogue and let the appointed steward publish the reviewed change.
+          </DialogDescription>
+          {resolved ? (
+            <CorrectionInbox
+              key={`${registry}:${resolved.reference}`}
+              current={resolved}
+              operator={activeOperator}
+              onBusyChange={setCorrectionBusy}
+              onPublished={(receipt) => {
+                if (
+                  activeConnection.current.registry.toLowerCase() ===
+                  registry.toLowerCase()
+                )
+                  setCorrectionOpen(false);
+                refreshAfterOperation(registry, receipt);
+              }}
+            />
+          ) : (
+            <p>Verify the current catalogue before reviewing a correction.</p>
+          )}
+        </DialogContent>
+      </Dialog>
       <RecordDialog
         record={selected}
         catalogue={catalogue}
@@ -1350,7 +1439,7 @@ function AgreementDialog({
             {error}
           </p>
         ) : text ? (
-          <pre className="agreement-text">{text}</pre>
+          <AgreementText text={text} />
         ) : (
           <p role="status">Retrieving the agreement from Swarm...</p>
         )}
@@ -1387,9 +1476,10 @@ function RecordDialog({
     setError("");
   }, [record]);
   const alias =
-    current && operator
+    current && operator && operator.mode !== "council"
       ? Object.entries(operator.config.publishers).find(
-          ([, address]) =>
+          ([key, address]) =>
+            operator.availableIdentities.includes(`publisher-${key}`) &&
             address.toLowerCase() === current.state.publisher.toLowerCase(),
         )?.[0]
       : null;

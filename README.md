@@ -1,8 +1,10 @@
 # Relay
 
-[Latest strict Loops rubric review](docs/STRICT_EVALUATION.md) - all eight technical checks, the twenty-point criterion and implemented follow-up.
+[Latest source-only Loops review](docs/CODE_EVALUATION.md) - independent council workflow, correction intake and the remaining human-custody evidence gap.
 
-[Implementation CI and deployment verification](evidence/release-verification.json)
+[Earlier strict rubric review](docs/STRICT_EVALUATION.md) - all eight technical checks and the twenty-point criterion.
+
+[Recorded CI and deployment verification](evidence/release-verification.json) - evidence for the commit identified in that file.
 [Repository evaluation and all eight published checks](docs/REPOSITORY_REVIEW.md) - source paths, tests, committed evidence and reproduction commands.
 
 **A shared catalogue with a next keeper.**
@@ -35,20 +37,26 @@ The browser app presents the catalogue, condition and photography status, a huma
 
 The requirement map below links directly to implementation and recorded evidence. The [plain-language agreement](docs/AGREEMENT.md), [repository evaluation](docs/REPOSITORY_REVIEW.md), automated tests and CI artifacts form the review path. The hosted reader is optional; the submitted code and receipts stand on their own.
 
-Maintainer setup, key separation, portable proposal files and recovery procedures are documented in [OPERATIONS.md](docs/OPERATIONS.md).
+Maintainer setup and recovery procedures are documented in [OPERATIONS.md](docs/OPERATIONS.md). [Independent council setup](docs/INDEPENDENT_COUNCIL.md) explains reviewing and approving the same portable proposal on each holder's computer with only their own key. `npm run council:start` starts that desk without probing or starting Bee. Council authority is read separately from the outgoing feed, so losing that feed does not block review of a valid incoming appointment.
+
+The [council desk](src/components/council-proposal.tsx) decodes the actual transaction, verifies existing signatures, exports public proposal files and produces a readable review packet. The signatures authorize the exact transaction; an accompanying committee note is clearly marked as unsigned. The [correction inbox](src/components/correction-inbox.tsx) compares a contributor's request with its source edition and lets the appointed steward publish only the reviewed changes. A stale request is rejected before publication. The registry-linked agreement is rendered as readable headings, lists and paragraphs.
+
+These workflows make separate participation possible. The committed A -> B -> C rehearsal was still performed by one builder using separate identities. It does not demonstrate independent human custody or an actual transfer between institutions. The latest review records source inspection only; no new runtime rehearsal or tests were performed for these changes.
 
 ## What to inspect
 
-| Requirement                                   | Implementation and evidence                                                                                                                                              |
-| --------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Same reader identifier after a handoff        | [Registry contract](contracts/RelayRegistry.sol), [chain resolution](src/lib/chain.ts), [public reader](src/lib/network.ts), two live appointment receipts               |
-| Separate paying and signing identities        | [Configuration and node address checks](scripts/context.ts), [dedicated feed signer](scripts/publish.ts), [identity separation](src/lib/model.ts)                        |
-| Renew an existing batch                       | [Storage implementation](scripts/storage.ts), CLI `storage-quote` / `storage-execute`, local browser renewal, live renewal receipt                                       |
-| Named successor and precise trigger           | [Committee agreement](docs/AGREEMENT.md), including B and C public addresses and retirement/unavailability/compromise conditions                                         |
-| Completed handoff between distinct identities | [Live rehearsal script](scripts/rehearse-live.ts), [public evidence bundle](public/evidence.json), signatures, transaction hashes, feed indices and incoming corrections |
-| Appointment authority separate from publisher | Safe-only `appoint`, minimum threshold and role checks in the contract, portable [council commands](scripts/council.ts)                                                  |
-| Credentials excluded                          | Owner-only ignored `.runtime/private`, [secret check](scripts/check-secrets.mjs), Vercel and trace exclusions                                                            |
-| Incoming identity supplied outside source     | `relay propose --incoming ADDRESS`, `prepareAppointment(incoming, ...)`, operator form                                                                                   |
+| Requirement                                    | Implementation and evidence                                                                                                                                                                               |
+| ---------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Same reader identifier after a handoff         | [Registry contract](contracts/RelayRegistry.sol), [chain resolution](src/lib/chain.ts), [public reader](src/lib/network.ts), two live appointment receipts                                                |
+| Separate paying and signing identities         | [Configuration and node address checks](scripts/context.ts), [dedicated feed signer](scripts/publish.ts), [identity separation](src/lib/model.ts)                                                         |
+| Renew an existing batch                        | [Storage implementation](scripts/storage.ts), CLI `storage-quote` / `storage-execute`, local browser renewal, live renewal receipt                                                                        |
+| Named successor and precise trigger            | [Committee agreement](docs/AGREEMENT.md), including B and C public addresses and retirement/unavailability/compromise conditions                                                                          |
+| Completed handoff between distinct identities  | [Live rehearsal script](scripts/rehearse-live.ts), [public evidence bundle](public/evidence.json), signatures, transaction hashes, feed indices and incoming corrections                                  |
+| Appointment authority separate from publisher  | Safe-only `appoint`, minimum threshold and role checks in the contract, portable [council commands](scripts/council.ts)                                                                                   |
+| Credentials excluded                           | Owner-only ignored `.runtime/private`, [secret check](scripts/check-secrets.mjs), Vercel and trace exclusions                                                                                             |
+| Incoming identity supplied outside source      | `relay propose --incoming ADDRESS`, `prepareAppointment(incoming, ...)`, operator form                                                                                                                    |
+| Independent proposal exchange                  | [Council desk](src/components/council-proposal.tsx), [validated proposal review](scripts/council.ts), [readable review packet](src/lib/proposal-document.ts), [holder setup](docs/INDEPENDENT_COUNCIL.md) |
+| Contributing libraries can propose corrections | [Request validation and edition changes](src/lib/corrections.ts), [review and publishing interface](src/components/correction-inbox.tsx)                                                                  |
 
 The underlying format is documented in [FORMAT.md](docs/FORMAT.md). The implementation pins bee-js 13.1.0 and uses its namespace APIs. The frontend uses Next.js 16.3.5, TypeScript, React and shadcn-style Radix primitives. The Safe implementation is 1.4.1; the narrow registry is compiled with Solidity 0.8.37 targeting Paris.
 

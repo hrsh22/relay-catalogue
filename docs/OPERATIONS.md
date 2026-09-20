@@ -40,6 +40,8 @@ Use a funded light node. Keep its API on loopback: access to that API can spend 
 
 ## Separate custodians
 
+The [independent council guide](INDEPENDENT_COUNCIL.md) covers the browser workflow. A delegate uses `npm run council:start` with public configuration and only their own key. This mode reads the registry and incoming proposal without starting or probing the storage node. Council review does not depend on retrieving the outgoing publisher's catalogue.
+
 For a fresh test rehearsal, `npm run relay -- init` generates dedicated test keys in `.runtime/private` with owner-only permissions and stores public configuration in `.runtime/config.json`. Existing key files are never overwritten. This command is a demo convenience, not independent custody.
 
 For independent custody, each actual holder generates their own key locally and shares only its public address. Copy the public configuration to each checkout and provide only the key file that holder controls. Never distribute the entire demo private directory. Council proposals and their signatures are public portable JSON; a delegate needs no other delegate's private key. An executor can execute a completed proposal using any funded executor key, not just the one in our demo.
@@ -54,7 +56,7 @@ Catalogue data uses `relay.catalogue.v1` (see FORMAT.md). A current steward publ
 npm run relay -- publish --input catalogue.json --key /private/path/publisher.key
 ```
 
-The next edition must increment that publisher feed's revision and name the previous content reference. The operator form prepares these fields for corrections. The publisher signs a Swarm feed update with their dedicated key; the node wallet pays for storage, not that signature.
+The next edition must increment that publisher feed's revision and name the previous content reference. The operator form prepares these fields for corrections. A contributor's exported correction request can also be imported into the correction inbox, compared field by field and explicitly published by the current steward. A request for an older source edition is rejected. The publisher signs a Swarm feed update with their dedicated key; the node wallet pays for storage, not that signature. Normal publication uses the live registry's topic rather than a stale configured topic.
 
 A successor first stages a catalogue under their own key:
 
@@ -72,9 +74,10 @@ Prepare the proposal with the incoming address and its verified checkpoint. The 
 npm run relay -- propose --incoming 0xINCOMING_ADDRESS --checkpoint SWARM_REFERENCE --agreement AGREEMENT_REFERENCE --out proposal.json
 ```
 
-One delegate checks and signs it on their machine, then passes the resulting public file to the next delegate:
+One delegate reviews the decoded action and verified existing signatures, then signs it on their machine and passes the resulting public file to the next delegate:
 
 ```sh
+npm run relay -- review --input proposal.json
 npm run relay -- approve --input proposal.json --key /private/path/council.key --out approved-once.json
 npm run relay -- approve --input approved-once.json --key /private/path/other-council.key --out approved-twice.json
 ```
