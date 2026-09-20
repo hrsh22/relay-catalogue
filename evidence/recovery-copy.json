@@ -14,5 +14,6 @@
   "containsScript": false,
   "note": "Programmatically generated from the public registry, catalogue and linked agreement. The HTML download UI and offline rendering were not observed in this check. This is a dated reading copy, not current-state or availability proof.",
   "verificationMethod": "Programmatic generation and automated content tests",
-  "browserInteractionVerified": false
+  "browserInteractionVerified": false,
+  "artifact": "reading-and-recovery-copy.html"
 }
