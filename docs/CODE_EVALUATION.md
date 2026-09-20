@@ -1,6 +1,6 @@
 # Relay: source-based Loops evaluation
 
-This review applies the freshly retrieved `loops evaluate --event road-to-devcon-v --problem steward-succession --format json` prompt to the code changes following `6c9de7f0c80f13ecc5af25d661bb2f4a949cad95`. It is a private alignment assessment, not an official Loops score. No numeric score is assigned.
+This review applies the freshly retrieved `loops evaluate --event road-to-devcon-v --problem steward-succession --format json` prompt to implementation [52139be](https://github.com/hrsh22/relay-catalogue/commit/52139be200c0e867ff46f7e58f7d129c86a581fd). The command was rerun after that implementation commit and returned the same rubric prompt. The [evaluation receipt](../evidence/code-evaluation.json) records its timestamp and hashes. It is a private alignment assessment, not an official Loops score. No numeric score is assigned.
 
 ## Alignment summary
 
@@ -44,3 +44,17 @@ The architecture supports the required outcome: readers retain the identifier, t
 The exceptional-band requirement described in the feedback is an actual succession exercise by independent human keyholders on separate machines, following the written agreement across institutional boundaries. Adding identities, simulated participants or more local key files cannot establish that fact. This follow-up supplies the proposal exchange and review workflow but does not claim the human exercise occurred.
 
 Future runtime and independent-holder evidence must identify the implementation used and remain separate from the historical single-builder receipts. Final qualitative judgment belongs to the Loops judging pipeline.
+
+## Per-criterion and success assessment
+
+The fresh prompt exposes one weighted criterion: **Problem interpretation, product judgment & code craft (20%)**. The registry, separate signing roles, portable approvals, readable proposal contents and committee agreement are genuine implemented paths. The institutional succession claim remains partial because the recorded rehearsal does not establish independent human holders. No numeric score follows from this assessment.
+
+The success outcome is supported in the code: the reader resolves the stable registry, another appointed publisher can enter corrections, and the storage custodian can top up the existing batch. Historical receipts show that protocol exercised by demonstration identities. Whether the newly improved workflow succeeds for actual independent participants has not been observed in this source-only follow-up.
+
+## Top three next evidence steps
+
+1. Have genuinely independent holders carry out the written succession procedure using their own credentials and machines. More keys controlled by the same builder would not close the gap.
+2. Retain the public proposal, independently collected approvals, transaction receipt and a truthful record of who controlled each role for that exercise. Never include private credentials.
+3. Record the incoming steward's correction and the named custodian's postage observation after the handoff, tied to the implementation they actually used. Keep those future observations separate from the existing rehearsal.
+
+These are remaining evidence steps, not actions performed or requested from the user in this code-only task. No additional source blocker was identified in this targeted review; that is not a passing runtime result.

@@ -1,0 +1,21 @@
+{
+  "format": "relay.code-evaluation.v1",
+  "event": "road-to-devcon-v",
+  "problem": "steward-succession",
+  "repository": "https://github.com/hrsh22/relay-catalogue",
+  "implementationCommit": "52139be200c0e867ff46f7e58f7d129c86a581fd",
+  "retrievedAt": "2026-09-20T18:23:35.000267+00:00",
+  "command": "loops evaluate --event road-to-devcon-v --problem steward-succession --format json",
+  "commandExitCode": 0,
+  "cliVersion": "0.4.0",
+  "responseKind": "Review prompt for repository source assessment, not a platform score",
+  "responseSha256": "9ff938eb9f5186b6a2f1b00f5ae356fec1520a197e475c8f9dc358f818e2dcd1",
+  "promptSha256": "bb0533e624e5a14fcf21d4427c6e1e104fecdca56e6a05cc11b5cdd9ab636f00",
+  "report": "docs/CODE_EVALUATION.md",
+  "officialJudgingRequested": false,
+  "officialScore": null,
+  "scope": "Source inspection and installed SDK API inspection only. No local tests, typecheck, build, browser session, live protocol read or new transaction for this follow-up.",
+  "independentHumanCustodyDemonstrated": false,
+  "historicalEvidence": "Earlier receipts remain evidence of a single-builder rehearsal with distinct identities. They do not validate the new implementation paths.",
+  "platformRecordNote": "The event-level record names Folio. This review targets the separately submitted Relay repository; no submission fields were changed."
+}
