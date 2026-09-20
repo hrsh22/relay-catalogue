@@ -1,0 +1,21 @@
+{
+  "kind": "isolated-gnosis-fork",
+  "publicChainTransactions": false,
+  "observedAt": "2026-09-20T13:16:35.284Z",
+  "forkBlock": 48347843,
+  "chainId": 100,
+  "checks": [
+    "Publisher cannot appoint a successor directly",
+    "Actual Safe contract requires two approvals",
+    "One signature cannot execute an appointment",
+    "Two signatures appoint successor B",
+    "Executed Safe transaction cannot be replayed",
+    "Stale succession revision is rejected even with quorum",
+    "Council and publisher identities cannot overlap",
+    "Council delegate replacement preserves threshold and removes old delegate",
+    "Replacement council appoints successor C without original delegate or publisher"
+  ],
+  "council": "0xE0D143Ee139D32B65C24aaeaF91CCE4A0bA4fAcc",
+  "registry": "0xce67e2f35eb31ace788bde679438c800359b9f14",
+  "note": "This validates real Safe bytecode on a local fork with ephemeral unfunded test keys. Separate live receipts are required for the actual handoff."
+}

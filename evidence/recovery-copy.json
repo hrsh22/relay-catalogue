@@ -1,0 +1,18 @@
+{
+  "observedAt": "2026-09-20T13:19:07.081Z",
+  "registry": "0x258a08b90fb76ac3f87d0cb1baebc206370d7d57",
+  "publisher": "0xE3D4802600c47A0BB971b4ea9f0e500bE36c1f72",
+  "reference": "44ded576aff168975e52eea57663830d09970d1e78c34e3340bca92caa90acf1",
+  "agreement": "fa3d75c75803d29ba02435ffcaff699eb6adac0ba9e81261af8a5fb61214a9e9",
+  "councilThreshold": 2,
+  "records": 21,
+  "collections": 7,
+  "htmlBytes": 35027,
+  "htmlSha256": "9b39605d2f0411ec58ba3be7c92cc9024cfc592525dc5ee471e3fa5e02e435de",
+  "agreementFromSwarm": true,
+  "containsExternalAssets": false,
+  "containsScript": false,
+  "note": "Programmatically generated from the public registry, catalogue and linked agreement. The HTML download UI and offline rendering were not observed in this check. This is a dated reading copy, not current-state or availability proof.",
+  "verificationMethod": "Programmatic generation and automated content tests",
+  "browserInteractionVerified": false
+}

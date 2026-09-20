@@ -21,4 +21,4 @@ The connected-repository dropdown defaults to Folio even in other problem slots;
 
 The free `loops evaluate` command returns a rubric and review instructions, not an official score. We fetched it again after submission and applied it to the Relay repository. The report is [LOOPS_EVALUATION.md](LOOPS_EVALUATION.md). No paid judging attempt or official numerical evaluation was run.
 
-Bee, the Relay operator and the local fork were stopped after verification. The public reader was verified with those services off. The local operator is available through `npm run operator:start` when another publishing or renewal session is needed.
+The recorded public-reader verification recovered the catalogue independently of the publisher and Bee. Source paths, reproducible checks and evidence are linked in [REPOSITORY_REVIEW.md](REPOSITORY_REVIEW.md).

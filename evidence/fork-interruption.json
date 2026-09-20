@@ -1,0 +1,11 @@
+{
+  "observedAt": "2026-09-20T13:15:50.631Z",
+  "passed": false,
+  "forkBlock": 48347835,
+  "loopbackPort": 53526,
+  "childProcessesStopped": true,
+  "publicChainTransactions": false,
+  "exitCode": 1,
+  "loopbackPortClosed": true,
+  "check": "SIGINT during owned fork verification stops Anvil and worker"
+}

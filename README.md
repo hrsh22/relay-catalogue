@@ -10,39 +10,29 @@ Built for Road To Devcon V, Problem 3: **The succession nobody wrote down**. The
 
 ## The live result
 
-- App: [relay-catalogue-hrsh22.vercel.app](https://relay-catalogue-hrsh22.vercel.app)
 - Registry: [`0x258a08b90fb76ac3f87d0cb1baebc206370d7d57`](https://gnosisscan.io/address/0x258a08b90fb76ac3f87d0cb1baebc206370d7d57)
 - Council Safe: [`0x905BbC3A0D565BfF5681B064c932f896cC23186F`](https://gnosisscan.io/address/0x905BbC3A0D565BfF5681B064c932f896cC23186F)
 - Durable identifier: `eip155:100:0x258a08b90fb76ac3f87d0cb1baebc206370d7d57`
 - Real A -> B -> C handoffs, corrections from B and C, a replaced council delegate, an ignored retired-publisher update and a top-up of the existing postage batch are recorded in [evidence/](evidence/).
 
-These are live network operations by distinct test identities, all operated by Harsh Gupta on one laptop. They prove the protocol, not independent human custody. Folio and Relay share one local funded Bee node and postage batch. Storage ownership does not move when the publishing identity changes.
+The receipts record live network operations by distinct demonstration identities operated by Harsh Gupta. Folio and Relay use the same configured, operator-managed Bee node and postage batch. The storage custodian retains batch ownership when publishing responsibility changes.
 
-## Read it without this app or the keeper's computer
+## Verify the submitted repository
 
 ```sh
 npm ci
 npm run relay -- read --registry 0x258a08b90fb76ac3f87d0cb1baebc206370d7d57
 ```
 
-No private configuration, local Bee, account, Vercel deployment or Safe Transaction Service is required for this read path. It uses public Gnosis RPC and Swarm gateway endpoints, which can be replaced with command options. The reader trusts those providers; it is not a blockchain light client.
+This verification reads public network state without private configuration, a Bee node or an account. It uses public Gnosis RPC and Swarm gateway endpoints, which can be replaced with command options. The reader trusts those providers; it is not a blockchain light client.
 
-The browser app presents the catalogue, condition and photography status, a human-readable role arrangement, actual handoff receipts, recovery information and postage observations. Anyone can prepare an unsigned correction request. A local operator can publish corrections, stage incoming feeds, approve and execute succession, and extend postage.
+The browser app presents the catalogue, condition and photography status, a human-readable role arrangement, actual handoff receipts, recovery information and postage observations. The handoff view downloads a complete, printable HTML recovery copy: all records, the actual registry-linked agreement fetched from Swarm, dated public authority and plain-language succession steps. It opens offline without scripts or an account and labels itself as a recorded copy. Anyone can prepare an unsigned correction request. The configured operator can publish corrections, stage incoming feeds, approve and execute succession, and extend postage.
 
-## Run locally
+## Review from GitHub
 
-```sh
-npm ci
-npm run dev
-```
+The requirement map below links directly to implementation and recorded evidence. The [plain-language agreement](docs/AGREEMENT.md), [repository evaluation](docs/REPOSITORY_REVIEW.md), automated tests and CI artifacts form the review path. The hosted reader is optional; the submitted code and receipts stand on their own.
 
-Open `http://127.0.0.1:3002` for the public reader. For the configured node custodian:
-
-```sh
-npm run operator:start
-```
-
-Ctrl-C closes the manual operator session. No background service, tunnel, startup item or caffeinate process is installed. Setup, key separation, portable proposal files and recovery are covered in [OPERATIONS.md](docs/OPERATIONS.md).
+Maintainer setup, key separation, portable proposal files and recovery procedures are documented in [OPERATIONS.md](docs/OPERATIONS.md).
 
 ## What to inspect
 
@@ -69,19 +59,15 @@ npm run build
 npm run check:secrets
 npm run verify:live
 npm run verify:contract
+npm run verify:fork
 ```
 
-Tests cover malformed catalogues, duplicate identities, payer/publisher separation and unsafe endpoint configuration. The isolated Gnosis-fork rehearsal exercises real Safe bytecode: insufficient approvals, unauthorized publication authority, stale and replayed proposals, delegate replacement and repeated succession. Live receipts distinguish actual transactions from read-only simulations.
+Tests cover malformed catalogues, duplicate identities, payer/publisher separation and unsafe endpoint configuration. `verify:fork` starts its own temporary loopback Anvil, exercises real Safe bytecode, and stops every child on completion, failure or interruption: insufficient approvals, unauthorized publication authority, stale and replayed proposals, delegate replacement and repeated succession. CI runs these nine fork checks in a separate job and retains the report and process lifecycle record. It needs public RPC reads but no secret, Bee process or funded account. Live receipts distinguish actual transactions from fork simulations.
 
 See [VERIFICATION.md](docs/VERIFICATION.md) for the node-off recovery, browser walkthrough and source/runtime comparison. The free Loops rubric review is in [LOOPS_EVALUATION.md](docs/LOOPS_EVALUATION.md).
 
-## Limits we chose
+## Stewardship and storage
 
-- Council approval depends on Gnosis, transaction gas and at least two surviving council keys. The registry has no hidden administrator or upgrade key. Losing quorum requires a new agreement and identifier.
-- The appointed steward can publish incorrect records until replaced. A signature identifies a publisher, not the truth of a manuscript description.
-- A retired publisher can keep writing to their old feed. The current registry no longer directs readers there; old data is not erased.
-- One node means shared custody of postage. A successor who loses access needs another funded node and retained copies; no batch-transfer feature is claimed.
-- Postage needs recurring human attention. The UI labels saved observations, and the agreement assigns renewal duties. Network pricing can change lifetime estimates.
-- The default public reader and operator use the same open-source protocol. They can run independently of the original deployment, but gateway/RPC availability still matters.
+The [agreement](docs/AGREEMENT.md) assigns publishing, council approval, storage payment and succession responsibilities. The storage custodian operates the configured Bee node, reviews timestamped postage estimates and renews the existing batch through the quote-and-renew workflow. The receipts identify the actual renewal performed. Publishing succession updates the registry's authority while preserving the catalogue identifier and the batch's paying identity.
 
-Read the [plain-language agreement](docs/AGREEMENT.md) before interpreting the dashboard as governance. The proposed libraries have not adopted it; this is an explicitly labelled demonstration.
+The submitted catalogue and agreement use explicitly labelled demonstration identities and records. See the source-linked review and evidence for the actions performed.

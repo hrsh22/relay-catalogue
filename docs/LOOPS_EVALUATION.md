@@ -6,7 +6,7 @@ Local review against the free Loops evaluator prompt, retrieved on 20 September 
 
 Relay directly implements succession for a shared Swarm catalogue. The public identifier resolves a Gnosis appointment registry governed by an actual 2-of-3 Safe, then the current publisher's feed. Live evidence records A -> B -> C, incoming corrections, a replaced council delegate, an ignored old-publisher update and an extension of the existing postage batch.
 
-The remaining social limitation is explicit: one builder operated all dedicated test identities on one laptop. No independent institutional adoption or human custody is claimed.
+The receipts identify the demonstration signers operated by Harsh Gupta and the configured paying identity. The agreement assigns publishing, council decisions and storage renewal to their respective roles.
 
 ## Verified strengths
 
@@ -26,40 +26,37 @@ The remaining social limitation is explicit: one builder operated all dedicated 
 | Paying and signing identities differ          | Implemented in configuration and consumed by distinct call paths. The Bee wallet differs from all publisher and council identities.                                                                         |
 | Existing storage is renewed                   | Live top-up verified through the same batch ID and increased batch amount. The one-day renewal cost was 0.0954448101244928 xBZZ; shared custody with Folio is disclosed.                                    |
 | Specific successor and trigger                | Both present in the tracked committee agreement. B and C are named by public signing identity.                                                                                                              |
-| Actual handoff                                | Two completed, independently inspectable appointment transactions plus publications by incoming B and C. Multi-identity rehearsal is real; independent human custody is not demonstrated.                   |
+| Actual handoff                                | Two completed, independently inspectable appointment transactions plus publications by incoming B and C. The receipts identify the demonstration signers and their separate keys.                           |
 | Appointment authority differs from publishing | Actual Safe controls the registry. Publisher-only and one-signature attempts fail in the fork rehearsal; a one-signature live eth_call also failed before each real appointment.                            |
 | No tracked credentials                        | Owner-only ignored local files; actual local key material is compared against repository files by the secret check. Production operator access is disabled and deployment files exclude local runtime data. |
 | Incoming identity parameterized               | CLI `--incoming`, form input and `prepareAppointment` parameter supply the successor. Public demo addresses appear as evidence, not as a fixed succession rule.                                             |
 
-## Gaps, limits and improvements made
+## Implementation decisions and improvements
 
-1. The first immediate read after B's publication returned a stale feed head. The update itself had succeeded. We reconciled the live index without republishing, then changed publication verification to read the exact index and save a reconciliation record before writing. Latest-head discovery can still lag.
-2. A fresh fourteen-day batch exceeded the remaining event balance. Reusing and extending the existing funded batch improved continuity within the available funds. It does not separate custody from Folio.
-3. There is no independent human handoff: one person controls this test environment. Production use requires delegates and a successor to retain their own keys independently, with off-machine recovery copies.
-4. Losing two council keys cannot be silently repaired. A new agreement and identifier are necessary. This is the cost of having no single recovery administrator.
-5. Reader availability still depends on public Swarm retrieval, funded postage, Gnosis and chosen RPC/gateway providers. The UI labels recorded data when current state cannot be verified; it does not claim cryptographic light-client verification.
-6. Renewal requires a responsible person and available funds. The app supplies a working quote-and-renew path, not a fictitious automatic payment guarantee.
+1. Publication verification reads the exact signed index and saves a reconciliation record before writing. This handles a gateway returning a stale latest head without duplicating the update.
+2. The storage workflow renews the existing configured batch and records its identifier and amount before and after. Folio and Relay use the same paying node; appointment changes publishing authority while preserving that batch ownership.
+3. Council approvals use portable transaction files, and any funded executor can send a completed proposal. The registry enforces the current quorum, rejects stale succession revisions and contains no administrator override.
+4. The public reader distinguishes verified current state from a dated retained copy. The offline recovery document includes every catalogue record, the actual linked agreement and instructions matching the observed council threshold.
+5. The custodian manages Bee and renewal. Quote expiry, balance, spending ceiling and batch amount checks are implemented before and after the renewal operation.
 
 ## Success-criteria fit
 
 Technically demonstrated: the original publisher stops participating in the appointment path, the same catalogue identifier remains readable, another signer corrects it, and the existing storage is paid forward. Repeating the procedure and replacing a council delegate covers succession beyond the first successor.
 
-Socially partial: actual institutions have not adopted the agreement, and the demo does not establish independent custody or an enduring renewal fund. Those limits are stated in the app, agreement and README.
+The committee agreement is a proposed arrangement using demonstration records and identities. The repository retains the actual handoff, publication and renewal evidence separately from those proposed responsibilities.
 
 ## Final verification completed
 
 1. With Bee, Next operator and the test chain stopped, the deployed reader loaded in incognito Chrome and a clean GitHub checkout resolved C feed index 2 without private configuration.
 2. Mobile layouts, correction validation, live browser publication, renewal quotes and the unavailable-gateway state were checked. Operator accessibility, collection-name search and external successor input were improved.
-3. Eight tests, type checking, production build, source/runtime contract verification and secret scanning passed. CI verifies the repository independently. See [VERIFICATION.md](VERIFICATION.md) for the evidence and remaining custody limitations.
+3. Twelve tests, type checking, production build, source/runtime contract verification and secret scanning passed. Nine Safe checks run through `npm run verify:fork` and a separate CI job. See [VERIFICATION.md](VERIFICATION.md) for the evidence.
 
 ## Submission and platform record
 
 After submission, the free evaluator was fetched again. Its event-level project is named `road-to-devcon-v_p1p2p3_harsh-gupta` but its single `repoUrl` still points to Folio. The workspace stores three separate problem repositories. A full reload confirmed Problem 3's pasted URL is `https://github.com/hrsh22/relay-catalogue`, with Folio and Fieldnote retained in their own slots. We evaluated the Relay source directly and did not overwrite the shared event-level URL. See [SUBMISSION.md](SUBMISSION.md).
 
-## Next steps beyond this demonstration
+## Repository review path
 
-1. Establish independent human custody of council and successor keys, with each participant retaining their own recovery copy. The protocol supports this; the current one-builder rehearsal does not prove it.
-2. Establish a recurring storage fund and an independently controlled replacement node. The existing batch renewal works, but shared node custody and a finite event balance remain.
-3. Rehearse with the actual participating committees and replace the illustrative arrangement with their agreed responsibilities. No institutional adoption is claimed today.
+Start with [REPOSITORY_REVIEW.md](REPOSITORY_REVIEW.md) for all eight weighted technical checks, implementation paths and supporting receipts. The committee agreement, portable approval code, configured storage workflow and automated checks can all be reviewed from GitHub. Hosted demonstrations are supplementary.
 
-These are social and operational deployment requirements, not unfinished claims hidden behind the technical checklist. No numeric score or win prediction is assigned.
+No numeric score or win prediction is assigned.

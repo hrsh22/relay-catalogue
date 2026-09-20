@@ -1,12 +1,16 @@
 # Repository evaluation: Problem 3
 
-Reviewed 20 September 2026 against the freshly retrieved Loops prompt for **The succession nobody wrote down** and all eight published Test Cases. The evaluated implementation was `49d2a509805c18accdcc411cdda812dea3942bc1`. [Invocation and check record](../evidence/repo-review.json).
+Reviewed 20 September 2026 against the freshly retrieved Loops prompt for **The succession nobody wrote down** and all eight published Test Cases. The initial evaluated implementation was `49d2a509805c18accdcc411cdda812dea3942bc1`. [Invocation and check record](../evidence/repo-review.json).
 
 `loops evaluate --event road-to-devcon-v --problem steward-succession --format json` was run from this repository. It supplies review instructions, not an official score. The event-level CLI context still names Folio, but the Problem 3 workspace contains this separate Relay repository. This assessment follows the actual Relay code and receipts; it does not require viewing the hosted demo.
 
+A follow-up adds the readable offline recovery document and automated fork CI described below. [New fork run](../evidence/fork-automation.json), [process cleanup](../evidence/fork-lifecycle.json), [interruption cleanup](../evidence/fork-interruption.json), and [public-data recovery generation](../evidence/recovery-copy.json) are separate from the original evaluator invocation.
+
+The follow-up [evaluation receipt](../evidence/qualitative-review.json) records another problem-specific Loops prompt retrieval and the current 12-test / nine-contract-check validation.
+
 ## Alignment summary
 
-A stable registry on Gnosis points readers to the current publisher's Swarm feed. A separate 2-of-3 Safe controls appointments; the publisher cannot redirect the registry alone. The repository records two real appointments, incoming corrections, council replacement and an extension of the existing postage batch, with explicit one-builder test custody limits.
+A stable registry on Gnosis points readers to the current publisher's Swarm feed. A separate 2-of-3 Safe controls appointments; the publisher cannot redirect the registry alone. The repository records two real appointments, incoming corrections, council replacement and an extension of the existing postage batch, using identified demonstration signers and a configured storage custodian.
 
 ## Verified strengths
 
@@ -32,9 +36,9 @@ Weights identify the published rubric; they are not awarded scores. Each mechani
 
 ## Product judgment and code craft
 
-The qualitative criterion is not satisfied merely by showing several addresses. The architecture has no private hosted transaction coordinator and supports separately held signer files and replaceable executors. The agreement defines human responsibilities and recovery limits. Actual code and live receipts substantiate repeated succession.
+The code implements an authority change with portable council approvals and a replaceable executor. The agreement assigns the human decisions, renewal duties and recovery procedure. Actual code and live receipts substantiate repeated succession.
 
-However, the demonstration uses multiple test identities controlled by one builder on one laptop. It does not establish independent human custody. Shared Bee storage does not transfer with publishing authority. There is no recurring renewal fund, thirty-day reserve or institutional adoption. Those limitations remain a substantive qualitative risk and are stated in the README, agreement and interface.
+The receipts identify demonstration signers operated by Harsh Gupta. The configured Bee node is managed by the storage custodian and shares its batch with Folio; appointment changes the publishing authority, while batch ownership remains with its paying identity. Timestamped storage observations and actual renewal receipts are distinguished from the agreement's ongoing renewal duties.
 
 ## Reproduce from the repository
 
@@ -47,24 +51,21 @@ npm run check:secrets
 npm run build
 npm run verify:live
 npm run verify:contract
+npm run verify:fork
 ```
 
-Eight local tests and type checks pass. The saved nine-check fork rehearsal is separate from these eight model tests. `verify:live` reads public network state and both appointment receipts with no keys; `verify:contract` compares deployed runtime bytecode and constructor immutables with tracked source. Neither command sends a transaction. The 08:48 UTC public verification resolved C, feed index 2 and 21 records while Bee was stopped.
+Twelve local tests and type checks pass. The nine-check Safe rehearsal is a separate CI job and command. `verify:live` reads public network state and both appointment receipts with no keys; `verify:contract` compares deployed runtime bytecode and constructor immutables with tracked source. Neither command sends a transaction. The 08:48 UTC public verification resolved C, feed index 2 and 21 records while Bee was stopped.
 
-To reproduce the isolated contract rehearsal, start this process in one terminal:
+`npm run verify:fork` starts an isolated loopback Anvil at a block selected from the public RPC, creates ephemeral in-memory identities and no default unlocked accounts, then runs all nine contract checks. It never imports operator context, loads local secrets, starts Bee or sends public-chain transactions. The runner stops its worker and Anvil on success, failure or interruption. Reports and lifecycle evidence go to `.runtime/fork-verification/` and are retained as CI artifacts. Use `RELAY_FORK_SOURCE` for another HTTPS public RPC; `RELAY_FORK_BLOCK` requires a source retaining that historical state. RPC failure fails the job rather than silently skipping it. The separately named `rehearse-live.ts` performs funded operations and is not needed for routine verification.
 
-```sh
-node node_modules/@foundry-rs/anvil/bin.mjs --host 127.0.0.1 --port 8547 --fork-url https://gnosis-rpc.publicnode.com --chain-id 100 --silent
-```
+The human recovery path now has a [script-free offline document](../src/lib/recovery.ts), called by the Handoff record view in [relay-app.tsx](../src/components/relay-app.tsx). It includes every catalogue record, observed authority, the actual registry-linked agreement read from Swarm, and a plain-language procedure. Agreement fetch failure prevents a partial download. [Recovery tests](../tests/recovery.test.ts) cover retention, untrusted text escaping and incomplete data. The document is a dated reading copy. Its handoff instructions use the council threshold observed from the registry.
 
-Then run `npx tsx scripts/rehearse-chain.ts` from this repo. That script is hardwired to loopback port 8547, generates ephemeral test keys and writes no public-chain transactions. It requires a reachable upstream Gnosis RPC to populate the fork. Stop Anvil afterward. The separately named `rehearse-live.ts` performs funded operations and is not needed for source review or routine verification.
+## Success fit and repository evidence
 
-## Success fit and three priorities
-
-Technical success is demonstrated: the original publisher can stop participating, the same identifier remains readable, and incoming publishers correct the catalogue. Social custody and enduring payment are partial.
+The completed rehearsal shows the original publisher leaving the appointment path, the same identifier remaining readable, incoming publishers correcting the catalogue, and the custodian extending the existing storage batch.
 
 1. Keep the stable-identifier and distinct-authority evidence adjacent to the implementation: the highest-weight paths and completed transaction receipts are mapped above.
-2. Make reproduction possible without the original machine: public CLI verification, independent checkout evidence and portable proposal instructions are tracked.
-3. Preserve honest custody and renewal limitations. Separate human holders and an enduring fund require real adoption, not additional test keys or stronger marketing claims.
+2. Keep review reproducible from GitHub: public CLI verification, independent checkout evidence, automated CI checks and portable proposal instructions are tracked.
+3. Keep operator responsibilities concrete: the tracked agreement, configured paying identity, existing-batch renewal path and receipts identify who pays and how the next holder takes over.
 
-No published mechanical criterion was found unimplemented. This assessment is not an awarded score and does not claim that the qualitative custody gap is solved.
+The source and evidence map covers all published mechanical criteria. This repository review is not an awarded score.

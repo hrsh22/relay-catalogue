@@ -37,6 +37,7 @@ import {
 } from "./operator-panel";
 import {
   DEFAULT_GATEWAY,
+  bytesAt,
   readableError,
   resolveCatalogue,
 } from "@/lib/network";
@@ -48,6 +49,7 @@ import {
 } from "@/lib/model";
 import type { Demo } from "@/lib/demo";
 import { short } from "@/lib/utils";
+import { recoveryDocument } from "@/lib/recovery";
 
 type Tab = "catalogue" | "stewardship" | "handoffs" | "storage";
 export function downloadFile(name: string, data: unknown) {
@@ -93,6 +95,35 @@ export function RelayApp() {
   const [selected, setSelected] = useState<CatalogueRecord | null>(null),
     [copied, setCopied] = useState(false);
   const [menu, setMenu] = useState(false);
+  const [recoveryBusy, setRecoveryBusy] = useState(false);
+  const [recoveryError, setRecoveryError] = useState("");
+  async function downloadRecovery() {
+    if (!resolved) return;
+    const snapshot = resolved;
+    setRecoveryBusy(true);
+    setRecoveryError("");
+    try {
+      const agreement = new TextDecoder("utf-8", { fatal: true }).decode(
+        await bytesAt(snapshot.gateway, snapshot.state.agreement, 256_000),
+      );
+      const url = URL.createObjectURL(
+        new Blob([recoveryDocument(snapshot, agreement)], {
+          type: "text/html;charset=utf-8",
+        }),
+      );
+      const anchor = document.createElement("a");
+      anchor.href = url;
+      anchor.download = "relay-reading-and-recovery-copy.html";
+      anchor.click();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+    } catch (error) {
+      setRecoveryError(
+        `The complete copy could not be prepared. ${readableError(error)}`,
+      );
+    } finally {
+      setRecoveryBusy(false);
+    }
+  }
   async function refresh(
     registry = demo?.registry,
     gatewayValue = gateway,
@@ -771,9 +802,9 @@ export function RelayApp() {
                   <em>The identifier is yours.</em>
                 </h3>
                 <p>
-                  Resolve the same catalogue through another copy of Relay or
-                  the command-line reader. The public registry and Swarm feed do
-                  not require this deployment.
+                  Keep a readable copy with each library. It includes every
+                  catalogue record, the linked agreement and the steps for a
+                  handoff. Open or print it without an account or connection.
                 </p>
               </div>
               <div>
@@ -782,6 +813,27 @@ export function RelayApp() {
                 </code>
                 <Button
                   variant="outline"
+                  onClick={downloadRecovery}
+                  disabled={!resolved || recoveryBusy || busy}
+                >
+                  {recoveryBusy ? (
+                    <LoaderCircle size={15} className="spin" />
+                  ) : (
+                    <ArrowDownToLine size={15} />
+                  )}
+                  {recoveryBusy
+                    ? "Preparing complete copy"
+                    : "Keep a reading and recovery copy"}
+                </Button>
+                <p className="muted-copy">
+                  A dated HTML document, not a live view. Storage still needs
+                  renewal.
+                  {!resolved &&
+                    " Verify the current catalogue before downloading."}
+                </p>
+                {recoveryError && <p role="alert">{recoveryError}</p>}
+                <button
+                  className="text-button"
                   onClick={() =>
                     demo &&
                     downloadFile("relay-recovery.json", {
@@ -798,8 +850,8 @@ export function RelayApp() {
                   }
                 >
                   <ArrowDownToLine size={15} />
-                  Download recovery card
-                </Button>
+                  Public identifiers as JSON
+                </button>
               </div>
             </div>
           </section>

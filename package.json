@@ -18,7 +18,8 @@
     "verify:live": "tsx scripts/verify-live.ts",
     "check:secrets": "node scripts/check-secrets.mjs",
     "format": "prettier --write src scripts tests docs README.md",
-    "verify:contract": "node scripts/verify-contract.mjs"
+    "verify:contract": "node scripts/verify-contract.mjs",
+    "verify:fork": "node scripts/verify-fork.mjs"
   },
   "dependencies": {
     "@ethersphere/bee-js": "13.1.0",

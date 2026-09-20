@@ -1,6 +1,6 @@
 // Isolated fork rehearsal. Never sends transactions to a public chain.
 import assert from "node:assert/strict";
-import { readFile } from "node:fs/promises";
+import { readFile, writeFile } from "node:fs/promises";
 import Safe from "@safe-global/protocol-kit";
 import {
   createPublicClient,
@@ -15,9 +15,40 @@ import {
 import { gnosis } from "viem/chains";
 import { generatePrivateKey, privateKeyToAccount } from "viem/accounts";
 import { registryAbi } from "../src/lib/registry-abi";
-import { evidence } from "./context";
+// This worker intentionally does not import operator context or read .env.local.
+const configuredRpc = process.env.RELAY_FORK_RPC;
+const output = process.env.RELAY_FORK_OUTPUT;
+if (!configuredRpc || !output)
+  throw new Error("Run npm run verify:fork to create an isolated fork.");
+const endpoint = new URL(configuredRpc);
+const rpc = endpoint.href;
+if (
+  endpoint.protocol !== "http:" ||
+  endpoint.hostname !== "127.0.0.1" ||
+  !endpoint.port ||
+  endpoint.pathname !== "/" ||
+  endpoint.search ||
+  endpoint.username ||
+  endpoint.password
+)
+  throw new Error("The rehearsal only accepts an isolated loopback RPC.");
+const metadataResponse = await fetch(rpc, {
+  method: "POST",
+  headers: { "content-type": "application/json" },
+  body: JSON.stringify({
+    jsonrpc: "2.0",
+    id: 1,
+    method: "anvil_nodeInfo",
+    params: [],
+  }),
+});
+const metadata = await metadataResponse.json();
+assert(metadata.result?.forkConfig, "Expected a local Anvil fork");
+assert.equal(
+  Number(metadata.result.forkConfig.forkBlockNumber),
+  Number(process.env.RELAY_FORK_BLOCK),
+);
 
-const rpc = "http://127.0.0.1:8547";
 const client = createPublicClient({ chain: gnosis, transport: http(rpc) });
 const keys = Array.from({ length: 8 }, () => generatePrivateKey());
 const accounts = keys.map((key) => privateKeyToAccount(key));
@@ -85,7 +116,11 @@ await assert.rejects(
   }),
 );
 check("Publisher cannot appoint a successor directly");
-const sdk = await Safe.init({ provider: rpc, safeAddress: council });
+const sdk = await Safe.init({
+  provider: rpc,
+  safeAddress: council,
+  signer: keys[7],
+});
 assert.equal(await sdk.getThreshold(), 2);
 check("Actual Safe contract requires two approvals");
 async function propose(revision: bigint, publisher: Address) {
@@ -113,11 +148,7 @@ async function approve(tx: Awaited<ReturnType<typeof propose>>, index: number) {
   ).signTransaction(tx);
 }
 async function valid(tx: Awaited<ReturnType<typeof propose>>) {
-  try {
-    return await sdk.isValidTransaction(tx, { from: wallet.account.address });
-  } catch {
-    return false;
-  }
+  return sdk.isValidTransaction(tx, { from: wallet.account.address });
 }
 async function execute(tx: Awaited<ReturnType<typeof propose>>) {
   const hash = await wallet.sendTransaction({
@@ -187,13 +218,22 @@ assert.equal(
 check(
   "Replacement council appoints successor C without original delegate or publisher",
 );
-await evidence("fork-rehearsal", {
-  kind: "isolated-gnosis-fork",
-  publicChainTransactions: false,
-  observedAt: new Date().toISOString(),
-  checks,
-  council,
-  registry,
-  note: "This validates real Safe bytecode on a local fork. Separate live receipts are required for the actual handoff.",
-});
+await writeFile(
+  output,
+  JSON.stringify(
+    {
+      kind: "isolated-gnosis-fork",
+      publicChainTransactions: false,
+      observedAt: new Date().toISOString(),
+      forkBlock: Number(process.env.RELAY_FORK_BLOCK),
+      chainId: await client.getChainId(),
+      checks,
+      council,
+      registry,
+      note: "This validates real Safe bytecode on a local fork with ephemeral unfunded test keys. Separate live receipts are required for the actual handoff.",
+    },
+    null,
+    2,
+  ) + "\n",
+);
 console.log("Fork rehearsal completed:", checks.length, "checks.");

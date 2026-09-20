@@ -22,6 +22,8 @@ With those services stopped, a fresh GitHub clone installed its own dependencies
 - [Clean checkout recovery](../evidence/independent-recovery.json)
 - [Public read with local node stopped](../evidence/public-node-off-read.json)
 
+The new complete HTML recovery copy was additionally generated from the current public registry, its 21-record catalogue and the actual linked Swarm agreement, with Bee stopped. The [generation record](../evidence/recovery-copy.json) records its references and hash. This generation record verifies programmatic output; it does not claim an observed browser download or offline rendering.
+
 ## Application checks
 
 - Desktop catalogue, record details, collection search, stewardship and storage views inspected.
@@ -34,12 +36,12 @@ With those services stopped, a fresh GitHub clone installed its own dependencies
 
 ## Automated checks
 
-Eight format, identity and endpoint tests pass. TypeScript, the production build, contract artifact regeneration and secret scanning pass. The secret scan compares the actual ignored key material against all repository files as well as checking credential patterns.
+Twelve format, identity, endpoint and offline recovery tests pass. The recovery tests cover complete catalogue retention, escaping untrusted record/agreement text, refusing an empty agreement or corrupt catalogue, and matching handoff instructions to a three-approval council. TypeScript, the production build, contract artifact regeneration and secret scanning pass. The secret scan compares the actual ignored key material against all repository files as well as checking credential patterns.
 
-Nine isolated Gnosis-fork checks exercised actual Safe code: unauthorized publisher, insufficient signatures, successful quorum, replay protection, stale succession revision, role overlap, and council replacement followed by another appointment. The saved record is explicitly marked as a fork rehearsal; it is separate from live transaction evidence.
+Nine isolated Gnosis-fork checks exercised actual Safe code. The [automated run](../evidence/fork-automation.json), [successful cleanup](../evidence/fork-lifecycle.json) and [interruption cleanup](../evidence/fork-interruption.json) record the new one-command runner. Checks include: unauthorized publisher, insufficient signatures, successful quorum, replay protection, stale succession revision, role overlap, and council replacement followed by another appointment. The saved record is explicitly marked as a fork rehearsal; it is separate from live transaction evidence.
 
-CI repeats the offline checks in a clean environment: [Verify Relay](https://github.com/hrsh22/relay-catalogue/actions/workflows/verify.yml).
+CI repeats the offline checks and runs `npm run verify:fork` in a separate job with uploaded report, log and lifecycle evidence. The fork uses ephemeral keys, zero default Anvil accounts, an explicit separate test executor and no operator context. The runner stops owned process groups on success, failure and interruption. CI requires a reachable public RPC for this job: [Verify Relay](https://github.com/hrsh22/relay-catalogue/actions/workflows/verify.yml).
 
-## Limits
+## Recorded identities and storage
 
-One builder controls all demonstration keys on one computer. Independent people have not adopted the agreement. Public RPC and Swarm gateways remain trusted availability dependencies; the reader is not a chain light client. The node and postage batch are shared with Folio. No automatic renewal fund, key recovery administrator or custody transfer is claimed.
+The evidence uses demonstration identities operated by Harsh Gupta. The configured Bee node and postage batch are shared with Folio and managed by the storage custodian. Appointment updates the publisher followed by the registry; it retains the batch's paying identity. The renewal receipt records the extension performed, and the agreement assigns ongoing storage checks and payments.

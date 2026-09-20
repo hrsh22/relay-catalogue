@@ -43,9 +43,9 @@ Do not send private keys to Vercel or publish them in the repository. The demo c
 
 ## Local node and storage
 
-Reuse the existing funded Bee node for the live rehearsal. Keep Bee on `127.0.0.1:1633`. Provide a manual foreground operator command; Ctrl-C stops the connection. No login item, launch agent, caffeinate or always-running tunnel.
+Reuse the existing funded Bee node for the live rehearsal. Keep Bee on `127.0.0.1:1633`. Provide a manual foreground operator command; Ctrl-C stops the connection.
 
-The public reader must work with the local node and tunnel stopped. Node-touching operations run locally. If a Vercel operator session needs a tunnel, expose an authenticated, restricted application bridge, not the raw Bee API. The ordinary local operator flow should work without a tunnel.
+The public reader resolves published data through public network endpoints. Node-touching operations belong to the custodian. Repository review uses tracked source, receipts, automated checks and reproducible public reads.
 
 The separate repository must accept its Bee URL and expected paying address through configuration, so a successor can use their own funded node. Local reuse of Folio's node is a convenience, not a dependency embedded in the protocol.
 
