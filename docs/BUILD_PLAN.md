@@ -1,6 +1,6 @@
 # Problem 3 proposal: Relay
 
-Status: direction approved by the builder, who delegated implementation decisions and operation. Build and verification are in progress.
+Status: direction approved by the builder, who delegated implementation decisions and operation. Build, live succession, independent recovery and browser verification are complete. See VERIFICATION.md.
 
 Prepared 20 September 2026. Submission deadline: 11:11 PM IST today.
 

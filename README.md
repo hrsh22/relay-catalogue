@@ -66,9 +66,12 @@ npm run contract:build
 npm run build
 npm run check:secrets
 npm run verify:live
+npm run verify:contract
 ```
 
 Tests cover malformed catalogues, duplicate identities, payer/publisher separation and unsafe endpoint configuration. The isolated Gnosis-fork rehearsal exercises real Safe bytecode: insufficient approvals, unauthorized publication authority, stale and replayed proposals, delegate replacement and repeated succession. Live receipts distinguish actual transactions from read-only simulations.
+
+See [VERIFICATION.md](docs/VERIFICATION.md) for the node-off recovery, browser walkthrough and source/runtime comparison. The free Loops rubric review is in [LOOPS_EVALUATION.md](docs/LOOPS_EVALUATION.md).
 
 ## Limits we chose
 

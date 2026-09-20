@@ -5,10 +5,10 @@
   "description": "A shared catalogue for the next keeper. Invented records for a live succession rehearsal across seven example library collections.",
   "demonstration": true,
   "publisher": "0xE3D4802600c47A0BB971b4ea9f0e500bE36c1f72",
-  "revision": 1,
-  "updatedAt": "2026-09-20T08:09:12.308Z",
-  "previous": "42ae6b595728c3f0c3c72c79377a0607a2311d81cc8a776d5923bda1538df10a",
-  "change": "Steward C completes the photography status for the Upper Spiti keeper's register.",
+  "revision": 2,
+  "updatedAt": "2026-09-20T08:13:59.547Z",
+  "previous": "f73bd30eef11a473bcf5c73b409df7c9779188e8d1deadc47398f7785980c5e2",
+  "change": "Steward C verifies the browser correction workflow and records a review of the Pin valley condition note.",
   "collections": [
     {
       "id": "nubra",
@@ -200,8 +200,8 @@
       "folios": 68,
       "condition": "fragile",
       "photographed": "partial",
-      "notes": "Successor B's live correction: the example item was located and is fragile, rather than missing.",
-      "updatedAt": "2026-09-20T07:55:31.914Z"
+      "notes": "Successor B's live correction: the example item was located and is fragile, rather than missing. Steward C reviewed this note through the local operator form.",
+      "updatedAt": "2026-09-20T08:13:59.547Z"
     },
     {
       "id": "pin-2",

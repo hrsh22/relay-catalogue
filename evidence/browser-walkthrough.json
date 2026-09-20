@@ -1,0 +1,19 @@
+{
+  "kind": "browser-walkthrough",
+  "observedAt": "2026-09-20T08:27:57.790Z",
+  "method": "Chrome native accessibility and screenshots",
+  "checks": [
+    "375px responsive catalogue, navigation and renewal dialog",
+    "Collection-name search returns three Pin valley records",
+    "Correction requires a reason; valid correction published at C feed index 2",
+    "Real renewal quote displayed without executing a second payment",
+    "Incognito public reader verified C with local node stopped",
+    "Unavailable gateway showed a clearly labelled recorded copy",
+    "Production operator API disabled (404)",
+    "Cross-origin local operator mutation rejected (403)"
+  ],
+  "limitations": [
+    "One-person test custody",
+    "No automated browser suite or saved screenshot artifact claimed"
+  ]
+}

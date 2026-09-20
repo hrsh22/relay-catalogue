@@ -1,0 +1,21 @@
+{
+  "kind": "manual-operator-lifecycle",
+  "observedAt": "2026-09-20T08:25:56.685Z",
+  "startup": "npm run operator:start launched Bee and Next from stopped state; /api/operator returned 200",
+  "shutdown": "SIGINT to operator closed its Bee and Next children",
+  "automaticBackgroundServiceInstalled": false,
+  "checks": [
+    {
+      "port": 1633,
+      "closed": true
+    },
+    {
+      "port": 3002,
+      "closed": true
+    },
+    {
+      "port": 8547,
+      "closed": true
+    }
+  ]
+}

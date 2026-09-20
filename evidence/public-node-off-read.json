@@ -1,0 +1,12 @@
+{
+  "checkedAt": "2026-09-20T08:26:02.870Z",
+  "registry": "0x258a08b90fb76ac3f87d0cb1baebc206370d7d57",
+  "publisher": "0xE3D4802600c47A0BB971b4ea9f0e500bE36c1f72",
+  "successionRevision": "2",
+  "reference": "44ded576aff168975e52eea57663830d09970d1e78c34e3340bca92caa90acf1",
+  "feedIndex": "2",
+  "records": 21,
+  "councilThreshold": 2,
+  "nodeOrPrivateConfigurationRequired": false,
+  "transactionReceiptsChecked": 2
+}

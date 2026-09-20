@@ -109,10 +109,17 @@ export function RelayApp() {
         gatewayValue,
         rpcValue || undefined,
       );
-      if (expected && result.state.publisher.toLowerCase() === expected.publisher.toLowerCase() &&
+      if (
+        expected &&
+        result.state.publisher.toLowerCase() ===
+          expected.publisher.toLowerCase() &&
         (BigInt(result.feedIndex) < BigInt(expected.feedIndex) ||
-          (result.feedIndex === expected.feedIndex && result.reference !== expected.reference))) {
-        throw new Error("Your signed update was stored, but this gateway has not discovered it yet. Refresh shortly; do not republish the correction.");
+          (result.feedIndex === expected.feedIndex &&
+            result.reference !== expected.reference))
+      ) {
+        throw new Error(
+          "Your signed update was stored, but this gateway has not discovered it yet. Refresh shortly; do not republish the correction.",
+        );
       }
       setResolved(result);
       setCatalogue(result.catalogue);
@@ -245,6 +252,7 @@ export function RelayApp() {
             <i /> On Swarm
           </span>
           <Button
+            aria-label={operator ? "Local operator" : "Operator"}
             variant="outline"
             size="sm"
             onClick={() => setOperatorOpen(true)}
@@ -958,6 +966,7 @@ export function RelayApp() {
             <OperatorPanel
               info={operator}
               current={resolved}
+              initialSection={tab === "storage" ? "storage" : "handoff"}
               onChanged={() => refresh()}
             />
           ) : (
@@ -1026,7 +1035,11 @@ function RecordDialog({
   current: ResolvedCatalogue | null;
   operator: OperatorInfo | null;
   onClose: () => void;
-  onPublished: (receipt: { reference: string; feedIndex: string; publisher: string }) => void;
+  onPublished: (receipt: {
+    reference: string;
+    feedIndex: string;
+    publisher: string;
+  }) => void;
 }) {
   const [draft, setDraft] = useState<CatalogueRecord | null>(record),
     [reason, setReason] = useState(""),
@@ -1114,8 +1127,29 @@ function RecordDialog({
               />
             </label>
             <div className="form-columns">
-              <label className="form-label">Material<input value={draft.material} maxLength={100} onChange={e => setDraft({ ...draft, material: e.target.value })} /></label>
-              <label className="form-label">Folio count<input type="number" min="0" max="100000" step="1" value={draft.folios} onChange={e => setDraft({ ...draft, folios: Number(e.target.value) })} /></label>
+              <label className="form-label">
+                Material
+                <input
+                  value={draft.material}
+                  maxLength={100}
+                  onChange={(e) =>
+                    setDraft({ ...draft, material: e.target.value })
+                  }
+                />
+              </label>
+              <label className="form-label">
+                Folio count
+                <input
+                  type="number"
+                  min="0"
+                  max="100000"
+                  step="1"
+                  value={draft.folios}
+                  onChange={(e) =>
+                    setDraft({ ...draft, folios: Number(e.target.value) })
+                  }
+                />
+              </label>
             </div>
             <div className="form-columns">
               <label className="form-label">

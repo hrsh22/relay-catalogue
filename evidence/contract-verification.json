@@ -1,0 +1,12 @@
+{
+  "kind": "live-bytecode-verification",
+  "observedAt": "2026-09-20T08:20:06.524Z",
+  "chainId": 100,
+  "registry": "0x258a08b90fb76ac3f87d0cb1baebc206370d7d57",
+  "council": "0x905BbC3A0D565BfF5681B064c932f896cC23186F",
+  "catalogueId": "0xae3b1afab886f30e96e393cf43e678d38ed0f0d7b3550d266064b3db55085a0b",
+  "compiler": "0.8.37+commit.f401782d.Emscripten.clang",
+  "runtimeBytes": 1479,
+  "instructionsAndMetadataMatch": true,
+  "constructorImmutablesMatch": true
+}

@@ -46,8 +46,8 @@ Technically demonstrated: the original publisher stops participating in the appo
 
 Socially partial: actual institutions have not adopted the agreement, and the demo does not establish independent custody or an enduring renewal fund. Those limits are stated in the app, agreement and README.
 
-## Final verification priorities
+## Final verification completed
 
-1. Check the deployed reader with local Bee and operator stopped, from a clean browser context and an isolated checkout.
-2. Inspect mobile layouts, correction validation, local operator renewal quotes and public failure states.
-3. Confirm repository CI and public evidence links before submitting the separate Problem 3 repository.
+1. With Bee, Next operator and the test chain stopped, the deployed reader loaded in incognito Chrome and a clean GitHub checkout resolved C feed index 2 without private configuration.
+2. Mobile layouts, correction validation, live browser publication, renewal quotes and the unavailable-gateway state were checked. Operator accessibility, collection-name search and external successor input were improved.
+3. Eight tests, type checking, production build, source/runtime contract verification and secret scanning passed. CI verifies the repository independently. See [VERIFICATION.md](VERIFICATION.md) for the evidence and remaining custody limitations.

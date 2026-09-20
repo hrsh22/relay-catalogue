@@ -17,7 +17,8 @@
     "operator:start": "tsx scripts/operator.ts",
     "verify:live": "tsx scripts/verify-live.ts",
     "check:secrets": "node scripts/check-secrets.mjs",
-    "format": "prettier --write src scripts tests docs README.md"
+    "format": "prettier --write src scripts tests docs README.md",
+    "verify:contract": "node scripts/verify-contract.mjs"
   },
   "dependencies": {
     "@ethersphere/bee-js": "13.1.0",

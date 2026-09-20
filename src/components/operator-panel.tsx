@@ -33,16 +33,30 @@ export function OperatorPanel({
   info,
   current,
   onChanged,
+  initialSection = "handoff",
 }: {
   info: OperatorInfo;
   current: ResolvedCatalogue | null;
   onChanged: () => void;
+  initialSection?: "handoff" | "storage";
 }) {
-  const [section, setSection] = useState<"handoff" | "storage">("handoff");
+  const [section, setSection] = useState<"handoff" | "storage">(initialSection);
   const [incoming, setIncoming] = useState(""),
     [checkpoint, setCheckpoint] = useState("");
+  const [externalAddress, setExternalAddress] = useState("");
+  const incomingAddress =
+    incoming === "external"
+      ? externalAddress
+      : info.config.publishers[incoming];
   const [proposal, setProposal] = useState<Proposal | null>(null),
-    [delegate, setDelegate] = useState("1");
+    [delegate, setDelegate] = useState(
+      () =>
+        Object.entries(info.config.councilOwners).find(([, address]) =>
+          current?.state.owners.some(
+            (owner) => owner.toLowerCase() === address.toLowerCase(),
+          ),
+        )?.[0] || "",
+    );
   const [days, setDays] = useState("1"),
     [quote, setQuote] = useState<StorageQuote | null>(null);
   const [busy, setBusy] = useState(""),
@@ -93,7 +107,7 @@ export function OperatorPanel({
             </p>
           )}
           <label className="form-label">
-            Incoming demo steward
+            Incoming steward
             <select
               value={incoming}
               disabled={Boolean(busy)}
@@ -109,49 +123,90 @@ export function OperatorPanel({
                   Steward {key.toUpperCase()} - {short(address, 4)}
                 </option>
               ))}
+              <option value="external">Another steward's public address</option>
             </select>
           </label>
-          <Button
-            variant="outline"
-            disabled={!incoming || !current || Boolean(busy)}
-            onClick={() =>
-              act("Staging the incoming catalogue", async () => {
-                const catalogue = {
-                  ...current!.catalogue,
-                  publisher: info.config.publishers[incoming],
-                  revision: 0,
-                  previous: null,
-                  updatedAt: new Date().toISOString(),
-                  change:
-                    "Incoming steward stages a catalogue copy for a voluntary handoff.",
-                };
-                const result = await operatorRequest({
-                  action: "stage",
-                  identity: `publisher-${incoming}`,
-                  catalogue,
-                });
-                setCheckpoint(result.reference);
-                setNotice(
-                  "Incoming feed published and read back. The appointment has not changed.",
-                );
-              })
-            }
-          >
-            {checkpoint ? <Check size={15} /> : <ArrowRight size={15} />}Stage
-            incoming feed
-          </Button>
+          {incoming === "external" && (
+            <>
+              <p className="quiet-note">
+                The incoming steward publishes with their own key and node, then
+                shares only their public address and Swarm checkpoint. Preparing
+                the proposal verifies that feed.
+              </p>
+              <label className="form-label">
+                Publisher address
+                <input
+                  value={externalAddress}
+                  placeholder="0x..."
+                  disabled={Boolean(busy)}
+                  onChange={(e) => {
+                    setExternalAddress(e.target.value.trim());
+                    setProposal(null);
+                  }}
+                />
+              </label>
+              <label className="form-label">
+                Incoming catalogue reference
+                <input
+                  value={checkpoint}
+                  placeholder="64-character Swarm reference"
+                  disabled={Boolean(busy)}
+                  onChange={(e) => {
+                    setCheckpoint(e.target.value.trim());
+                    setProposal(null);
+                  }}
+                />
+              </label>
+            </>
+          )}
+          {incoming !== "external" && (
+            <Button
+              variant="outline"
+              disabled={!incoming || !current || Boolean(busy)}
+              onClick={() =>
+                act("Staging the incoming catalogue", async () => {
+                  const catalogue = {
+                    ...current!.catalogue,
+                    publisher: info.config.publishers[incoming],
+                    revision: 0,
+                    previous: null,
+                    updatedAt: new Date().toISOString(),
+                    change:
+                      "Incoming steward stages a catalogue copy for a voluntary handoff.",
+                  };
+                  const result = await operatorRequest({
+                    action: "stage",
+                    identity: `publisher-${incoming}`,
+                    catalogue,
+                  });
+                  setCheckpoint(result.reference);
+                  setNotice(
+                    "Incoming feed published and read back. The appointment has not changed.",
+                  );
+                })
+              }
+            >
+              {checkpoint ? <Check size={15} /> : <ArrowRight size={15} />}Stage
+              incoming feed
+            </Button>
+          )}
           {checkpoint && (
             <div className="operator-step">
-              <p className="small-label">VERIFIED INCOMING CHECKPOINT</p>
+              <p className="small-label">INCOMING CHECKPOINT</p>
               <code>{checkpoint}</code>
               <Button
-                disabled={Boolean(busy) || Boolean(proposal)}
+                disabled={
+                  Boolean(busy) ||
+                  Boolean(proposal) ||
+                  !current ||
+                  !incomingAddress
+                }
                 onClick={() =>
                   act("Preparing the appointment", async () => {
                     setProposal(
                       await operatorRequest({
                         action: "propose",
-                        incoming: info.config.publishers[incoming],
+                        incoming: incomingAddress,
                         checkpoint,
                         agreement: current!.state.agreement,
                       }),
@@ -169,7 +224,7 @@ export function OperatorPanel({
               <dl className="proposal-summary">
                 <div>
                   <dt>Incoming address</dt>
-                  <dd>{info.config.publishers[incoming]}</dd>
+                  <dd>{incomingAddress}</dd>
                 </div>
                 <div>
                   <dt>Safe transaction</dt>

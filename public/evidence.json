@@ -605,6 +605,130 @@
         "staging": false,
         "retiredPublisherTest": false
       }
+    },
+    {
+      "file": "browser-publication.json",
+      "record": {
+        "kind": "browser-publication-verification",
+        "checkedAt": "2026-09-20T08:17:08.526Z",
+        "registry": "0x258a08b90fb76ac3f87d0cb1baebc206370d7d57",
+        "publisher": "0xE3D4802600c47A0BB971b4ea9f0e500bE36c1f72",
+        "reference": "44ded576aff168975e52eea57663830d09970d1e78c34e3340bca92caa90acf1",
+        "feedIndex": "2",
+        "checks": [
+          "Empty correction reason rejected in browser",
+          "Pin valley collection-name search returns three records",
+          "Correction published through local browser operator and resolved through public gateway"
+        ],
+        "note": "Successor B's live correction: the example item was located and is fragile, rather than missing. Steward C reviewed this note through the local operator form."
+      }
+    },
+    {
+      "file": "browser-walkthrough.json",
+      "record": {
+        "kind": "browser-walkthrough",
+        "observedAt": "2026-09-20T08:27:57.790Z",
+        "method": "Chrome native accessibility and screenshots",
+        "checks": [
+          "375px responsive catalogue, navigation and renewal dialog",
+          "Collection-name search returns three Pin valley records",
+          "Correction requires a reason; valid correction published at C feed index 2",
+          "Real renewal quote displayed without executing a second payment",
+          "Incognito public reader verified C with local node stopped",
+          "Unavailable gateway showed a clearly labelled recorded copy",
+          "Production operator API disabled (404)",
+          "Cross-origin local operator mutation rejected (403)"
+        ],
+        "limitations": [
+          "One-person test custody",
+          "No automated browser suite or saved screenshot artifact claimed"
+        ]
+      }
+    },
+    {
+      "file": "contract-verification.json",
+      "record": {
+        "kind": "live-bytecode-verification",
+        "observedAt": "2026-09-20T08:20:06.524Z",
+        "chainId": 100,
+        "registry": "0x258a08b90fb76ac3f87d0cb1baebc206370d7d57",
+        "council": "0x905BbC3A0D565BfF5681B064c932f896cC23186F",
+        "catalogueId": "0xae3b1afab886f30e96e393cf43e678d38ed0f0d7b3550d266064b3db55085a0b",
+        "compiler": "0.8.37+commit.f401782d.Emscripten.clang",
+        "runtimeBytes": 1479,
+        "instructionsAndMetadataMatch": true,
+        "constructorImmutablesMatch": true
+      }
+    },
+    {
+      "file": "independent-recovery.json",
+      "record": {
+        "kind": "isolated-checkout-recovery",
+        "observedAt": "2026-09-20T08:26:32.088Z",
+        "source": "https://github.com/hrsh22/relay-catalogue",
+        "checkout": "af29e6287b5120f40275dd3bf4626afed8b96d23",
+        "privateConfigurationPresent": false,
+        "localServices": [
+          {
+            "port": 1633,
+            "closed": true
+          },
+          {
+            "port": 3002,
+            "closed": true
+          },
+          {
+            "port": 8547,
+            "closed": true
+          }
+        ],
+        "registry": "0x258a08b90fb76ac3f87d0cb1baebc206370d7d57",
+        "publisher": "0xE3D4802600c47A0BB971b4ea9f0e500bE36c1f72",
+        "reference": "44ded576aff168975e52eea57663830d09970d1e78c34e3340bca92caa90acf1",
+        "feedIndex": "2",
+        "records": 21,
+        "councilThreshold": 2,
+        "command": "npm run relay -- read --registry 0x258a08b90fb76ac3f87d0cb1baebc206370d7d57"
+      }
+    },
+    {
+      "file": "operator-lifecycle.json",
+      "record": {
+        "kind": "manual-operator-lifecycle",
+        "observedAt": "2026-09-20T08:25:56.685Z",
+        "startup": "npm run operator:start launched Bee and Next from stopped state; /api/operator returned 200",
+        "shutdown": "SIGINT to operator closed its Bee and Next children",
+        "automaticBackgroundServiceInstalled": false,
+        "checks": [
+          {
+            "port": 1633,
+            "closed": true
+          },
+          {
+            "port": 3002,
+            "closed": true
+          },
+          {
+            "port": 8547,
+            "closed": true
+          }
+        ]
+      }
+    },
+    {
+      "file": "public-node-off-read.json",
+      "record": {
+        "checkedAt": "2026-09-20T08:26:02.870Z",
+        "registry": "0x258a08b90fb76ac3f87d0cb1baebc206370d7d57",
+        "publisher": "0xE3D4802600c47A0BB971b4ea9f0e500bE36c1f72",
+        "successionRevision": "2",
+        "reference": "44ded576aff168975e52eea57663830d09970d1e78c34e3340bca92caa90acf1",
+        "feedIndex": "2",
+        "records": 21,
+        "councilThreshold": 2,
+        "nodeOrPrivateConfigurationRequired": false,
+        "transactionReceiptsChecked": 2
+      }
     }
   ]
 }
