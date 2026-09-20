@@ -1,0 +1,610 @@
+{
+  "format": "relay.evidence.v1",
+  "records": [
+    {
+      "file": "2026-09-20T07-52-02.358Z-fork-rehearsal.json",
+      "record": {
+        "kind": "isolated-gnosis-fork",
+        "publicChainTransactions": false,
+        "observedAt": "2026-09-20T07:52:02.357Z",
+        "checks": [
+          "Publisher cannot appoint a successor directly",
+          "Actual Safe contract requires two approvals",
+          "One signature cannot execute an appointment",
+          "Two signatures appoint successor B",
+          "Executed Safe transaction cannot be replayed",
+          "Stale succession revision is rejected even with quorum",
+          "Council and publisher identities cannot overlap",
+          "Council delegate replacement preserves threshold and removes old delegate",
+          "Replacement council appoints successor C without original delegate or publisher"
+        ],
+        "council": "0x4E286e760Eb066696D1d480355B6A7d5f6C03Fff",
+        "registry": "0x95aa2e8c349b0b3dd4f2a8592d9b2dfd32158eb0",
+        "note": "This validates real Safe bytecode on a local fork. Separate live receipts are required for the actual handoff."
+      }
+    },
+    {
+      "file": "2026-09-20T07-56-33.766Z-executor-funding.json",
+      "record": {
+        "kind": "executor-funding",
+        "from": "0xcbd751094539a35fe771df339ec4c1fe12279ff7",
+        "to": "0x371ac7950C1Fb6dD43457dC86905d4652016f9F9",
+        "amountWei": "100000000000000",
+        "hash": "0xb36d065ed7ee34c668f174cbcefdd713c0a33e85dfd7174497f12a540c96ba40",
+        "observedAt": "2026-09-20T07:56:33.765Z"
+      }
+    },
+    {
+      "file": "2026-09-20T07-56-44.734Z-publication.json",
+      "record": {
+        "kind": "live-swarm-publication",
+        "observedAt": "2026-09-20T07:56:44.733Z",
+        "publisher": "0x9655118E79dCAc22D01A669e9242A37ee722Cf48",
+        "catalogueId": "0xae3b1afab886f30e96e393cf43e678d38ed0f0d7b3550d266064b3db55085a0b",
+        "topic": "0x378b8f5429fdeda31b6fbf0fa4ba09620a4e68e74b09640c1b036f5d75e48ded",
+        "batchId": "c851f331b00d953d3173ef629637953b8d73018383c1c5f13388b347f2303e1e",
+        "reference": "0417891ddb383a55ff7402450ac56c2dcf92799693ed03039c44723adbc0d666",
+        "feedIndex": "0",
+        "previous": null,
+        "change": "Original steward A establishes the shared demonstration catalogue.",
+        "staging": false,
+        "retiredPublisherTest": false
+      }
+    },
+    {
+      "file": "2026-09-20T07-57-10.827Z-council-deployed.json",
+      "record": {
+        "address": "0x905BbC3A0D565BfF5681B064c932f896cC23186F",
+        "hash": "0xcb70322f54179f0093aa6dd3dcc3f39f422452f84a9b7f0dddc9836719bd97d0",
+        "blockNumber": "48344076",
+        "owners": [
+          "0x5a61cf2999f3791f9339DCC98Dd19Aa39C34c7Ef",
+          "0x7BEcf64a355339E3e38253cE5E007F1B7AdE40C5",
+          "0x7bCC452364CA61d7e90fe532D4a6043f09b7585F"
+        ],
+        "threshold": 2
+      }
+    },
+    {
+      "file": "2026-09-20T07-58-17.050Z-registry-deployed.json",
+      "record": {
+        "observedAt": "2026-09-20T07:58:17.049Z",
+        "hash": "0x58be277bc60717cbabcad3929dd8814e3f25937a6c35065a0fa53f5229916571",
+        "state": {
+          "chainId": 100,
+          "registry": "0x258a08b90fb76ac3f87d0cb1baebc206370d7d57",
+          "council": "0x905BbC3A0D565BfF5681B064c932f896cC23186F",
+          "catalogueId": "0xae3b1afab886f30e96e393cf43e678d38ed0f0d7b3550d266064b3db55085a0b",
+          "publisher": "0x9655118E79dCAc22D01A669e9242A37ee722Cf48",
+          "topic": "0x378b8f5429fdeda31b6fbf0fa4ba09620a4e68e74b09640c1b036f5d75e48ded",
+          "checkpoint": "0417891ddb383a55ff7402450ac56c2dcf92799693ed03039c44723adbc0d666",
+          "agreement": "fa3d75c75803d29ba02435ffcaff699eb6adac0ba9e81261af8a5fb61214a9e9",
+          "revision": "0",
+          "blockNumber": "48344088",
+          "owners": [
+            "0x5a61cf2999f3791f9339DCC98Dd19Aa39C34c7Ef",
+            "0x7BEcf64a355339E3e38253cE5E007F1B7AdE40C5",
+            "0x7bCC452364CA61d7e90fe532D4a6043f09b7585F"
+          ],
+          "threshold": 2
+        },
+        "compiler": "0.8.37+commit.f401782d.Emscripten.clang",
+        "stableIdentifier": "eip155:100:0x258a08b90fb76ac3f87d0cb1baebc206370d7d57"
+      }
+    },
+    {
+      "file": "2026-09-20T08-05-03.964Z-publication.json",
+      "record": {
+        "kind": "live-swarm-publication",
+        "observedAt": "2026-09-20T08:05:03.964Z",
+        "publisher": "0x9655118E79dCAc22D01A669e9242A37ee722Cf48",
+        "catalogueId": "0xae3b1afab886f30e96e393cf43e678d38ed0f0d7b3550d266064b3db55085a0b",
+        "topic": "0x378b8f5429fdeda31b6fbf0fa4ba09620a4e68e74b09640c1b036f5d75e48ded",
+        "batchId": "c851f331b00d953d3173ef629637953b8d73018383c1c5f13388b347f2303e1e",
+        "reference": "87bc6a8dd460c28b3861b3a340c5cd486582f18151f92a8f22db036527be59a1",
+        "feedIndex": "1",
+        "previous": "0417891ddb383a55ff7402450ac56c2dcf92799693ed03039c44723adbc0d666",
+        "change": "Steward A checks the first collection and confirms its photographed inventory.",
+        "staging": false,
+        "retiredPublisherTest": false
+      }
+    },
+    {
+      "file": "2026-09-20T08-05-03.968Z-retirement-notice.json",
+      "record": {
+        "message": "Relay voluntary retirement rehearsal. Registry 0x258a08b90fb76ac3f87d0cb1baebc206370d7d57. Outgoing 0x9655118E79dCAc22D01A669e9242A37ee722Cf48. Incoming 0x041B9D252d4BD580171BD302174D6C3672DB91dC. This is a test-key rehearsal operated by Harsh Gupta, not independent human custody.",
+        "signer": "0x9655118E79dCAc22D01A669e9242A37ee722Cf48",
+        "signature": "0x7b70479cae64a74ae892725efcde135ae9dae12477e15a309446181ff18f863d29f5a60536a677ddb04a9ac318daec9b0ae7f5f80d695ce04e78a7d633d043741c",
+        "observedAt": "2026-09-20T08:05:03.968Z"
+      }
+    },
+    {
+      "file": "2026-09-20T08-05-11.725Z-publication.json",
+      "record": {
+        "kind": "live-swarm-publication",
+        "observedAt": "2026-09-20T08:05:11.725Z",
+        "publisher": "0x041B9D252d4BD580171BD302174D6C3672DB91dC",
+        "catalogueId": "0xae3b1afab886f30e96e393cf43e678d38ed0f0d7b3550d266064b3db55085a0b",
+        "topic": "0x378b8f5429fdeda31b6fbf0fa4ba09620a4e68e74b09640c1b036f5d75e48ded",
+        "batchId": "c851f331b00d953d3173ef629637953b8d73018383c1c5f13388b347f2303e1e",
+        "reference": "3001db193c1dbe628aa0c488055f62a503fcfc6b3a192d3430dbce338c113966",
+        "feedIndex": "0",
+        "previous": null,
+        "change": "Incoming steward B verifies and stages the catalogue after A's voluntary retirement.",
+        "staging": true,
+        "retiredPublisherTest": false
+      }
+    },
+    {
+      "file": "2026-09-20T08-05-28.668Z-one-signature-rejected.json",
+      "record": {
+        "kind": "live-eth-call",
+        "publicChainTransactionSent": false,
+        "registry": "0x258a08b90fb76ac3f87d0cb1baebc206370d7d57",
+        "safeTxHash": "0xb76d984e631fb1a826dfe1ce27490c9c1ddd96ab4b65736714e4719df8271789",
+        "approvals": [
+          {
+            "signer": "0x5a61cf2999f3791f9339DCC98Dd19Aa39C34c7Ef",
+            "data": "0x967b502b1b755a4162945ac4eaae9637e4283745a5cafeb029d9f4fe48f1ace179d28799a3c3fdffbf585a7a8b1750b6b051357d6cc06fe918f87a114fc7781a1c"
+          }
+        ],
+        "result": "Safe simulation rejected one signature",
+        "observedAt": "2026-09-20T08:05:28.668Z"
+      }
+    },
+    {
+      "file": "2026-09-20T08-05-54.845Z-appoint.json",
+      "record": {
+        "kind": "appoint",
+        "observedAt": "2026-09-20T08:05:54.845Z",
+        "hash": "0x4844b565784ef0de32441887077e2bf4edf60b3de1f530d515d5d90ee49cf499",
+        "blockNumber": "48344177",
+        "proposal": {
+          "format": "relay.proposal.v1",
+          "chainId": 100,
+          "registry": "0x258a08b90fb76ac3f87d0cb1baebc206370d7d57",
+          "council": "0x905BbC3A0D565BfF5681B064c932f896cC23186F",
+          "kind": "appoint",
+          "description": "Appoint 0x041B9D252d4BD580171BD302174D6C3672DB91dC after 0x9655118E79dCAc22D01A669e9242A37ee722Cf48; expected succession revision 0.",
+          "createdAt": "2026-09-20T08:05:17.100Z",
+          "transaction": {
+            "to": "0x258a08b90fb76ac3f87d0cb1baebc206370d7d57",
+            "value": "0",
+            "data": "0xfe67916f0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000041b9d252d4bd580171bd302174d6c3672db91dc378b8f5429fdeda31b6fbf0fa4ba09620a4e68e74b09640c1b036f5d75e48ded3001db193c1dbe628aa0c488055f62a503fcfc6b3a192d3430dbce338c113966fa3d75c75803d29ba02435ffcaff699eb6adac0ba9e81261af8a5fb61214a9e9",
+            "operation": 0,
+            "baseGas": "0",
+            "gasPrice": "0",
+            "gasToken": "0x0000000000000000000000000000000000000000",
+            "refundReceiver": "0x0000000000000000000000000000000000000000",
+            "nonce": 0,
+            "safeTxGas": "0"
+          },
+          "safeTxHash": "0xb76d984e631fb1a826dfe1ce27490c9c1ddd96ab4b65736714e4719df8271789",
+          "signatures": [
+            {
+              "signer": "0x5a61cf2999f3791f9339DCC98Dd19Aa39C34c7Ef",
+              "data": "0x967b502b1b755a4162945ac4eaae9637e4283745a5cafeb029d9f4fe48f1ace179d28799a3c3fdffbf585a7a8b1750b6b051357d6cc06fe918f87a114fc7781a1c"
+            },
+            {
+              "signer": "0x7BEcf64a355339E3e38253cE5E007F1B7AdE40C5",
+              "data": "0xb4fdb74667895a64261de5a04840261497d322bcffdab57dee442007bf0453136220f6fd10747f51d4e04472194a93ee215de5dc593247c70052df7a6f6b0b8e1b"
+            }
+          ]
+        },
+        "before": {
+          "chainId": 100,
+          "registry": "0x258a08b90fb76ac3f87d0cb1baebc206370d7d57",
+          "council": "0x905BbC3A0D565BfF5681B064c932f896cC23186F",
+          "catalogueId": "0xae3b1afab886f30e96e393cf43e678d38ed0f0d7b3550d266064b3db55085a0b",
+          "publisher": "0x9655118E79dCAc22D01A669e9242A37ee722Cf48",
+          "topic": "0x378b8f5429fdeda31b6fbf0fa4ba09620a4e68e74b09640c1b036f5d75e48ded",
+          "checkpoint": "0417891ddb383a55ff7402450ac56c2dcf92799693ed03039c44723adbc0d666",
+          "agreement": "fa3d75c75803d29ba02435ffcaff699eb6adac0ba9e81261af8a5fb61214a9e9",
+          "revision": "0",
+          "blockNumber": "48344173",
+          "owners": [
+            "0x5a61cf2999f3791f9339DCC98Dd19Aa39C34c7Ef",
+            "0x7BEcf64a355339E3e38253cE5E007F1B7AdE40C5",
+            "0x7bCC452364CA61d7e90fe532D4a6043f09b7585F"
+          ],
+          "threshold": 2
+        },
+        "after": {
+          "chainId": 100,
+          "registry": "0x258a08b90fb76ac3f87d0cb1baebc206370d7d57",
+          "council": "0x905BbC3A0D565BfF5681B064c932f896cC23186F",
+          "catalogueId": "0xae3b1afab886f30e96e393cf43e678d38ed0f0d7b3550d266064b3db55085a0b",
+          "publisher": "0x041B9D252d4BD580171BD302174D6C3672DB91dC",
+          "topic": "0x378b8f5429fdeda31b6fbf0fa4ba09620a4e68e74b09640c1b036f5d75e48ded",
+          "checkpoint": "3001db193c1dbe628aa0c488055f62a503fcfc6b3a192d3430dbce338c113966",
+          "agreement": "fa3d75c75803d29ba02435ffcaff699eb6adac0ba9e81261af8a5fb61214a9e9",
+          "revision": "1",
+          "blockNumber": "48344177",
+          "owners": [
+            "0x5a61cf2999f3791f9339DCC98Dd19Aa39C34c7Ef",
+            "0x7BEcf64a355339E3e38253cE5E007F1B7AdE40C5",
+            "0x7bCC452364CA61d7e90fe532D4a6043f09b7585F"
+          ],
+          "threshold": 2
+        }
+      }
+    },
+    {
+      "file": "2026-09-20T08-07-29.542Z-publication.json",
+      "record": {
+        "kind": "live-swarm-publication",
+        "observedAt": "2026-09-20T08:07:29.541Z",
+        "publisher": "0x041B9D252d4BD580171BD302174D6C3672DB91dC",
+        "catalogueId": "0xae3b1afab886f30e96e393cf43e678d38ed0f0d7b3550d266064b3db55085a0b",
+        "topic": "0x378b8f5429fdeda31b6fbf0fa4ba09620a4e68e74b09640c1b036f5d75e48ded",
+        "batchId": "c851f331b00d953d3173ef629637953b8d73018383c1c5f13388b347f2303e1e",
+        "reference": "ecf6676c6ac0ebba4d517d881e59da0ee40600c93793bf0760ede4b5f004ba71",
+        "feedIndex": "1",
+        "previous": "3001db193c1dbe628aa0c488055f62a503fcfc6b3a192d3430dbce338c113966",
+        "change": "Steward B corrects the Pin valley condition after appointment.",
+        "staging": false,
+        "retiredPublisherTest": false,
+        "reconciled": true
+      }
+    },
+    {
+      "file": "2026-09-20T08-07-35.951Z-publication.json",
+      "record": {
+        "kind": "live-swarm-publication",
+        "observedAt": "2026-09-20T08:07:35.950Z",
+        "publisher": "0x9655118E79dCAc22D01A669e9242A37ee722Cf48",
+        "catalogueId": "0xae3b1afab886f30e96e393cf43e678d38ed0f0d7b3550d266064b3db55085a0b",
+        "topic": "0x378b8f5429fdeda31b6fbf0fa4ba09620a4e68e74b09640c1b036f5d75e48ded",
+        "batchId": "c851f331b00d953d3173ef629637953b8d73018383c1c5f13388b347f2303e1e",
+        "reference": "34d0b943311faf221a8cb7d8f4ca0af233351115e459b398fd88f6bd5b278823",
+        "feedIndex": "2",
+        "previous": "87bc6a8dd460c28b3861b3a340c5cd486582f18151f92a8f22db036527be59a1",
+        "change": "Retired publisher test: this old feed is no longer authoritative.",
+        "staging": false,
+        "retiredPublisherTest": true
+      }
+    },
+    {
+      "file": "2026-09-20T08-07-42.660Z-retired-key-ignored.json",
+      "record": {
+        "kind": "live-reader-check",
+        "stableIdentifier": "eip155:100:0x258a08b90fb76ac3f87d0cb1baebc206370d7d57",
+        "retiredPublisher": "0x9655118E79dCAc22D01A669e9242A37ee722Cf48",
+        "activePublisher": "0x041B9D252d4BD580171BD302174D6C3672DB91dC",
+        "reference": "ecf6676c6ac0ebba4d517d881e59da0ee40600c93793bf0760ede4b5f004ba71",
+        "result": "Retired A's later publication did not change the authoritative catalogue",
+        "observedAt": "2026-09-20T08:07:42.660Z"
+      }
+    },
+    {
+      "file": "2026-09-20T08-08-16.610Z-replace-councillor.json",
+      "record": {
+        "kind": "replace-councillor",
+        "observedAt": "2026-09-20T08:08:16.610Z",
+        "hash": "0xf62f0b3105de47f3c272ef5f17fd07525d82982bc38ba05121eb38a9955b3edf",
+        "blockNumber": "48344206",
+        "proposal": {
+          "format": "relay.proposal.v1",
+          "chainId": 100,
+          "registry": "0x258a08b90fb76ac3f87d0cb1baebc206370d7d57",
+          "council": "0x905BbC3A0D565BfF5681B064c932f896cC23186F",
+          "kind": "replace-councillor",
+          "description": "Replace council delegate 0x5a61cf2999f3791f9339DCC98Dd19Aa39C34c7Ef with 0x72909E70339C3850B5EE16C75FF0d866837c80c3; retain threshold.",
+          "createdAt": "2026-09-20T08:07:47.777Z",
+          "transaction": {
+            "to": "0x905BbC3A0D565BfF5681B064c932f896cC23186F",
+            "value": "0",
+            "data": "0xe318b52b00000000000000000000000000000000000000000000000000000000000000010000000000000000000000005a61cf2999f3791f9339dcc98dd19aa39c34c7ef00000000000000000000000072909e70339c3850b5ee16c75ff0d866837c80c3",
+            "operation": 0,
+            "baseGas": "0",
+            "gasPrice": "0",
+            "gasToken": "0x0000000000000000000000000000000000000000",
+            "refundReceiver": "0x0000000000000000000000000000000000000000",
+            "nonce": 1,
+            "safeTxGas": "0"
+          },
+          "safeTxHash": "0x614572388cf46a8de0fc44b1d48bcad183cfd99df3af5dbb0eb4e544c8f75be0",
+          "signatures": [
+            {
+              "signer": "0x7BEcf64a355339E3e38253cE5E007F1B7AdE40C5",
+              "data": "0x3af934816d87a18724641ce9404dadf824c5c826917952076dcf89e2c99120a078c496a6797d4a3b4cf994cae6ebb9fc3381d59720df0a5282b516a06f2d69351c"
+            },
+            {
+              "signer": "0x7bCC452364CA61d7e90fe532D4a6043f09b7585F",
+              "data": "0x1acd64d1e5224e94b180c823899cac5b4a3e2bd861ce5485490bc949d03b2df96b18d54e630db976d595da1d2bb7575d6cf29818de296fd77353356f988ec56c1b"
+            }
+          ]
+        },
+        "before": {
+          "chainId": 100,
+          "registry": "0x258a08b90fb76ac3f87d0cb1baebc206370d7d57",
+          "council": "0x905BbC3A0D565BfF5681B064c932f896cC23186F",
+          "catalogueId": "0xae3b1afab886f30e96e393cf43e678d38ed0f0d7b3550d266064b3db55085a0b",
+          "publisher": "0x041B9D252d4BD580171BD302174D6C3672DB91dC",
+          "topic": "0x378b8f5429fdeda31b6fbf0fa4ba09620a4e68e74b09640c1b036f5d75e48ded",
+          "checkpoint": "3001db193c1dbe628aa0c488055f62a503fcfc6b3a192d3430dbce338c113966",
+          "agreement": "fa3d75c75803d29ba02435ffcaff699eb6adac0ba9e81261af8a5fb61214a9e9",
+          "revision": "1",
+          "blockNumber": "48344203",
+          "owners": [
+            "0x5a61cf2999f3791f9339DCC98Dd19Aa39C34c7Ef",
+            "0x7BEcf64a355339E3e38253cE5E007F1B7AdE40C5",
+            "0x7bCC452364CA61d7e90fe532D4a6043f09b7585F"
+          ],
+          "threshold": 2
+        },
+        "after": {
+          "chainId": 100,
+          "registry": "0x258a08b90fb76ac3f87d0cb1baebc206370d7d57",
+          "council": "0x905BbC3A0D565BfF5681B064c932f896cC23186F",
+          "catalogueId": "0xae3b1afab886f30e96e393cf43e678d38ed0f0d7b3550d266064b3db55085a0b",
+          "publisher": "0x041B9D252d4BD580171BD302174D6C3672DB91dC",
+          "topic": "0x378b8f5429fdeda31b6fbf0fa4ba09620a4e68e74b09640c1b036f5d75e48ded",
+          "checkpoint": "3001db193c1dbe628aa0c488055f62a503fcfc6b3a192d3430dbce338c113966",
+          "agreement": "fa3d75c75803d29ba02435ffcaff699eb6adac0ba9e81261af8a5fb61214a9e9",
+          "revision": "1",
+          "blockNumber": "48344206",
+          "owners": [
+            "0x72909E70339C3850B5EE16C75FF0d866837c80c3",
+            "0x7BEcf64a355339E3e38253cE5E007F1B7AdE40C5",
+            "0x7bCC452364CA61d7e90fe532D4a6043f09b7585F"
+          ],
+          "threshold": 2
+        }
+      }
+    },
+    {
+      "file": "2026-09-20T08-08-16.618Z-retirement-notice.json",
+      "record": {
+        "message": "Relay voluntary retirement rehearsal. Registry 0x258a08b90fb76ac3f87d0cb1baebc206370d7d57. Outgoing 0x041B9D252d4BD580171BD302174D6C3672DB91dC. Incoming 0xE3D4802600c47A0BB971b4ea9f0e500bE36c1f72. This is a test-key rehearsal operated by Harsh Gupta, not independent human custody.",
+        "signer": "0x041B9D252d4BD580171BD302174D6C3672DB91dC",
+        "signature": "0x5fdacac4b1a082edac7daacda49abeb91a8d8b8f4832fc9ca38bae380ea4ed3b7c884fd6ab7d413fa188e57f4d506cd694decf4d3edb10b6d5ee426ff16c36b11c",
+        "observedAt": "2026-09-20T08:08:16.618Z"
+      }
+    },
+    {
+      "file": "2026-09-20T08-08-24.611Z-publication.json",
+      "record": {
+        "kind": "live-swarm-publication",
+        "observedAt": "2026-09-20T08:08:24.610Z",
+        "publisher": "0xE3D4802600c47A0BB971b4ea9f0e500bE36c1f72",
+        "catalogueId": "0xae3b1afab886f30e96e393cf43e678d38ed0f0d7b3550d266064b3db55085a0b",
+        "topic": "0x378b8f5429fdeda31b6fbf0fa4ba09620a4e68e74b09640c1b036f5d75e48ded",
+        "batchId": "c851f331b00d953d3173ef629637953b8d73018383c1c5f13388b347f2303e1e",
+        "reference": "42ae6b595728c3f0c3c72c79377a0607a2311d81cc8a776d5923bda1538df10a",
+        "feedIndex": "0",
+        "previous": null,
+        "change": "Incoming steward C stages the catalogue after B's voluntary retirement.",
+        "staging": true,
+        "retiredPublisherTest": false
+      }
+    },
+    {
+      "file": "2026-09-20T08-08-43.353Z-one-signature-rejected.json",
+      "record": {
+        "kind": "live-eth-call",
+        "publicChainTransactionSent": false,
+        "registry": "0x258a08b90fb76ac3f87d0cb1baebc206370d7d57",
+        "safeTxHash": "0xc83eadaadd78883a5890fe92329dce55a3c89812039d44818cfcb0b5cc40709a",
+        "approvals": [
+          {
+            "signer": "0x7BEcf64a355339E3e38253cE5E007F1B7AdE40C5",
+            "data": "0x9f918a583a1ef65b812ad40ff49017b918a35785baa497c2298cac0b962c35ec16a5e377cf506198bbbbdfe197be493f80610fc8bac6f6751af74e78b3674d821b"
+          }
+        ],
+        "result": "Safe simulation rejected one signature",
+        "observedAt": "2026-09-20T08:08:43.353Z"
+      }
+    },
+    {
+      "file": "2026-09-20T08-09-08.068Z-appoint.json",
+      "record": {
+        "kind": "appoint",
+        "observedAt": "2026-09-20T08:09:08.068Z",
+        "hash": "0xefbfa01d2baad577a105392544477774f1a0e50677d14127fbe4ba6f79e839a0",
+        "blockNumber": "48344216",
+        "proposal": {
+          "format": "relay.proposal.v1",
+          "chainId": 100,
+          "registry": "0x258a08b90fb76ac3f87d0cb1baebc206370d7d57",
+          "council": "0x905BbC3A0D565BfF5681B064c932f896cC23186F",
+          "kind": "appoint",
+          "description": "Appoint 0xE3D4802600c47A0BB971b4ea9f0e500bE36c1f72 after 0x041B9D252d4BD580171BD302174D6C3672DB91dC; expected succession revision 1.",
+          "createdAt": "2026-09-20T08:08:30.554Z",
+          "transaction": {
+            "to": "0x258a08b90fb76ac3f87d0cb1baebc206370d7d57",
+            "value": "0",
+            "data": "0xfe67916f0000000000000000000000000000000000000000000000000000000000000001000000000000000000000000e3d4802600c47a0bb971b4ea9f0e500be36c1f72378b8f5429fdeda31b6fbf0fa4ba09620a4e68e74b09640c1b036f5d75e48ded42ae6b595728c3f0c3c72c79377a0607a2311d81cc8a776d5923bda1538df10afa3d75c75803d29ba02435ffcaff699eb6adac0ba9e81261af8a5fb61214a9e9",
+            "operation": 0,
+            "baseGas": "0",
+            "gasPrice": "0",
+            "gasToken": "0x0000000000000000000000000000000000000000",
+            "refundReceiver": "0x0000000000000000000000000000000000000000",
+            "nonce": 2,
+            "safeTxGas": "0"
+          },
+          "safeTxHash": "0xc83eadaadd78883a5890fe92329dce55a3c89812039d44818cfcb0b5cc40709a",
+          "signatures": [
+            {
+              "signer": "0x7BEcf64a355339E3e38253cE5E007F1B7AdE40C5",
+              "data": "0x9f918a583a1ef65b812ad40ff49017b918a35785baa497c2298cac0b962c35ec16a5e377cf506198bbbbdfe197be493f80610fc8bac6f6751af74e78b3674d821b"
+            },
+            {
+              "signer": "0x72909E70339C3850B5EE16C75FF0d866837c80c3",
+              "data": "0x2e4f5a595941186331880d60d7a47fa32b5b8003fd5fc70e62294dec127860d54fda1d7d0e140843ecf30d5032cc9e28229312a9524f589b35f56e6748b4c8271b"
+            }
+          ]
+        },
+        "before": {
+          "chainId": 100,
+          "registry": "0x258a08b90fb76ac3f87d0cb1baebc206370d7d57",
+          "council": "0x905BbC3A0D565BfF5681B064c932f896cC23186F",
+          "catalogueId": "0xae3b1afab886f30e96e393cf43e678d38ed0f0d7b3550d266064b3db55085a0b",
+          "publisher": "0x041B9D252d4BD580171BD302174D6C3672DB91dC",
+          "topic": "0x378b8f5429fdeda31b6fbf0fa4ba09620a4e68e74b09640c1b036f5d75e48ded",
+          "checkpoint": "3001db193c1dbe628aa0c488055f62a503fcfc6b3a192d3430dbce338c113966",
+          "agreement": "fa3d75c75803d29ba02435ffcaff699eb6adac0ba9e81261af8a5fb61214a9e9",
+          "revision": "1",
+          "blockNumber": "48344213",
+          "owners": [
+            "0x72909E70339C3850B5EE16C75FF0d866837c80c3",
+            "0x7BEcf64a355339E3e38253cE5E007F1B7AdE40C5",
+            "0x7bCC452364CA61d7e90fe532D4a6043f09b7585F"
+          ],
+          "threshold": 2
+        },
+        "after": {
+          "chainId": 100,
+          "registry": "0x258a08b90fb76ac3f87d0cb1baebc206370d7d57",
+          "council": "0x905BbC3A0D565BfF5681B064c932f896cC23186F",
+          "catalogueId": "0xae3b1afab886f30e96e393cf43e678d38ed0f0d7b3550d266064b3db55085a0b",
+          "publisher": "0xE3D4802600c47A0BB971b4ea9f0e500bE36c1f72",
+          "topic": "0x378b8f5429fdeda31b6fbf0fa4ba09620a4e68e74b09640c1b036f5d75e48ded",
+          "checkpoint": "42ae6b595728c3f0c3c72c79377a0607a2311d81cc8a776d5923bda1538df10a",
+          "agreement": "fa3d75c75803d29ba02435ffcaff699eb6adac0ba9e81261af8a5fb61214a9e9",
+          "revision": "2",
+          "blockNumber": "48344216",
+          "owners": [
+            "0x72909E70339C3850B5EE16C75FF0d866837c80c3",
+            "0x7BEcf64a355339E3e38253cE5E007F1B7AdE40C5",
+            "0x7bCC452364CA61d7e90fe532D4a6043f09b7585F"
+          ],
+          "threshold": 2
+        }
+      }
+    },
+    {
+      "file": "2026-09-20T08-09-18.189Z-publication.json",
+      "record": {
+        "kind": "live-swarm-publication",
+        "observedAt": "2026-09-20T08:09:18.189Z",
+        "publisher": "0xE3D4802600c47A0BB971b4ea9f0e500bE36c1f72",
+        "catalogueId": "0xae3b1afab886f30e96e393cf43e678d38ed0f0d7b3550d266064b3db55085a0b",
+        "topic": "0x378b8f5429fdeda31b6fbf0fa4ba09620a4e68e74b09640c1b036f5d75e48ded",
+        "batchId": "c851f331b00d953d3173ef629637953b8d73018383c1c5f13388b347f2303e1e",
+        "reference": "f73bd30eef11a473bcf5c73b409df7c9779188e8d1deadc47398f7785980c5e2",
+        "feedIndex": "1",
+        "previous": "42ae6b595728c3f0c3c72c79377a0607a2311d81cc8a776d5923bda1538df10a",
+        "change": "Steward C completes the photography status for the Upper Spiti keeper's register.",
+        "staging": false,
+        "retiredPublisherTest": false
+      }
+    },
+    {
+      "file": "2026-09-20T08-10-16.378Z-storage-renew.json",
+      "record": {
+        "kind": "live-postage-operation",
+        "observedAt": "2026-09-20T08:10:16.378Z",
+        "quote": {
+          "id": "beb248bf-d8a6-4a9a-b6eb-bc8cc6a4656e",
+          "action": "renew",
+          "batchId": "c851f331b00d953d3173ef629637953b8d73018383c1c5f13388b347f2303e1e",
+          "days": 1,
+          "payer": "0xcbd751094539a35fe771df339ec4c1fe12279ff7",
+          "bzz": "0.0954448101244928",
+          "plur": "954448101244928",
+          "expiresAt": "2026-09-20T08:11:26.367Z"
+        },
+        "batchId": "c851f331b00d953d3173ef629637953b8d73018383c1c5f13388b347f2303e1e",
+        "before": {
+          "observedAt": "2026-09-20T08:09:27.619Z",
+          "mode": "light",
+          "payer": "0xcbd751094539a35fe771df339ec4c1fe12279ff7",
+          "bzz": "0.2462686217601024",
+          "xdai": "0.009899999961438237",
+          "selectedBatch": "c851f331b00d953d3173ef629637953b8d73018383c1c5f13388b347f2303e1e",
+          "batches": [
+            {
+              "id": "c851f331b00d953d3173ef629637953b8d73018383c1c5f13388b347f2303e1e",
+              "label": "Folio archive",
+              "usable": true,
+              "remainingSeconds": 1115495,
+              "capacityBytes": 102490000,
+              "usage": 0.25,
+              "amount": "12533270401",
+              "depth": 19,
+              "immutable": true
+            }
+          ]
+        },
+        "after": {
+          "observedAt": "2026-09-20T08:10:16.378Z",
+          "mode": "light",
+          "payer": "0xcbd751094539a35fe771df339ec4c1fe12279ff7",
+          "bzz": "0.1508238116356096",
+          "xdai": "0.009899999955249691",
+          "selectedBatch": "c851f331b00d953d3173ef629637953b8d73018383c1c5f13388b347f2303e1e",
+          "batches": [
+            {
+              "id": "c851f331b00d953d3173ef629637953b8d73018383c1c5f13388b347f2303e1e",
+              "label": "Folio archive",
+              "usable": true,
+              "remainingSeconds": 1201845,
+              "capacityBytes": 102490000,
+              "usage": 0.25,
+              "amount": "14353735682",
+              "depth": 19,
+              "immutable": true
+            }
+          ]
+        },
+        "note": "The SDK returns a batch identifier, not a transaction hash. Lifetime is an estimate; amount increase verifies the top-up."
+      }
+    },
+    {
+      "file": "2026-09-20T08-10-17.056Z-rehearsal-summary.json",
+      "record": {
+        "kind": "live-rehearsal-summary",
+        "observedAt": "2026-09-20T08:10:17.056Z",
+        "stableIdentifier": "eip155:100:0x258a08b90fb76ac3f87d0cb1baebc206370d7d57",
+        "initialReference": "0417891ddb383a55ff7402450ac56c2dcf92799693ed03039c44723adbc0d666",
+        "finalReference": "f73bd30eef11a473bcf5c73b409df7c9779188e8d1deadc47398f7785980c5e2",
+        "finalState": {
+          "chainId": 100,
+          "registry": "0x258a08b90fb76ac3f87d0cb1baebc206370d7d57",
+          "council": "0x905BbC3A0D565BfF5681B064c932f896cC23186F",
+          "catalogueId": "0xae3b1afab886f30e96e393cf43e678d38ed0f0d7b3550d266064b3db55085a0b",
+          "publisher": "0xE3D4802600c47A0BB971b4ea9f0e500bE36c1f72",
+          "topic": "0x378b8f5429fdeda31b6fbf0fa4ba09620a4e68e74b09640c1b036f5d75e48ded",
+          "checkpoint": "42ae6b595728c3f0c3c72c79377a0607a2311d81cc8a776d5923bda1538df10a",
+          "agreement": "fa3d75c75803d29ba02435ffcaff699eb6adac0ba9e81261af8a5fb61214a9e9",
+          "revision": "2",
+          "blockNumber": "48344219",
+          "owners": [
+            "0x72909E70339C3850B5EE16C75FF0d866837c80c3",
+            "0x7BEcf64a355339E3e38253cE5E007F1B7AdE40C5",
+            "0x7bCC452364CA61d7e90fe532D4a6043f09b7585F"
+          ],
+          "threshold": 2
+        },
+        "checks": [
+          "A -> B handoff",
+          "B publishes correction",
+          "Retired A update ignored",
+          "Council delegate replaced",
+          "B -> C handoff",
+          "C publishes correction",
+          "Existing batch renewed"
+        ],
+        "custody": "All dedicated test keys operated by Harsh on one laptop. This is a real multi-identity protocol rehearsal, not independent human custody."
+      }
+    },
+    {
+      "file": "2026-09-20T08-14-05.816Z-publication.json",
+      "record": {
+        "kind": "live-swarm-publication",
+        "observedAt": "2026-09-20T08:14:05.816Z",
+        "publisher": "0xE3D4802600c47A0BB971b4ea9f0e500bE36c1f72",
+        "catalogueId": "0xae3b1afab886f30e96e393cf43e678d38ed0f0d7b3550d266064b3db55085a0b",
+        "topic": "0x378b8f5429fdeda31b6fbf0fa4ba09620a4e68e74b09640c1b036f5d75e48ded",
+        "batchId": "c851f331b00d953d3173ef629637953b8d73018383c1c5f13388b347f2303e1e",
+        "reference": "44ded576aff168975e52eea57663830d09970d1e78c34e3340bca92caa90acf1",
+        "feedIndex": "2",
+        "previous": "f73bd30eef11a473bcf5c73b409df7c9779188e8d1deadc47398f7785980c5e2",
+        "change": "Steward C verifies the browser correction workflow and records a review of the Pin valley condition note.",
+        "staging": false,
+        "retiredPublisherTest": false
+      }
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "message": "Relay voluntary retirement rehearsal. Registry 0x258a08b90fb76ac3f87d0cb1baebc206370d7d57. Outgoing 0x041B9D252d4BD580171BD302174D6C3672DB91dC. Incoming 0xE3D4802600c47A0BB971b4ea9f0e500bE36c1f72. This is a test-key rehearsal operated by Harsh Gupta, not independent human custody.",
+  "signer": "0x041B9D252d4BD580171BD302174D6C3672DB91dC",
+  "signature": "0x5fdacac4b1a082edac7daacda49abeb91a8d8b8f4832fc9ca38bae380ea4ed3b7c884fd6ab7d413fa188e57f4d506cd694decf4d3edb10b6d5ee426ff16c36b11c",
+  "observedAt": "2026-09-20T08:08:16.618Z"
+}

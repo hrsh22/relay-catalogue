@@ -1,0 +1,58 @@
+{
+  "kind": "live-postage-operation",
+  "observedAt": "2026-09-20T08:10:16.378Z",
+  "quote": {
+    "id": "beb248bf-d8a6-4a9a-b6eb-bc8cc6a4656e",
+    "action": "renew",
+    "batchId": "c851f331b00d953d3173ef629637953b8d73018383c1c5f13388b347f2303e1e",
+    "days": 1,
+    "payer": "0xcbd751094539a35fe771df339ec4c1fe12279ff7",
+    "bzz": "0.0954448101244928",
+    "plur": "954448101244928",
+    "expiresAt": "2026-09-20T08:11:26.367Z"
+  },
+  "batchId": "c851f331b00d953d3173ef629637953b8d73018383c1c5f13388b347f2303e1e",
+  "before": {
+    "observedAt": "2026-09-20T08:09:27.619Z",
+    "mode": "light",
+    "payer": "0xcbd751094539a35fe771df339ec4c1fe12279ff7",
+    "bzz": "0.2462686217601024",
+    "xdai": "0.009899999961438237",
+    "selectedBatch": "c851f331b00d953d3173ef629637953b8d73018383c1c5f13388b347f2303e1e",
+    "batches": [
+      {
+        "id": "c851f331b00d953d3173ef629637953b8d73018383c1c5f13388b347f2303e1e",
+        "label": "Folio archive",
+        "usable": true,
+        "remainingSeconds": 1115495,
+        "capacityBytes": 102490000,
+        "usage": 0.25,
+        "amount": "12533270401",
+        "depth": 19,
+        "immutable": true
+      }
+    ]
+  },
+  "after": {
+    "observedAt": "2026-09-20T08:10:16.378Z",
+    "mode": "light",
+    "payer": "0xcbd751094539a35fe771df339ec4c1fe12279ff7",
+    "bzz": "0.1508238116356096",
+    "xdai": "0.009899999955249691",
+    "selectedBatch": "c851f331b00d953d3173ef629637953b8d73018383c1c5f13388b347f2303e1e",
+    "batches": [
+      {
+        "id": "c851f331b00d953d3173ef629637953b8d73018383c1c5f13388b347f2303e1e",
+        "label": "Folio archive",
+        "usable": true,
+        "remainingSeconds": 1201845,
+        "capacityBytes": 102490000,
+        "usage": 0.25,
+        "amount": "14353735682",
+        "depth": 19,
+        "immutable": true
+      }
+    ]
+  },
+  "note": "The SDK returns a batch identifier, not a transaction hash. Lifetime is an estimate; amount increase verifies the top-up."
+}

@@ -1,0 +1,14 @@
+{
+  "kind": "live-swarm-publication",
+  "observedAt": "2026-09-20T08:05:11.725Z",
+  "publisher": "0x041B9D252d4BD580171BD302174D6C3672DB91dC",
+  "catalogueId": "0xae3b1afab886f30e96e393cf43e678d38ed0f0d7b3550d266064b3db55085a0b",
+  "topic": "0x378b8f5429fdeda31b6fbf0fa4ba09620a4e68e74b09640c1b036f5d75e48ded",
+  "batchId": "c851f331b00d953d3173ef629637953b8d73018383c1c5f13388b347f2303e1e",
+  "reference": "3001db193c1dbe628aa0c488055f62a503fcfc6b3a192d3430dbce338c113966",
+  "feedIndex": "0",
+  "previous": null,
+  "change": "Incoming steward B verifies and stages the catalogue after A's voluntary retirement.",
+  "staging": true,
+  "retiredPublisherTest": false
+}

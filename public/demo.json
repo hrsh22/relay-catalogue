@@ -1,0 +1,46 @@
+{
+  "registry": "0x258a08b90fb76ac3f87d0cb1baebc206370d7d57",
+  "council": "0x905BbC3A0D565BfF5681B064c932f896cC23186F",
+  "catalogueId": "0xae3b1afab886f30e96e393cf43e678d38ed0f0d7b3550d266064b3db55085a0b",
+  "payer": "0xcbd751094539a35fe771df339ec4c1fe12279ff7",
+  "batchId": "c851f331b00d953d3173ef629637953b8d73018383c1c5f13388b347f2303e1e",
+  "publishers": {
+    "a": "0x9655118E79dCAc22D01A669e9242A37ee722Cf48",
+    "b": "0x041B9D252d4BD580171BD302174D6C3672DB91dC",
+    "c": "0xE3D4802600c47A0BB971b4ea9f0e500bE36c1f72"
+  },
+  "councilOwners": {
+    "1": "0x5a61cf2999f3791f9339DCC98Dd19Aa39C34c7Ef",
+    "2": "0x7BEcf64a355339E3e38253cE5E007F1B7AdE40C5",
+    "3": "0x7bCC452364CA61d7e90fe532D4a6043f09b7585F",
+    "4": "0x72909E70339C3850B5EE16C75FF0d866837c80c3"
+  },
+  "agreement": "fa3d75c75803d29ba02435ffcaff699eb6adac0ba9e81261af8a5fb61214a9e9",
+  "stableIdentifier": "eip155:100:0x258a08b90fb76ac3f87d0cb1baebc206370d7d57",
+  "repository": "https://github.com/hrsh22/relay-catalogue",
+  "storage": {
+    "observedAt": "2026-09-20T08:10:17.055Z",
+    "remainingSeconds": 1201845,
+    "usage": 0.25
+  },
+  "handoffs": [
+    {
+      "title": "Steward A to steward B",
+      "from": "0x9655118E79dCAc22D01A669e9242A37ee722Cf48",
+      "to": "0x041B9D252d4BD580171BD302174D6C3672DB91dC",
+      "hash": "0x4844b565784ef0de32441887077e2bf4edf60b3de1f530d515d5d90ee49cf499",
+      "observedAt": "2026-09-20T08:05:54.845Z",
+      "reference": "ecf6676c6ac0ebba4d517d881e59da0ee40600c93793bf0760ede4b5f004ba71",
+      "detail": "Two council delegates approved B. B published a real condition correction. A's later publication to the retired feed did not change this catalogue."
+    },
+    {
+      "title": "Steward B to steward C",
+      "from": "0x041B9D252d4BD580171BD302174D6C3672DB91dC",
+      "to": "0xE3D4802600c47A0BB971b4ea9f0e500bE36c1f72",
+      "hash": "0xefbfa01d2baad577a105392544477774f1a0e50677d14127fbe4ba6f79e839a0",
+      "observedAt": "2026-09-20T08:09:08.068Z",
+      "reference": "f73bd30eef11a473bcf5c73b409df7c9779188e8d1deadc47398f7785980c5e2",
+      "detail": "The council replaced a delegate, then approved C without A's or B's publishing key. C published a photography correction through the same public identifier."
+    }
+  ]
+}

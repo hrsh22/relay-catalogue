@@ -1,0 +1,35 @@
+{
+  "kind": "live-rehearsal-summary",
+  "observedAt": "2026-09-20T08:10:17.056Z",
+  "stableIdentifier": "eip155:100:0x258a08b90fb76ac3f87d0cb1baebc206370d7d57",
+  "initialReference": "0417891ddb383a55ff7402450ac56c2dcf92799693ed03039c44723adbc0d666",
+  "finalReference": "f73bd30eef11a473bcf5c73b409df7c9779188e8d1deadc47398f7785980c5e2",
+  "finalState": {
+    "chainId": 100,
+    "registry": "0x258a08b90fb76ac3f87d0cb1baebc206370d7d57",
+    "council": "0x905BbC3A0D565BfF5681B064c932f896cC23186F",
+    "catalogueId": "0xae3b1afab886f30e96e393cf43e678d38ed0f0d7b3550d266064b3db55085a0b",
+    "publisher": "0xE3D4802600c47A0BB971b4ea9f0e500bE36c1f72",
+    "topic": "0x378b8f5429fdeda31b6fbf0fa4ba09620a4e68e74b09640c1b036f5d75e48ded",
+    "checkpoint": "42ae6b595728c3f0c3c72c79377a0607a2311d81cc8a776d5923bda1538df10a",
+    "agreement": "fa3d75c75803d29ba02435ffcaff699eb6adac0ba9e81261af8a5fb61214a9e9",
+    "revision": "2",
+    "blockNumber": "48344219",
+    "owners": [
+      "0x72909E70339C3850B5EE16C75FF0d866837c80c3",
+      "0x7BEcf64a355339E3e38253cE5E007F1B7AdE40C5",
+      "0x7bCC452364CA61d7e90fe532D4a6043f09b7585F"
+    ],
+    "threshold": 2
+  },
+  "checks": [
+    "A -> B handoff",
+    "B publishes correction",
+    "Retired A update ignored",
+    "Council delegate replaced",
+    "B -> C handoff",
+    "C publishes correction",
+    "Existing batch renewed"
+  ],
+  "custody": "All dedicated test keys operated by Harsh on one laptop. This is a real multi-identity protocol rehearsal, not independent human custody."
+}

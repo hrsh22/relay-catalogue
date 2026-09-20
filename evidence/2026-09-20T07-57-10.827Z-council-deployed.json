@@ -1,0 +1,11 @@
+{
+  "address": "0x905BbC3A0D565BfF5681B064c932f896cC23186F",
+  "hash": "0xcb70322f54179f0093aa6dd3dcc3f39f422452f84a9b7f0dddc9836719bd97d0",
+  "blockNumber": "48344076",
+  "owners": [
+    "0x5a61cf2999f3791f9339DCC98Dd19Aa39C34c7Ef",
+    "0x7BEcf64a355339E3e38253cE5E007F1B7AdE40C5",
+    "0x7bCC452364CA61d7e90fe532D4a6043f09b7585F"
+  ],
+  "threshold": 2
+}

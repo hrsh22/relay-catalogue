@@ -1,0 +1,74 @@
+{
+  "kind": "appoint",
+  "observedAt": "2026-09-20T08:05:54.845Z",
+  "hash": "0x4844b565784ef0de32441887077e2bf4edf60b3de1f530d515d5d90ee49cf499",
+  "blockNumber": "48344177",
+  "proposal": {
+    "format": "relay.proposal.v1",
+    "chainId": 100,
+    "registry": "0x258a08b90fb76ac3f87d0cb1baebc206370d7d57",
+    "council": "0x905BbC3A0D565BfF5681B064c932f896cC23186F",
+    "kind": "appoint",
+    "description": "Appoint 0x041B9D252d4BD580171BD302174D6C3672DB91dC after 0x9655118E79dCAc22D01A669e9242A37ee722Cf48; expected succession revision 0.",
+    "createdAt": "2026-09-20T08:05:17.100Z",
+    "transaction": {
+      "to": "0x258a08b90fb76ac3f87d0cb1baebc206370d7d57",
+      "value": "0",
+      "data": "0xfe67916f0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000041b9d252d4bd580171bd302174d6c3672db91dc378b8f5429fdeda31b6fbf0fa4ba09620a4e68e74b09640c1b036f5d75e48ded3001db193c1dbe628aa0c488055f62a503fcfc6b3a192d3430dbce338c113966fa3d75c75803d29ba02435ffcaff699eb6adac0ba9e81261af8a5fb61214a9e9",
+      "operation": 0,
+      "baseGas": "0",
+      "gasPrice": "0",
+      "gasToken": "0x0000000000000000000000000000000000000000",
+      "refundReceiver": "0x0000000000000000000000000000000000000000",
+      "nonce": 0,
+      "safeTxGas": "0"
+    },
+    "safeTxHash": "0xb76d984e631fb1a826dfe1ce27490c9c1ddd96ab4b65736714e4719df8271789",
+    "signatures": [
+      {
+        "signer": "0x5a61cf2999f3791f9339DCC98Dd19Aa39C34c7Ef",
+        "data": "0x967b502b1b755a4162945ac4eaae9637e4283745a5cafeb029d9f4fe48f1ace179d28799a3c3fdffbf585a7a8b1750b6b051357d6cc06fe918f87a114fc7781a1c"
+      },
+      {
+        "signer": "0x7BEcf64a355339E3e38253cE5E007F1B7AdE40C5",
+        "data": "0xb4fdb74667895a64261de5a04840261497d322bcffdab57dee442007bf0453136220f6fd10747f51d4e04472194a93ee215de5dc593247c70052df7a6f6b0b8e1b"
+      }
+    ]
+  },
+  "before": {
+    "chainId": 100,
+    "registry": "0x258a08b90fb76ac3f87d0cb1baebc206370d7d57",
+    "council": "0x905BbC3A0D565BfF5681B064c932f896cC23186F",
+    "catalogueId": "0xae3b1afab886f30e96e393cf43e678d38ed0f0d7b3550d266064b3db55085a0b",
+    "publisher": "0x9655118E79dCAc22D01A669e9242A37ee722Cf48",
+    "topic": "0x378b8f5429fdeda31b6fbf0fa4ba09620a4e68e74b09640c1b036f5d75e48ded",
+    "checkpoint": "0417891ddb383a55ff7402450ac56c2dcf92799693ed03039c44723adbc0d666",
+    "agreement": "fa3d75c75803d29ba02435ffcaff699eb6adac0ba9e81261af8a5fb61214a9e9",
+    "revision": "0",
+    "blockNumber": "48344173",
+    "owners": [
+      "0x5a61cf2999f3791f9339DCC98Dd19Aa39C34c7Ef",
+      "0x7BEcf64a355339E3e38253cE5E007F1B7AdE40C5",
+      "0x7bCC452364CA61d7e90fe532D4a6043f09b7585F"
+    ],
+    "threshold": 2
+  },
+  "after": {
+    "chainId": 100,
+    "registry": "0x258a08b90fb76ac3f87d0cb1baebc206370d7d57",
+    "council": "0x905BbC3A0D565BfF5681B064c932f896cC23186F",
+    "catalogueId": "0xae3b1afab886f30e96e393cf43e678d38ed0f0d7b3550d266064b3db55085a0b",
+    "publisher": "0x041B9D252d4BD580171BD302174D6C3672DB91dC",
+    "topic": "0x378b8f5429fdeda31b6fbf0fa4ba09620a4e68e74b09640c1b036f5d75e48ded",
+    "checkpoint": "3001db193c1dbe628aa0c488055f62a503fcfc6b3a192d3430dbce338c113966",
+    "agreement": "fa3d75c75803d29ba02435ffcaff699eb6adac0ba9e81261af8a5fb61214a9e9",
+    "revision": "1",
+    "blockNumber": "48344177",
+    "owners": [
+      "0x5a61cf2999f3791f9339DCC98Dd19Aa39C34c7Ef",
+      "0x7BEcf64a355339E3e38253cE5E007F1B7AdE40C5",
+      "0x7bCC452364CA61d7e90fe532D4a6043f09b7585F"
+    ],
+    "threshold": 2
+  }
+}

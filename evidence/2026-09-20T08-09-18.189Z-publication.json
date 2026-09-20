@@ -1,0 +1,14 @@
+{
+  "kind": "live-swarm-publication",
+  "observedAt": "2026-09-20T08:09:18.189Z",
+  "publisher": "0xE3D4802600c47A0BB971b4ea9f0e500bE36c1f72",
+  "catalogueId": "0xae3b1afab886f30e96e393cf43e678d38ed0f0d7b3550d266064b3db55085a0b",
+  "topic": "0x378b8f5429fdeda31b6fbf0fa4ba09620a4e68e74b09640c1b036f5d75e48ded",
+  "batchId": "c851f331b00d953d3173ef629637953b8d73018383c1c5f13388b347f2303e1e",
+  "reference": "f73bd30eef11a473bcf5c73b409df7c9779188e8d1deadc47398f7785980c5e2",
+  "feedIndex": "1",
+  "previous": "42ae6b595728c3f0c3c72c79377a0607a2311d81cc8a776d5923bda1538df10a",
+  "change": "Steward C completes the photography status for the Upper Spiti keeper's register.",
+  "staging": false,
+  "retiredPublisherTest": false
+}

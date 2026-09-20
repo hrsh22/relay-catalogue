@@ -1,0 +1,8 @@
+{
+  "kind": "executor-funding",
+  "from": "0xcbd751094539a35fe771df339ec4c1fe12279ff7",
+  "to": "0x371ac7950C1Fb6dD43457dC86905d4652016f9F9",
+  "amountWei": "100000000000000",
+  "hash": "0xb36d065ed7ee34c668f174cbcefdd713c0a33e85dfd7174497f12a540c96ba40",
+  "observedAt": "2026-09-20T07:56:33.765Z"
+}

@@ -1,0 +1,9 @@
+{
+  "kind": "live-reader-check",
+  "stableIdentifier": "eip155:100:0x258a08b90fb76ac3f87d0cb1baebc206370d7d57",
+  "retiredPublisher": "0x9655118E79dCAc22D01A669e9242A37ee722Cf48",
+  "activePublisher": "0x041B9D252d4BD580171BD302174D6C3672DB91dC",
+  "reference": "ecf6676c6ac0ebba4d517d881e59da0ee40600c93793bf0760ede4b5f004ba71",
+  "result": "Retired A's later publication did not change the authoritative catalogue",
+  "observedAt": "2026-09-20T08:07:42.660Z"
+}

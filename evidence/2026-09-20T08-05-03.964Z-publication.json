@@ -1,0 +1,14 @@
+{
+  "kind": "live-swarm-publication",
+  "observedAt": "2026-09-20T08:05:03.964Z",
+  "publisher": "0x9655118E79dCAc22D01A669e9242A37ee722Cf48",
+  "catalogueId": "0xae3b1afab886f30e96e393cf43e678d38ed0f0d7b3550d266064b3db55085a0b",
+  "topic": "0x378b8f5429fdeda31b6fbf0fa4ba09620a4e68e74b09640c1b036f5d75e48ded",
+  "batchId": "c851f331b00d953d3173ef629637953b8d73018383c1c5f13388b347f2303e1e",
+  "reference": "87bc6a8dd460c28b3861b3a340c5cd486582f18151f92a8f22db036527be59a1",
+  "feedIndex": "1",
+  "previous": "0417891ddb383a55ff7402450ac56c2dcf92799693ed03039c44723adbc0d666",
+  "change": "Steward A checks the first collection and confirms its photographed inventory.",
+  "staging": false,
+  "retiredPublisherTest": false
+}

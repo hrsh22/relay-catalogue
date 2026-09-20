@@ -1,0 +1,14 @@
+{
+  "kind": "live-swarm-publication",
+  "observedAt": "2026-09-20T07:56:44.733Z",
+  "publisher": "0x9655118E79dCAc22D01A669e9242A37ee722Cf48",
+  "catalogueId": "0xae3b1afab886f30e96e393cf43e678d38ed0f0d7b3550d266064b3db55085a0b",
+  "topic": "0x378b8f5429fdeda31b6fbf0fa4ba09620a4e68e74b09640c1b036f5d75e48ded",
+  "batchId": "c851f331b00d953d3173ef629637953b8d73018383c1c5f13388b347f2303e1e",
+  "reference": "0417891ddb383a55ff7402450ac56c2dcf92799693ed03039c44723adbc0d666",
+  "feedIndex": "0",
+  "previous": null,
+  "change": "Original steward A establishes the shared demonstration catalogue.",
+  "staging": false,
+  "retiredPublisherTest": false
+}

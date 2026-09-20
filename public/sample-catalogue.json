@@ -1,0 +1,303 @@
+{
+  "format": "relay.catalogue.v1",
+  "catalogueId": "0xae3b1afab886f30e96e393cf43e678d38ed0f0d7b3550d266064b3db55085a0b",
+  "title": "The seven collections",
+  "description": "A shared catalogue for the next keeper. Invented records for a live succession rehearsal across seven example library collections.",
+  "demonstration": true,
+  "publisher": "0x9655118E79dCAc22D01A669e9242A37ee722Cf48",
+  "revision": 0,
+  "updatedAt": "2026-09-20T07:55:31.914Z",
+  "previous": null,
+  "change": "Original steward A establishes the shared demonstration catalogue.",
+  "collections": [
+    {
+      "id": "nubra",
+      "name": "Nubra study collection",
+      "region": "Ladakh"
+    },
+    {
+      "id": "indus",
+      "name": "Upper Indus collection",
+      "region": "Ladakh"
+    },
+    {
+      "id": "sham",
+      "name": "Western valley collection",
+      "region": "Ladakh"
+    },
+    {
+      "id": "zanskar",
+      "name": "Zanskar study collection",
+      "region": "Ladakh"
+    },
+    {
+      "id": "pin",
+      "name": "Pin valley collection",
+      "region": "Spiti"
+    },
+    {
+      "id": "spiti",
+      "name": "Upper Spiti collection",
+      "region": "Spiti"
+    },
+    {
+      "id": "lingti",
+      "name": "Lingti study collection",
+      "region": "Spiti"
+    }
+  ],
+  "records": [
+    {
+      "id": "nubra-1",
+      "collection": "nubra",
+      "title": "Seasonal inventory, volume 1",
+      "shelfmark": "NUBRA / 001",
+      "material": "Loose paper folios",
+      "folios": 32,
+      "condition": "stable",
+      "photographed": "complete",
+      "notes": "Illustrative inventory entry. Confirm counts at the next physical inspection.",
+      "updatedAt": "2026-09-20T07:55:31.914Z"
+    },
+    {
+      "id": "nubra-2",
+      "collection": "nubra",
+      "title": "Keeper's register, volume 1",
+      "shelfmark": "NUBRA / 002",
+      "material": "Paper, cloth binding",
+      "folios": 46,
+      "condition": "fragile",
+      "photographed": "partial",
+      "notes": "Demonstration record for practising catalogue corrections and handoffs.",
+      "updatedAt": "2026-09-20T07:55:31.914Z"
+    },
+    {
+      "id": "nubra-3",
+      "collection": "nubra",
+      "title": "Conservation notes, volume 1",
+      "shelfmark": "NUBRA / 003",
+      "material": "Loose paper folios",
+      "folios": 60,
+      "condition": "damaged",
+      "photographed": "not-started",
+      "notes": "Example conservation note; no historical provenance is claimed.",
+      "updatedAt": "2026-09-20T07:55:31.914Z"
+    },
+    {
+      "id": "indus-1",
+      "collection": "indus",
+      "title": "Seasonal inventory, volume 2",
+      "shelfmark": "INDUS / 001",
+      "material": "Loose paper folios",
+      "folios": 41,
+      "condition": "fragile",
+      "photographed": "partial",
+      "notes": "Illustrative inventory entry. Confirm counts at the next physical inspection.",
+      "updatedAt": "2026-09-20T07:55:31.914Z"
+    },
+    {
+      "id": "indus-2",
+      "collection": "indus",
+      "title": "Keeper's register, volume 2",
+      "shelfmark": "INDUS / 002",
+      "material": "Paper, cloth binding",
+      "folios": 55,
+      "condition": "damaged",
+      "photographed": "not-started",
+      "notes": "Demonstration record for practising catalogue corrections and handoffs.",
+      "updatedAt": "2026-09-20T07:55:31.914Z"
+    },
+    {
+      "id": "indus-3",
+      "collection": "indus",
+      "title": "Conservation notes, volume 2",
+      "shelfmark": "INDUS / 003",
+      "material": "Loose paper folios",
+      "folios": 69,
+      "condition": "stable",
+      "photographed": "complete",
+      "notes": "Example conservation note; no historical provenance is claimed.",
+      "updatedAt": "2026-09-20T07:55:31.914Z"
+    },
+    {
+      "id": "sham-1",
+      "collection": "sham",
+      "title": "Seasonal inventory, volume 3",
+      "shelfmark": "SHAM / 001",
+      "material": "Loose paper folios",
+      "folios": 50,
+      "condition": "damaged",
+      "photographed": "not-started",
+      "notes": "Illustrative inventory entry. Confirm counts at the next physical inspection.",
+      "updatedAt": "2026-09-20T07:55:31.914Z"
+    },
+    {
+      "id": "sham-2",
+      "collection": "sham",
+      "title": "Keeper's register, volume 3",
+      "shelfmark": "SHAM / 002",
+      "material": "Paper, cloth binding",
+      "folios": 64,
+      "condition": "stable",
+      "photographed": "complete",
+      "notes": "Demonstration record for practising catalogue corrections and handoffs.",
+      "updatedAt": "2026-09-20T07:55:31.914Z"
+    },
+    {
+      "id": "sham-3",
+      "collection": "sham",
+      "title": "Conservation notes, volume 3",
+      "shelfmark": "SHAM / 003",
+      "material": "Loose paper folios",
+      "folios": 78,
+      "condition": "missing",
+      "photographed": "partial",
+      "notes": "Example conservation note; no historical provenance is claimed.",
+      "updatedAt": "2026-09-20T07:55:31.914Z"
+    },
+    {
+      "id": "zanskar-1",
+      "collection": "zanskar",
+      "title": "Seasonal inventory, volume 4",
+      "shelfmark": "ZANSKAR / 001",
+      "material": "Loose paper folios",
+      "folios": 59,
+      "condition": "stable",
+      "photographed": "complete",
+      "notes": "Illustrative inventory entry. Confirm counts at the next physical inspection.",
+      "updatedAt": "2026-09-20T07:55:31.914Z"
+    },
+    {
+      "id": "zanskar-2",
+      "collection": "zanskar",
+      "title": "Keeper's register, volume 4",
+      "shelfmark": "ZANSKAR / 002",
+      "material": "Paper, cloth binding",
+      "folios": 73,
+      "condition": "missing",
+      "photographed": "partial",
+      "notes": "Demonstration record for practising catalogue corrections and handoffs.",
+      "updatedAt": "2026-09-20T07:55:31.914Z"
+    },
+    {
+      "id": "zanskar-3",
+      "collection": "zanskar",
+      "title": "Conservation notes, volume 4",
+      "shelfmark": "ZANSKAR / 003",
+      "material": "Loose paper folios",
+      "folios": 87,
+      "condition": "stable",
+      "photographed": "not-started",
+      "notes": "Example conservation note; no historical provenance is claimed.",
+      "updatedAt": "2026-09-20T07:55:31.914Z"
+    },
+    {
+      "id": "pin-1",
+      "collection": "pin",
+      "title": "Seasonal inventory, volume 5",
+      "shelfmark": "PIN / 001",
+      "material": "Loose paper folios",
+      "folios": 68,
+      "condition": "missing",
+      "photographed": "partial",
+      "notes": "Illustrative inventory entry. Confirm counts at the next physical inspection.",
+      "updatedAt": "2026-09-20T07:55:31.914Z"
+    },
+    {
+      "id": "pin-2",
+      "collection": "pin",
+      "title": "Keeper's register, volume 5",
+      "shelfmark": "PIN / 002",
+      "material": "Paper, cloth binding",
+      "folios": 82,
+      "condition": "stable",
+      "photographed": "not-started",
+      "notes": "Demonstration record for practising catalogue corrections and handoffs.",
+      "updatedAt": "2026-09-20T07:55:31.914Z"
+    },
+    {
+      "id": "pin-3",
+      "collection": "pin",
+      "title": "Conservation notes, volume 5",
+      "shelfmark": "PIN / 003",
+      "material": "Loose paper folios",
+      "folios": 96,
+      "condition": "fragile",
+      "photographed": "complete",
+      "notes": "Example conservation note; no historical provenance is claimed.",
+      "updatedAt": "2026-09-20T07:55:31.914Z"
+    },
+    {
+      "id": "spiti-1",
+      "collection": "spiti",
+      "title": "Seasonal inventory, volume 6",
+      "shelfmark": "SPITI / 001",
+      "material": "Loose paper folios",
+      "folios": 77,
+      "condition": "stable",
+      "photographed": "not-started",
+      "notes": "Illustrative inventory entry. Confirm counts at the next physical inspection.",
+      "updatedAt": "2026-09-20T07:55:31.914Z"
+    },
+    {
+      "id": "spiti-2",
+      "collection": "spiti",
+      "title": "Keeper's register, volume 6",
+      "shelfmark": "SPITI / 002",
+      "material": "Paper, cloth binding",
+      "folios": 91,
+      "condition": "fragile",
+      "photographed": "complete",
+      "notes": "Demonstration record for practising catalogue corrections and handoffs.",
+      "updatedAt": "2026-09-20T07:55:31.914Z"
+    },
+    {
+      "id": "spiti-3",
+      "collection": "spiti",
+      "title": "Conservation notes, volume 6",
+      "shelfmark": "SPITI / 003",
+      "material": "Loose paper folios",
+      "folios": 105,
+      "condition": "stable",
+      "photographed": "partial",
+      "notes": "Example conservation note; no historical provenance is claimed.",
+      "updatedAt": "2026-09-20T07:55:31.914Z"
+    },
+    {
+      "id": "lingti-1",
+      "collection": "lingti",
+      "title": "Seasonal inventory, volume 7",
+      "shelfmark": "LINGTI / 001",
+      "material": "Loose paper folios",
+      "folios": 86,
+      "condition": "fragile",
+      "photographed": "complete",
+      "notes": "Illustrative inventory entry. Confirm counts at the next physical inspection.",
+      "updatedAt": "2026-09-20T07:55:31.914Z"
+    },
+    {
+      "id": "lingti-2",
+      "collection": "lingti",
+      "title": "Keeper's register, volume 7",
+      "shelfmark": "LINGTI / 002",
+      "material": "Paper, cloth binding",
+      "folios": 100,
+      "condition": "stable",
+      "photographed": "partial",
+      "notes": "Demonstration record for practising catalogue corrections and handoffs.",
+      "updatedAt": "2026-09-20T07:55:31.914Z"
+    },
+    {
+      "id": "lingti-3",
+      "collection": "lingti",
+      "title": "Conservation notes, volume 7",
+      "shelfmark": "LINGTI / 003",
+      "material": "Loose paper folios",
+      "folios": 114,
+      "condition": "fragile",
+      "photographed": "not-started",
+      "notes": "Example conservation note; no historical provenance is claimed.",
+      "updatedAt": "2026-09-20T07:55:31.914Z"
+    }
+  ]
+}

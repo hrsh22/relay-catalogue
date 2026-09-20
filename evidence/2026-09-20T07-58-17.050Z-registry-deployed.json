@@ -1,0 +1,24 @@
+{
+  "observedAt": "2026-09-20T07:58:17.049Z",
+  "hash": "0x58be277bc60717cbabcad3929dd8814e3f25937a6c35065a0fa53f5229916571",
+  "state": {
+    "chainId": 100,
+    "registry": "0x258a08b90fb76ac3f87d0cb1baebc206370d7d57",
+    "council": "0x905BbC3A0D565BfF5681B064c932f896cC23186F",
+    "catalogueId": "0xae3b1afab886f30e96e393cf43e678d38ed0f0d7b3550d266064b3db55085a0b",
+    "publisher": "0x9655118E79dCAc22D01A669e9242A37ee722Cf48",
+    "topic": "0x378b8f5429fdeda31b6fbf0fa4ba09620a4e68e74b09640c1b036f5d75e48ded",
+    "checkpoint": "0417891ddb383a55ff7402450ac56c2dcf92799693ed03039c44723adbc0d666",
+    "agreement": "fa3d75c75803d29ba02435ffcaff699eb6adac0ba9e81261af8a5fb61214a9e9",
+    "revision": "0",
+    "blockNumber": "48344088",
+    "owners": [
+      "0x5a61cf2999f3791f9339DCC98Dd19Aa39C34c7Ef",
+      "0x7BEcf64a355339E3e38253cE5E007F1B7AdE40C5",
+      "0x7bCC452364CA61d7e90fe532D4a6043f09b7585F"
+    ],
+    "threshold": 2
+  },
+  "compiler": "0.8.37+commit.f401782d.Emscripten.clang",
+  "stableIdentifier": "eip155:100:0x258a08b90fb76ac3f87d0cb1baebc206370d7d57"
+}

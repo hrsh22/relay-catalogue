@@ -1,0 +1,14 @@
+{
+  "kind": "live-eth-call",
+  "publicChainTransactionSent": false,
+  "registry": "0x258a08b90fb76ac3f87d0cb1baebc206370d7d57",
+  "safeTxHash": "0xb76d984e631fb1a826dfe1ce27490c9c1ddd96ab4b65736714e4719df8271789",
+  "approvals": [
+    {
+      "signer": "0x5a61cf2999f3791f9339DCC98Dd19Aa39C34c7Ef",
+      "data": "0x967b502b1b755a4162945ac4eaae9637e4283745a5cafeb029d9f4fe48f1ace179d28799a3c3fdffbf585a7a8b1750b6b051357d6cc06fe918f87a114fc7781a1c"
+    }
+  ],
+  "result": "Safe simulation rejected one signature",
+  "observedAt": "2026-09-20T08:05:28.668Z"
+}

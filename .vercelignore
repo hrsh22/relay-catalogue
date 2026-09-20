@@ -1,0 +1,7 @@
+.runtime
+.env*
+.git
+tests
+evidence
+node_modules
+.next
