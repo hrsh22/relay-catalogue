@@ -12,7 +12,11 @@ import {
   reviewProposal,
 } from "./council";
 import { quoteStorage, executeStorageQuote, storageStatus } from "./storage";
-import { publishCatalogue } from "./publish";
+import {
+  publishCatalogue,
+  listPendingPublications,
+  resumePublication,
+} from "./publish";
 import { resolveCatalogue } from "../src/lib/network";
 import { readRegistry } from "../src/lib/chain";
 import { hex32Schema } from "../src/lib/model";
@@ -21,6 +25,7 @@ const { positionals, values: o } = parseArgs({
   options: {
     key: { type: "string" },
     input: { type: "string" },
+    pending: { type: "string" },
     out: { type: "string" },
     incoming: { type: "string" },
     checkpoint: { type: "string" },
@@ -106,6 +111,14 @@ async function main() {
       });
       break;
     }
+    case "pending-publications":
+      result = await listPendingPublications();
+      break;
+    case "resume-publication":
+      result = await resumePublication(required("pending"), required("key"), {
+        staging: o.staging,
+      });
+      break;
     case "upload": {
       const bee = await checkedBee(await config());
       result = {
@@ -174,6 +187,8 @@ async function main() {
           "storage-quote buy|renew --days N --out FILE",
           "storage-execute --input FILE --max-plur N",
           "publish --input FILE --key FILE [--staging] [--topic HEX32]",
+          "pending-publications",
+          "resume-publication --pending FILE --key FILE [--staging]",
           "upload --input FILE",
           "deploy-registry --checkpoint REF --agreement REF --key FILE",
           "propose --incoming ADDRESS --checkpoint REF --agreement REF --out FILE [--topic HEX32]",

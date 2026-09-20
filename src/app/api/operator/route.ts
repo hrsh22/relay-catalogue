@@ -137,11 +137,17 @@ export async function POST(request: NextRequest) {
         "review-proposal",
         "replace-councillor",
         "registry-state",
+        "pending-publications",
+        "resume-publication",
       ])
       .parse(body.action);
     // Authority and proposal reads may run together when a saved council
     // session opens. Only this request's mutation can own/release the lock.
-    if (!["registry-state", "review-proposal"].includes(action)) {
+    if (
+      !["registry-state", "review-proposal", "pending-publications"].includes(
+        action,
+      )
+    ) {
       if (root.relayBusy)
         return Response.json(
           { error: "An operation is still in progress. Wait for its result." },
@@ -152,7 +158,9 @@ export async function POST(request: NextRequest) {
     }
     if (
       process.env.RELAY_COUNCIL_ONLY === "1" &&
-      ["publish", "stage", "quote", "renew"].includes(action)
+      ["publish", "stage", "quote", "renew", "resume-publication"].includes(
+        action,
+      )
     )
       throw new Error(
         "This council session does not operate storage. Use the publishing or storage custodian's operator for this action.",
@@ -162,7 +170,7 @@ export async function POST(request: NextRequest) {
     const { catalogueSchema } = await import("@/lib/model");
     const council = await import("../../../../scripts/council");
     const key = (alias: string) => `.runtime/private/${alias}.key`;
-    const identity = (value: unknown, role: "publisher" | "council") => {
+    const identity = async (value: unknown, role: "publisher" | "council") => {
       const alias = z
         .string()
         .regex(/^[a-zA-Z0-9_-]{1,80}$/)
@@ -174,10 +182,46 @@ export async function POST(request: NextRequest) {
         !Object.hasOwn(names, alias.slice(prefix.length))
       )
         throw new Error("Choose a configured identity for this role.");
+      const expected = addressSchema.safeParse(
+        names[alias.slice(prefix.length)],
+      );
+      if (!expected.success)
+        throw new Error(
+          "The selected identity has an invalid public address in its configuration.",
+        );
+      const { privateKeyToAccount } = await import("viem/accounts");
+      let signer: string;
+      try {
+        signer = privateKeyToAccount(await ctx.readKey(key(alias))).address;
+      } catch {
+        // Do not expose a decoder error that could include private key input.
+        throw new Error(
+          "The selected identity's key could not be read or decoded.",
+        );
+      }
+      if (signer.toLowerCase() !== expected.data.toLowerCase())
+        throw new Error(
+          "The selected identity's key does not match its configured public address. Correct the key file or public mapping before signing.",
+        );
       return alias;
     };
     let result: unknown;
-    if (action === "registry-state") {
+    if (action === "pending-publications") {
+      const { listPendingPublications } =
+        await import("../../../../scripts/publish");
+      result = await listPendingPublications();
+    } else if (action === "resume-publication") {
+      const alias = await identity(body.identity, "publisher");
+      const id = z
+        .string()
+        .max(250)
+        .regex(/^[a-zA-Z0-9-]+\.json$/)
+        .parse(body.id);
+      const { resumePublication } = await import("../../../../scripts/publish");
+      result = await resumePublication(id, key(alias), {
+        staging: z.boolean().parse(body.staging),
+      });
+    } else if (action === "registry-state") {
       if (!c.registry || !c.council)
         throw new Error(
           "Configure the public catalogue registry and council first.",
@@ -193,7 +237,7 @@ export async function POST(request: NextRequest) {
         );
       result = state;
     } else if (action === "publish" || action === "stage") {
-      const alias = identity(body.identity, "publisher");
+      const alias = await identity(body.identity, "publisher");
       let catalogue = catalogueSchema.parse(body.catalogue);
       const { readRegistry } = await import("@/lib/chain");
       const state = c.registry ? await readRegistry(c.registry, ctx.RPC) : null;
@@ -259,7 +303,7 @@ export async function POST(request: NextRequest) {
         z.string().parse(body.incoming),
       );
     } else if (action === "approve") {
-      const alias = identity(body.identity, "council");
+      const alias = await identity(body.identity, "council");
       result = await council.approveProposal(body.proposal, key(alias));
     } else if (action === "execute") {
       result = await council.executeProposal(

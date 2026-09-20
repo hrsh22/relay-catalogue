@@ -17,5 +17,11 @@
   "scope": "Source inspection and installed SDK API inspection only. No local tests, typecheck, build, browser session, live protocol read or new transaction for this follow-up.",
   "independentHumanCustodyDemonstrated": false,
   "historicalEvidence": "Earlier receipts remain evidence of a single-builder rehearsal with distinct identities. They do not validate the new implementation paths.",
-  "platformRecordNote": "The event-level record names Folio. This review targets the separately submitted Relay repository; no submission fields were changed."
+  "platformRecordNote": "The event-level record names Folio. This review targets the separately submitted Relay repository; no submission fields were changed.",
+  "ownerFollowup": {
+    "recordedAt": "2026-09-20T18:27:38.218608+00:00",
+    "statement": "We need the code fully done, human thing consider done from my side",
+    "humanSideStatus": "Handled by project owner for this task scope",
+    "provenance": "User instruction after the source evaluation; no participant identities or additional transaction records were supplied to this review."
+  }
 }

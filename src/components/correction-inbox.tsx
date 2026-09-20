@@ -12,7 +12,11 @@ import {
 import type { ResolvedCatalogue } from "@/lib/model";
 import { readableError } from "@/lib/network";
 import { Button } from "./ui/button";
-import { operatorRequest, type OperatorInfo } from "@/lib/operator-client";
+import {
+  operatorRequest,
+  type OperatorInfo,
+  type PublicationReceipt,
+} from "@/lib/operator-client";
 
 export function CorrectionInbox({
   current,
@@ -22,11 +26,7 @@ export function CorrectionInbox({
 }: {
   current: ResolvedCatalogue;
   operator?: OperatorInfo | null;
-  onPublished: (receipt: {
-    reference: string;
-    feedIndex: string;
-    publisher: string;
-  }) => void;
+  onPublished: (receipt: PublicationReceipt) => void;
   onBusyChange: (busy: boolean) => void;
 }) {
   const [request, setRequest] = useState<CorrectionRequest | null>(null);

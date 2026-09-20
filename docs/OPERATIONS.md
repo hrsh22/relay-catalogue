@@ -66,6 +66,15 @@ npm run relay -- publish --input incoming-catalogue.json --key /private/path/inc
 
 For a new feed, set its catalogue revision to zero and previous reference to null; keep the catalogue identifier and use the incoming publisher's public address. A staged feed is not authoritative until the council appoints it. Publication checks the bytes and the exact signed feed index. Latest-feed discovery may lag briefly, so readers should refresh before expecting a new edition. Pending publication records remain in `.runtime/pending-publications` for reconciliation after transport failures; do not blindly send another update.
 
+The operator's **Finish an interrupted publication** panel lists these saved records. Recovery checks the saved catalogue bytes and exact feed position. An already-present matching reference is confirmed without writing; a definitely missing position can receive only the same saved reference after authority and predecessor checks. A conflicting reference is rejected. The equivalent commands are:
+
+```sh
+npm run relay -- pending-publications
+npm run relay -- resume-publication --pending SAVED_JOURNAL.json --key /private/path/publisher.key
+```
+
+Use `--staging` only when recovering a saved draft under an incoming publisher's feed. Recovery does not replace the saved payload, discard the journal or silently create a new edition.
+
 ## A handoff without a hosted coordinator
 
 Prepare the proposal with the incoming address and its verified checkpoint. The CLI reads the incoming feed before creating the proposal:
@@ -100,7 +109,9 @@ npm run relay -- storage-quote renew --days 1 --out renewal.json
 npm run relay -- storage-execute --input renewal.json --max-plur 1200000000000000
 ```
 
-Review the actual quote, paying address and balance before execution. `max-plur` is the xBZZ spending ceiling; 10^16 PLUR equals 1 xBZZ. Gnosis gas is additional. Quotes expire after two minutes, are re-priced before execution, and the browser consumes each quote once. The receipt compares the same batch identifier and checks its amount increased. The SDK result is a batch identifier, not a transaction hash.
+Review the actual quote, paying address and balance before execution. `max-plur` is the xBZZ spending ceiling; 10^16 PLUR equals 1 xBZZ. Gnosis gas is additional. Quotes expire after two minutes. Execution checks the current price and batch state while retaining the exact reviewed stamp amount; it cannot silently select a larger amount. The browser consumes each quote once. The receipt compares the same batch identifier and checks its amount increased. The SDK result is a batch identifier, not a transaction hash.
+
+Once the increase is verified, an evidence-file or display-refresh failure does not turn it into a failed-payment result. The operator retains a downloadable verified receipt and any recording warnings. An unconfirmed submission identifies its quote and known batch and must be reconciled against that batch before another payment; no payment is automatically retried.
 
 The demo renewed the existing Folio batch rather than buying storage it could not afford from the remaining event funds. Shared node custody is explicit. Node observations and lifetime estimates do not guarantee perpetual availability.
 

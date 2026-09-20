@@ -21,9 +21,12 @@ import {
   savePublicFile,
   type OperatorInfo,
   type CouncilReceipt,
+  type PublicationReceipt,
+  type StorageReceipt,
 } from "@/lib/operator-client";
 import { short } from "@/lib/utils";
 import { CouncilProposal } from "./council-proposal";
+import { PublicationRecovery } from "./publication-recovery";
 import { Button } from "./ui/button";
 export { operatorRequest, type OperatorInfo } from "@/lib/operator-client";
 
@@ -32,6 +35,8 @@ export function OperatorPanel({
   current,
   onChanged,
   onInfoChanged,
+  onPublicationRecovered,
+  onStorageRenewed,
   proposal,
   onProposalChange: setProposal,
   onBusyChange,
@@ -41,6 +46,8 @@ export function OperatorPanel({
   current: ResolvedCatalogue | null;
   onChanged: (receipt: CouncilReceipt) => void;
   onInfoChanged: () => Promise<void>;
+  onPublicationRecovered: (receipt: PublicationReceipt) => void;
+  onStorageRenewed: (receipt: StorageReceipt) => void;
   proposal: Proposal | null;
   onProposalChange: (proposal: Proposal | null) => void;
   onBusyChange: (busy: string) => void;
@@ -66,7 +73,8 @@ export function OperatorPanel({
   const [quote, setQuote] = useState<StorageQuote | null>(null);
   const [work, setBusy] = useState("");
   const [councilBusy, setCouncilBusy] = useState("");
-  const busy = work || councilBusy;
+  const [recoveryBusy, setRecoveryBusy] = useState("");
+  const busy = work || councilBusy || recoveryBusy;
   const [error, setError] = useState("");
   const [notice, setNotice] = useState("");
   const running = useRef(false);
@@ -103,7 +111,7 @@ export function OperatorPanel({
     ? outgoingDelegate
     : authority?.owners[0] || "";
   async function act(label: string, work: () => Promise<void>) {
-    if (running.current || councilBusy) return;
+    if (running.current || councilBusy || recoveryBusy) return;
     running.current = true;
     setBusy(label);
     setError("");
@@ -176,7 +184,7 @@ export function OperatorPanel({
             current={current}
             proposal={proposal}
             onChange={setProposal}
-            blocked={Boolean(work)}
+            blocked={Boolean(work || recoveryBusy)}
             onBusyChange={setCouncilBusy}
             onExecuted={(receipt) => {
               setProposal(null);
@@ -312,13 +320,15 @@ export function OperatorPanel({
                             change:
                               "The incoming steward prepares the retained catalogue for council review.",
                           };
-                          const result = await operatorRequest({
-                            action: "stage",
-                            identity: `publisher-${incoming}`,
-                            catalogue,
-                          });
+                          const result: PublicationReceipt =
+                            await operatorRequest({
+                              action: "stage",
+                              identity: `publisher-${incoming}`,
+                              catalogue,
+                            });
                           setCheckpoint(result.reference);
                           setProposal(null);
+                          onPublicationRecovered(result);
                           setNotice(
                             "The incoming feed has been read back. The appointed steward has not changed.",
                           );
@@ -576,14 +586,21 @@ export function OperatorPanel({
                       act("Renewing the existing batch", async () => {
                         const reviewed = quote;
                         setQuote(null);
-                        const result = await operatorRequest({
+                        const result: StorageReceipt = await operatorRequest({
                           action: "renew",
                           quoteId: reviewed.id,
                         });
+                        onStorageRenewed(result);
                         setNotice(
-                          `Renewal recorded for the same batch ${result.batchId}.`,
+                          `Renewal verified for the same batch ${result.batchId}.`,
                         );
-                        await onInfoChanged();
+                        try {
+                          await onInfoChanged();
+                        } catch {
+                          setNotice(
+                            `Renewal is verified for batch ${result.batchId}. The latest node display could not refresh; save the receipt and refresh the observation before considering another payment.`,
+                          );
+                        }
                       })
                     }
                   >
@@ -594,6 +611,22 @@ export function OperatorPanel({
             </>
           )}
         </>
+      )}
+      {info.mode !== "council" && (
+        <PublicationRecovery
+          info={info}
+          authority={authority}
+          blocked={Boolean(work || councilBusy)}
+          onBusyChange={setRecoveryBusy}
+          onRecovered={(receipt) => {
+            if (
+              receipt.staging &&
+              incomingAddress?.toLowerCase() === receipt.publisher.toLowerCase()
+            )
+              setCheckpoint(receipt.reference);
+            onPublicationRecovered(receipt);
+          }}
+        />
       )}
       {work && (
         <p className="operator-busy" role="status">

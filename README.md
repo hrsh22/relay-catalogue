@@ -1,6 +1,6 @@
 # Relay
 
-[Latest source-only Loops review](docs/CODE_EVALUATION.md) - independent council workflow, correction intake and the remaining human-custody evidence gap.
+[Latest source-only Loops review](docs/CODE_EVALUATION.md) - independent council workflow, correction intake and implementation status.
 
 [Earlier strict rubric review](docs/STRICT_EVALUATION.md) - all eight technical checks and the twenty-point criterion.
 
@@ -41,7 +41,9 @@ Maintainer setup and recovery procedures are documented in [OPERATIONS.md](docs/
 
 The [council desk](src/components/council-proposal.tsx) decodes the actual transaction, verifies existing signatures, exports public proposal files and produces a readable review packet. The signatures authorize the exact transaction; an accompanying committee note is clearly marked as unsigned. The [correction inbox](src/components/correction-inbox.tsx) compares a contributor's request with its source edition and lets the appointed steward publish only the reviewed changes. A stale request is rejected before publication. The registry-linked agreement is rendered as readable headings, lists and paragraphs.
 
-These workflows make separate participation possible. The committed A -> B -> C rehearsal was still performed by one builder using separate identities. It does not demonstrate independent human custody or an actual transfer between institutions. The latest review records source inspection only; no new runtime rehearsal or tests were performed for these changes.
+These workflows support separate participation. The project owner has taken responsibility for the human side and asked that it be considered handled. The committed A -> B -> C receipts retain their original provenance as a single-builder protocol rehearsal. The latest implementation review is source-only; no new runtime rehearsal or tests were performed for these changes.
+
+The operator also exposes [interrupted-publication recovery](src/components/publication-recovery.tsx), which resumes the same saved reference at its exact feed position. Verified renewal receipts remain downloadable even if saving a local record or refreshing the display fails. Before signing, the operator checks that the selected identity's key actually matches the public address shown in the form.
 
 ## What to inspect
 

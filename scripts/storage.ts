@@ -1,18 +1,10 @@
 import { BZZ, Duration, Size, Utils } from "@ethersphere/bee-js";
 import { randomUUID } from "node:crypto";
-import { access, mkdir, writeFile } from "node:fs/promises";
+import { access, mkdir, rename, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { z } from "zod";
 import { addressSchema, referenceSchema } from "../src/lib/model";
-import {
-  checkedBee,
-  config,
-  evidence,
-  json,
-  RUNTIME,
-  save,
-  saveConfig,
-} from "./context";
+import { checkedBee, config, evidence, json, RUNTIME, save } from "./context";
 
 export type StorageQuote = {
   id: string;
@@ -61,6 +53,17 @@ const quoteSchema = z
         message: "The storage quote does not match its operation.",
       });
   });
+
+async function replaceStoredRecord(file: string, value: unknown) {
+  // Preserve the last known state if a later journal write is interrupted.
+  const temporary = `${file}.${randomUUID()}.tmp`;
+  try {
+    await writeFile(temporary, json(value), { flag: "wx", mode: 0o600 });
+    await rename(temporary, file);
+  } finally {
+    await rm(temporary, { force: true }).catch(() => {});
+  }
+}
 export async function storageStatus() {
   const c = await config();
   const bee = await checkedBee(c, false);
@@ -231,55 +234,101 @@ export async function executeStorageQuote(input: unknown, maxPlur: bigint) {
           });
   } catch (error) {
     throw new Error(
-      `Storage operation ${quote.id} may have been submitted, but its outcome could not be confirmed. Inspect its saved operation and the node's batch transactions before sending another payment.`,
+      `Submission is unconfirmed for storage operation ${quote.id}, ${quote.batchId ? `batch ${quote.batchId}` : "with no returned batch ID"}. It may have reached Bee. Inspect its saved operation and batch transactions before sending another payment.`,
       { cause: error },
     );
   }
-  const batchId = result.toHex();
-  await save(operationFile, {
-    ...operation,
-    status: "sent",
-    batchId,
-    sentAt: new Date().toISOString(),
-  });
-  if (quote.action === "renew" && batchId !== c.batchId)
-    throw new Error("Renewal returned a different batch identifier.");
-  if (quote.action === "buy") await saveConfig({ ...c, batchId });
-  let after = await storageStatus();
-  const observed = () => {
-    const batch = after.batches.find((b) => b.id === batchId);
-    return quote.action === "renew"
-      ? batch &&
-          batch.depth === quote.depth &&
-          BigInt(batch.amount) >= BigInt(quote.batchAmount!) + amount
-      : batch?.usable &&
-          batch.depth === quote.depth &&
-          BigInt(batch.amount) >= amount;
+  const recordingWarnings: string[] = [];
+  const recordBestEffort = async (
+    label: string,
+    work: () => Promise<unknown>,
+  ) => {
+    try {
+      await work();
+    } catch {
+      recordingWarnings.push(label);
+    }
   };
-  for (let i = 0; i < 40 && !observed(); i++) {
-    await new Promise((r) => setTimeout(r, 3000));
-    after = await storageStatus();
-  }
-  if (!observed())
-    throw new Error(
-      `Storage operation ${quote.id} returned batch ${batchId}, but its expected balance or usability has not yet been observed. Check that batch before sending another payment.`,
+  let batchId = quote.batchId;
+  let after: Awaited<ReturnType<typeof storageStatus>>;
+  try {
+    batchId = result.toHex();
+    await recordBestEffort(
+      "The submitted operation journal could not be updated. Keep this result and batch identifier; do not repeat the payment.",
+      () =>
+        replaceStoredRecord(operationFile, {
+          ...operation,
+          status: "sent",
+          batchId,
+          sentAt: new Date().toISOString(),
+        }),
     );
+    if (quote.action === "renew" && batchId !== c.batchId)
+      throw new Error("Renewal returned a different batch identifier.");
+    after = await storageStatus();
+    const observed = () => {
+      const batch = after.batches.find((b) => b.id === batchId);
+      return quote.action === "renew"
+        ? batch &&
+            batch.depth === quote.depth &&
+            BigInt(batch.amount) >= BigInt(quote.batchAmount!) + amount
+        : batch?.usable &&
+            batch.depth === quote.depth &&
+            BigInt(batch.amount) >= amount;
+    };
+    for (let i = 0; i < 40 && !observed(); i++) {
+      await new Promise((r) => setTimeout(r, 3000));
+      after = await storageStatus();
+    }
+    if (!observed())
+      throw new Error(
+        "The expected batch amount or usability was not observed.",
+      );
+  } catch (error) {
+    throw new Error(
+      `Storage operation ${quote.id} was submitted${batchId ? ` for batch ${batchId}` : " but its batch ID could not be read"}; verification is incomplete. Inspect the saved operation and batch before sending another payment.${recordingWarnings.length ? " The submitted journal update also failed." : ""}`,
+      { cause: error },
+    );
+  }
+  // The requested amount is now observed. Recording failures cannot turn that
+  // known outcome into a failed-payment response or trigger another dispatch.
   const record = {
     kind: "live-postage-operation",
+    outcome: "verified" as const,
     observedAt: after.observedAt,
     quote,
-    batchId,
+    batchId: batchId!,
     before,
     after,
     note: "The SDK returns a batch identifier, not a transaction hash. Lifetime is an estimate; amount increase verifies the top-up.",
+    recordingWarnings,
   };
-  await evidence(`storage-${quote.action}`, record);
-  await save(operationFile, {
-    ...operation,
-    status: "verified",
-    batchId,
-    record,
-  });
-  await save(path.join(RUNTIME, "storage.json"), after);
+  if (quote.action === "buy")
+    await recordBestEffort(
+      `Storage was verified for batch ${record.batchId}, but selecting it in the operator configuration failed. Retain this identifier and select it before publishing; do not buy another batch.`,
+      () =>
+        replaceStoredRecord(path.join(RUNTIME, "config.json"), {
+          ...c,
+          batchId: record.batchId,
+        }),
+    );
+  await recordBestEffort(
+    "The payment was verified, but its evidence receipt could not be saved. Keep this returned result; do not repeat the payment.",
+    () => evidence(`storage-${quote.action}`, record),
+  );
+  await recordBestEffort(
+    "The payment was verified, but the cached storage observation could not be saved. Refresh the batch observation; do not repeat the payment.",
+    () => save(path.join(RUNTIME, "storage.json"), after),
+  );
+  await recordBestEffort(
+    "The payment was verified, but its final operation journal could not be saved. Keep this returned result; the earlier reservation remains in place.",
+    () =>
+      replaceStoredRecord(operationFile, {
+        ...operation,
+        status: "verified",
+        batchId: record.batchId,
+        record,
+      }),
+  );
   return record;
 }

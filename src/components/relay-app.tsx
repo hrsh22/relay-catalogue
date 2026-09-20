@@ -54,7 +54,11 @@ import { recoveryDocument } from "@/lib/recovery";
 import { AgreementText } from "./agreement-text";
 import { CorrectionInbox } from "./correction-inbox";
 import type { Proposal } from "../../scripts/council";
-import type { CouncilReceipt } from "@/lib/operator-client";
+import type {
+  CouncilReceipt,
+  StorageReceipt,
+  PublicationReceipt,
+} from "@/lib/operator-client";
 
 type Tab = "catalogue" | "stewardship" | "handoffs" | "storage";
 export function downloadFile(name: string, data: unknown) {
@@ -110,6 +114,13 @@ export function RelayApp() {
     null,
   );
   const operatorLoadId = useRef(0);
+  const [publicationReceipt, setPublicationReceipt] = useState<{
+    registry: string;
+    receipt: PublicationReceipt;
+  } | null>(null);
+  const [storageReceipt, setStorageReceipt] = useState<StorageReceipt | null>(
+    null,
+  );
   const [councilReceipt, setCouncilReceipt] = useState<CouncilReceipt | null>(
     null,
   );
@@ -284,6 +295,19 @@ export function RelayApp() {
       connection.rpc,
       expected,
     );
+  }
+  function publicationCompleted(
+    operationRegistry: string,
+    receipt: PublicationReceipt,
+  ) {
+    if (
+      mounted.current &&
+      activeConnection.current.registry.toLowerCase() ===
+        operationRegistry.toLowerCase()
+    ) {
+      setPublicationReceipt({ registry: operationRegistry, receipt });
+    }
+    refreshAfterOperation(operationRegistry, receipt);
   }
   useEffect(() => {
     mounted.current = true;
@@ -610,6 +634,35 @@ export function RelayApp() {
             </button>
           </div>
         </div>
+        {publicationReceipt?.registry.toLowerCase() ===
+          registry.toLowerCase() && (
+          <section className="operator-step" role="status">
+            <p className="small-label">PUBLICATION VERIFIED</p>
+            <p>
+              {publicationReceipt.receipt.staging
+                ? "The incoming draft was stored. Council appointment is still a separate action."
+                : "Your saved edition was verified on its signed feed. The catalogue display can refresh independently."}
+            </p>
+            {publicationReceipt.receipt.recordingWarnings?.map(
+              (warning, index) => (
+                <p className="quiet-note" key={index}>
+                  {warning}
+                </p>
+              ),
+            )}
+            <Button
+              variant="outline"
+              onClick={() =>
+                downloadFile(
+                  "relay-publication-receipt.json",
+                  publicationReceipt.receipt,
+                )
+              }
+            >
+              <ArrowDownToLine size={15} /> Save publication receipt
+            </Button>
+          </section>
+        )}
         {tab === "catalogue" && (
           <>
             <section className="metrics" aria-label="Catalogue overview">
@@ -1263,6 +1316,30 @@ export function RelayApp() {
               </Button>
             </div>
           )}
+          {storageReceipt &&
+            storageReceipt.batchId === activeOperator?.config.batchId && (
+              <div className="operator-step" role="status">
+                <p className="small-label">STORAGE RENEWAL VERIFIED</p>
+                <p>
+                  The expected postage increase was observed for batch{" "}
+                  <code>{storageReceipt.batchId}</code>. A display or
+                  record-saving warning does not require another payment.
+                </p>
+                {storageReceipt.recordingWarnings.map((warning, index) => (
+                  <p className="quiet-note" key={index}>
+                    {warning}
+                  </p>
+                ))}
+                <Button
+                  variant="outline"
+                  onClick={() =>
+                    downloadFile("relay-storage-receipt.json", storageReceipt)
+                  }
+                >
+                  <ArrowDownToLine size={15} /> Save storage receipt
+                </Button>
+              </div>
+            )}
           {activeOperator ? (
             <OperatorPanel
               key={registry}
@@ -1274,6 +1351,10 @@ export function RelayApp() {
                 refreshAfterOperation(registry);
               }}
               onInfoChanged={reloadOperator}
+              onPublicationRecovered={(receipt) =>
+                publicationCompleted(registry, receipt)
+              }
+              onStorageRenewed={setStorageReceipt}
               proposal={operatorProposal}
               onProposalChange={setOperatorProposal}
               onBusyChange={setOperatorBusy}
@@ -1357,7 +1438,7 @@ export function RelayApp() {
                   registry.toLowerCase()
                 )
                   setCorrectionOpen(false);
-                refreshAfterOperation(registry, receipt);
+                publicationCompleted(registry, receipt);
               }}
             />
           ) : (
@@ -1372,7 +1453,7 @@ export function RelayApp() {
         operator={activeOperator}
         onClose={() => setSelected(null)}
         onPublished={(receipt) => {
-          refreshAfterOperation(registry, receipt);
+          publicationCompleted(registry, receipt);
         }}
       />
     </div>
@@ -1460,11 +1541,7 @@ function RecordDialog({
   current: ResolvedCatalogue | null;
   operator: OperatorInfo | null;
   onClose: () => void;
-  onPublished: (receipt: {
-    reference: string;
-    feedIndex: string;
-    publisher: string;
-  }) => void;
+  onPublished: (receipt: PublicationReceipt) => void;
 }) {
   const [draft, setDraft] = useState<CatalogueRecord | null>(record),
     [reason, setReason] = useState(""),

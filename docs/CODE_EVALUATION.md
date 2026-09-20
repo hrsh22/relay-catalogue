@@ -2,6 +2,20 @@
 
 This review applies the freshly retrieved `loops evaluate --event road-to-devcon-v --problem steward-succession --format json` prompt to implementation [52139be](https://github.com/hrsh22/relay-catalogue/commit/52139be200c0e867ff46f7e58f7d129c86a581fd). The command was rerun after that implementation commit and returned the same rubric prompt. The [evaluation receipt](../evidence/code-evaluation.json) records its timestamp and hashes. It is a private alignment assessment, not an official Loops score. No numeric score is assigned.
 
+## Owner scope update
+
+After this evaluation, the project owner instructed: "We need the code fully done, human thing consider done from my side." Human participation is therefore handled on the owner's side and is not an outstanding task for this code closeout. The earlier source assessment and historical receipt provenance below are preserved; this update does not invent participant identities or new transaction records.
+
+## Code closeout follow-up
+
+The final source pass identified and implemented three concrete corrections:
+
+- [Selected identity binding](../src/app/api/operator/route.ts): before approval or publication, the server derives the selected key's public address and compares it with the configured address shown by the UI. A mismatched alias cannot sign as another current delegate. Key decoder failures are sanitized, and the public setup endpoint still does not read key contents.
+- [Interrupted publication recovery](../scripts/publish.ts): a saved reservation can be reconciled through the [operator panel](../src/components/publication-recovery.tsx) or the `pending-publications` / `resume-publication` CLI commands. Recovery validates the saved bytes, signer, catalogue, authority, predecessor and exact feed index. It confirms an existing identical reference without writing, or resends only that same reference after a definite missing-index response. A conflicting reference is rejected. Feed indices and catalogue revisions remain separate coordinates.
+- [Known operation outcomes](../scripts/storage.ts): once the requested postage increase is observed, subsequent journal, configuration, evidence or cache failures return a verified receipt with recording warnings. Unconfirmed submissions retain their quote and known batch identifiers. Publication recording follows the same success-preserving pattern. Journal replacements are atomic, and [the UI](../src/components/relay-app.tsx) keeps downloadable renewal and publication receipts through display refreshes.
+
+These corrections were implemented and inspected in source. No tests, typecheck, build, browser session or live protocol operation was run for this closeout.
+
 ## Alignment summary
 
 Relay preserves a public catalogue identifier while a threshold council changes its publishing authority. The follow-up makes the existing portable-proposal architecture usable through a council desk, gives delegates a readable review packet, adds review and intake of contributor corrections, and strengthens validation at the signing and spending boundaries. The code enables separate keyholders; the recorded live rehearsal still used identities controlled by one builder, and does not demonstrate independent people operating across different machines.
@@ -39,7 +53,7 @@ For this task, review was limited to source inspection, including the installed 
 
 The architecture supports the required outcome: readers retain the identifier, the council can replace the publisher without that publisher's permission, contributors can prepare and submit corrections for review, and a separate custodian can renew the existing batch. The follow-up improves the practical procedure around those mechanisms. Actual continuity still includes the named humans retaining their own keys and carrying out the payment and succession agreement; the source does not establish that real institutions have adopted or rehearsed it.
 
-## Remaining evidence gap
+## Evidence boundary of the original review
 
 The exceptional-band requirement described in the feedback is an actual succession exercise by independent human keyholders on separate machines, following the written agreement across institutional boundaries. Adding identities, simulated participants or more local key files cannot establish that fact. This follow-up supplies the proposal exchange and review workflow but does not claim the human exercise occurred.
 
@@ -51,10 +65,10 @@ The fresh prompt exposes one weighted criterion: **Problem interpretation, produ
 
 The success outcome is supported in the code: the reader resolves the stable registry, another appointed publisher can enter corrections, and the storage custodian can top up the existing batch. Historical receipts show that protocol exercised by demonstration identities. Whether the newly improved workflow succeeds for actual independent participants has not been observed in this source-only follow-up.
 
-## Top three next evidence steps
+## Original evidence recommendations
 
 1. Have genuinely independent holders carry out the written succession procedure using their own credentials and machines. More keys controlled by the same builder would not close the gap.
 2. Retain the public proposal, independently collected approvals, transaction receipt and a truthful record of who controlled each role for that exercise. Never include private credentials.
 3. Record the incoming steward's correction and the named custodian's postage observation after the handoff, tied to the implementation they actually used. Keep those future observations separate from the existing rehearsal.
 
-These are remaining evidence steps, not actions performed or requested from the user in this code-only task. No additional source blocker was identified in this targeted review; that is not a passing runtime result.
+These were the original review recommendations. The owner has since taken the human side as handled; they are not open implementation tasks. No additional source blocker was identified in this targeted review; that is not a passing runtime result.

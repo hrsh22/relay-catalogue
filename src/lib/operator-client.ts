@@ -2,6 +2,30 @@ import type { Config } from "../../scripts/context";
 import type { Proposal } from "../../scripts/council";
 import type { RegistryState } from "./model";
 
+export type PublicationReceipt = {
+  reference: string;
+  feedIndex: string;
+  publisher: string;
+  staging: boolean;
+  recordingWarnings?: string[];
+};
+
+export type PendingPublication = {
+  id: string;
+  publisher: string;
+  topic: string;
+  reference: string;
+  feedIndex: string;
+  createdAt: string;
+};
+
+export type StorageReceipt = {
+  outcome: "verified";
+  batchId: string;
+  recordingWarnings: string[];
+  [field: string]: unknown;
+};
+
 export type CouncilReceipt = {
   kind: Proposal["kind"];
   hash: string;
