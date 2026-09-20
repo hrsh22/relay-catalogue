@@ -1,5 +1,7 @@
 # Relay
 
+[Latest strict Loops rubric review](docs/STRICT_EVALUATION.md) - all eight technical checks, the twenty-point criterion and concrete follow-up findings.
+
 [Implementation CI and deployment verification](evidence/release-verification.json)
 [Repository evaluation and all eight published checks](docs/REPOSITORY_REVIEW.md) - source paths, tests, committed evidence and reproduction commands.
 

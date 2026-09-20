@@ -1,0 +1,41 @@
+{
+  "observedAt": "2026-09-20T13:34:00.547Z",
+  "method": "Execute the current component initializer source with stubbed reads; no browser or real network writes",
+  "cases": [
+    {
+      "scenario": "valid",
+      "networkResolverCalls": 1,
+      "errors": []
+    },
+    {
+      "scenario": "transport-failure",
+      "networkResolverCalls": 0,
+      "errors": [
+        "Snapshot fetch failed"
+      ]
+    },
+    {
+      "scenario": "invalid-json",
+      "networkResolverCalls": 0,
+      "errors": [
+        "Invalid snapshot JSON"
+      ]
+    },
+    {
+      "scenario": "invalid-schema",
+      "networkResolverCalls": 0,
+      "errors": [
+        "[\n  {\n    \"code\": \"invalid_value\",\n    \"values\": [\n      \"relay.catalogue.v1\"\n    ],\n    \"path\": [\n      \"format\"\n    ],\n    \"message\": \"Invalid input: expected \\\"relay.catalogue.v1\\\"\"\n  },\n  {\n    \"expected\": \"string\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"catalogueId\"\n    ],\n    \"message\": \"Invalid input: expected string, received undefined\"\n  },\n  {\n    \"expected\": \"string\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"title\"\n    ],\n    \"message\": \"Invalid input: expected string, received undefined\"\n  },\n  {\n    \"expected\": \"string\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"description\"\n    ],\n    \"message\": \"Invalid input: expected string, received undefined\"\n  },\n  {\n    \"expected\": \"boolean\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"demonstration\"\n    ],\n    \"message\": \"Invalid input: expected boolean, received undefined\"\n  },\n  {\n    \"expected\": \"string\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"publisher\"\n    ],\n    \"message\": \"Invalid input: expected string, received undefined\"\n  },\n  {\n    \"expected\": \"number\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"revision\"\n    ],\n    \"message\": \"Invalid input: expected number, received undefined\"\n  },\n  {\n    \"expected\": \"string\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"updatedAt\"\n    ],\n    \"message\": \"Invalid input: expected string, received undefined\"\n  },\n  {\n    \"expected\": \"string\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"previous\"\n    ],\n    \"message\": \"Invalid input: expected string, received undefined\"\n  },\n  {\n    \"expected\": \"string\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"change\"\n    ],\n    \"message\": \"Invalid input: expected string, received undefined\"\n  },\n  {\n    \"expected\": \"array\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"collections\"\n    ],\n    \"message\": \"Invalid input: expected array, received undefined\"\n  },\n  {\n    \"expected\": \"array\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"records\"\n    ],\n    \"message\": \"Invalid input: expected array, received undefined\"\n  }\n]"
+      ]
+    },
+    {
+      "scenario": "http-404",
+      "networkResolverCalls": 1,
+      "errors": []
+    }
+  ],
+  "reviewedCommit": "056e51363f6521562e088905db7ddd89d8bac620",
+  "source": "src/components/relay-app.tsx",
+  "sourceSha256": "16cc77953e5af66f18db7c109434c345860464c6fb6346be97ee3517fddce71b",
+  "scope": "Current component initializer transpiled and executed with stubbed fetch/refresh, real catalogue schema and checked-in public fixtures. These are controlled source-execution cases, not live service faults or browser observations."
+}

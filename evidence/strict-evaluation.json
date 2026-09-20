@@ -1,0 +1,48 @@
+{
+  "kind": "strict-source-evaluation",
+  "reviewCompletedAt": "2026-09-20T17:33:08.921330+00:00",
+  "reviewedCommit": "056e51363f6521562e088905db7ddd89d8bac620",
+  "repository": "https://github.com/hrsh22/relay-catalogue",
+  "evaluator": {
+    "command": "loops evaluate --event road-to-devcon-v --problem steward-succession --format json",
+    "cliVersion": "0.4.0",
+    "exitCode": 0,
+    "responseSavedAt": "2026-09-20T13:30:32.000974+00:00",
+    "responseSha256": "9ff938eb9f5186b6a2f1b00f5ae356fec1520a197e475c8f9dc358f818e2dcd1",
+    "promptSha256": "bb0533e624e5a14fcf21d4427c6e1e104fecdca56e6a05cc11b5cdd9ab636f00",
+    "resultType": "problem-specific review prompt"
+  },
+  "review": {
+    "report": "docs/STRICT_EVALUATION.md",
+    "method": "Inspect implementation call paths, committed network evidence and CI against all eight technical checks and the problem-specific qualitative criterion.",
+    "additionalCriterion": "Exact Folio twenty-point paragraph supplied by the builder; applied directly to Folio and as supplementary mirror, usability, publication-choice, recovery and expiry checks for the other two problems.",
+    "assessment": "Two reader defects: optional snapshot can block initial network resolution; custom registry inherits demonstration stewardship metadata.",
+    "officialScore": null,
+    "officialJudgingRequested": false,
+    "submissionChanged": false
+  },
+  "existingValidation": {
+    "ciRun": 35513540199,
+    "url": "https://github.com/hrsh22/relay-catalogue/actions/runs/35513540199",
+    "headSha": "056e51363f6521562e088905db7ddd89d8bac620",
+    "conclusion": "success",
+    "automatedTests": 12,
+    "forkChecks": 9,
+    "reusedExistingRun": true
+  },
+  "evaluationActions": {
+    "applicationSourceModified": false,
+    "newPublicWrites": false,
+    "newFinancialTransactions": false
+  },
+  "additionalValidation": {
+    "method": "Controlled execution of current component initializer",
+    "receipt": "evidence/strict-initializer-reproduction.json",
+    "cases": 5,
+    "networkReadPreventedBy": [
+      "transport-failure",
+      "invalid-json",
+      "invalid-schema"
+    ]
+  }
+}
