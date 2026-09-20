@@ -1818,3 +1818,16 @@ svg {
     font-size: 10px;
   }
 }
+.agreement-dialog {
+  max-width: min(860px, calc(100vw - 32px));
+}
+.agreement-text {
+  margin: 0;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font: inherit;
+  line-height: 1.7;
+}
+.agreement-dialog code {
+  overflow-wrap: anywhere;
+}

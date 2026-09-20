@@ -1,6 +1,6 @@
 # Relay
 
-[Latest strict Loops rubric review](docs/STRICT_EVALUATION.md) - all eight technical checks, the twenty-point criterion and concrete follow-up findings.
+[Latest strict Loops rubric review](docs/STRICT_EVALUATION.md) - all eight technical checks, the twenty-point criterion and implemented follow-up.
 
 [Implementation CI and deployment verification](evidence/release-verification.json)
 [Repository evaluation and all eight published checks](docs/REPOSITORY_REVIEW.md) - source paths, tests, committed evidence and reproduction commands.
@@ -29,7 +29,7 @@ npm run relay -- read --registry 0x258a08b90fb76ac3f87d0cb1baebc206370d7d57
 
 This verification reads public network state without private configuration, a Bee node or an account. It uses public Gnosis RPC and Swarm gateway endpoints, which can be replaced with command options. The reader trusts those providers; it is not a blockchain light client.
 
-The browser app presents the catalogue, condition and photography status, a human-readable role arrangement, actual handoff receipts, recovery information and postage observations. A [complete captured reading copy](evidence/reading-and-recovery-copy.html) is included for repository review. The handoff view downloads the same printable HTML format: all records, the actual registry-linked agreement fetched from Swarm, dated public authority and plain-language succession steps. It opens offline without scripts or an account and labels itself as a recorded copy. Anyone can prepare an unsigned correction request. The configured operator can publish corrections, stage incoming feeds, approve and execute succession, and extend postage.
+The browser app presents the catalogue, condition and photography status, a human-readable role arrangement, actual handoff receipts, recovery information and postage observations. The [reader implementation](src/components/relay-app.tsx) obtains the catalogue only from its registry and Swarm feed. Optional deployment receipts cannot replace this read; they are scoped to the matching registry and catalogue. Agreement text and council approval counts come from the selected registry, and operator actions require the same registry and catalogue identity. A [complete captured reading copy](evidence/reading-and-recovery-copy.html) is included for repository review. The handoff view downloads the same printable HTML format: all records, the actual registry-linked agreement fetched from Swarm, dated public authority and plain-language succession steps. It opens offline without scripts or an account and labels itself as a recorded copy. Anyone can prepare an unsigned correction request. The configured operator can publish corrections, stage incoming feeds, approve and execute succession, and extend postage.
 
 ## Review from GitHub
 
