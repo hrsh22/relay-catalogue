@@ -8,6 +8,8 @@ After this evaluation, the project owner instructed: "We need the code fully don
 
 ## Code closeout follow-up
 
+Implementation: [65b5606](https://github.com/hrsh22/relay-catalogue/commit/65b5606edf7e4d98f24e63109053c1993329ee6c). The final targeted source pass found no remaining code blockers in the reviewed paths. The [closeout receipt](../evidence/code-evaluation.json) records the scope and fixes.
+
 The final source pass identified and implemented three concrete corrections:
 
 - [Selected identity binding](../src/app/api/operator/route.ts): before approval or publication, the server derives the selected key's public address and compares it with the configured address shown by the UI. A mismatched alias cannot sign as another current delegate. Key decoder failures are sanitized, and the public setup endpoint still does not read key contents.
